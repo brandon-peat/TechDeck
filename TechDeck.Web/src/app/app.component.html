@@ -1,0 +1,18 @@
+<p-menubar [model]="items">
+  <ng-template pTemplate="start">
+    <p-chip label="TechDeck" />
+  </ng-template>
+
+  <ng-template pTemplate="item" let-item>
+    <a [routerLink]="item.route" class="p-ripple p-element p-menuitem-link">
+      <span class="p-menuitem-icon" [class]="item.icon"></span>
+      <span class="ml-2">{{ item.label }}</span>
+    </a>
+  </ng-template>
+
+  <ng-template pTemplate="end">
+    <p-dropdown [options]="countries" optionLabel="name" optionValue="id" placeholder="Select a country" />
+  </ng-template>
+</p-menubar>
+
+<router-outlet />

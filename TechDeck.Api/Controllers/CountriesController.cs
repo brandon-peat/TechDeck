@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using TechDeck.Api.Responses;
 
 namespace TechDeck.Api.Controllers
 {
@@ -6,7 +7,14 @@ namespace TechDeck.Api.Controllers
     [Route("[controller]")]
     public class CountriesController() : ControllerBase
     {
+        private readonly List<DropdownViewModel> _countries = [
+            new(1, "England"),
+            new(2, "Wales"),
+            new(3, "Scotland"),
+            new(4, "Northern Ireland")
+        ];
+
         [HttpGet]
-        public IEnumerable<string> Get() => ["England", "Wales", "Scotland", "Northern Ireland"];
+        public IEnumerable<DropdownViewModel> Get() => _countries;
     }
 }
