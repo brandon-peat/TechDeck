@@ -7,7 +7,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectVersion>4.1</ProjectVersion>
     <ProjectGuid>{c7d1f837-4955-4fad-9412-c052227981de}</ProjectGuid>
-    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql160DatabaseSchemaProvider</DSP>
+    <DSP>Microsoft.Data.Tools.Schema.Sql.Sql150DatabaseSchemaProvider</DSP>
     <OutputType>Database</OutputType>
     <RootPath>
     </RootPath>
@@ -63,5 +63,8 @@
   <ItemGroup>
     <Build Include="Person\Tables\Person.sql" />
     <Build Include="Security\Person.sql" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="TechDeck.Database.publish.xml" />
   </ItemGroup>
 </Project>
