@@ -1,4 +1,5 @@
-﻿using TechDeck.Core.People;
+﻿using Microsoft.EntityFrameworkCore;
+using TechDeck.Core.People;
 
 namespace TechDeck.Persistence.Repositories
 {
@@ -9,5 +10,8 @@ namespace TechDeck.Persistence.Repositories
             db.Add(person);
             await db.SaveChangesAsync(cancellationToken);
         }
+
+        public async Task<bool> IsEmailInUse(string email, CancellationToken cancellationToken) => 
+            await db.People.AnyAsync(person => person.Email == email, cancellationToken);
     }
 }
