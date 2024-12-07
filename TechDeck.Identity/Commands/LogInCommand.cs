@@ -3,6 +3,7 @@ using TechDeck.Core.Identity;
 using TechDeck.Core.Models;
 using TechDeck.Core.People;
 using TechDeck.Identity.Models;
+using TechDeck.Identity.Security;
 
 namespace TechDeck.Identity.Commands
 {

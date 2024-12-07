@@ -2,6 +2,7 @@ using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using TechDeck.Core;
 using TechDeck.Identity;
+using TechDeck.Identity.Models;
 using TechDeck.Persistence;
 
 var builder = WebApplication.CreateBuilder(args);
