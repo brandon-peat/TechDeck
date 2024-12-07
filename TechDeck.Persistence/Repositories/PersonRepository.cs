@@ -11,7 +11,10 @@ namespace TechDeck.Persistence.Repositories
             await db.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<bool> IsEmailInUse(string email, CancellationToken cancellationToken) => 
+        public async Task<bool> IsEmailInUse(string email, CancellationToken cancellationToken) =>
             await db.People.AnyAsync(person => person.Email == email, cancellationToken);
+
+        public async Task<Person?> GetByEmail(string email, CancellationToken cancellationToken)
+            => await db.People.FirstOrDefaultAsync(person => person.Email == email, cancellationToken);
     }
 }

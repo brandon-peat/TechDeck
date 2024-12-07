@@ -7,7 +7,7 @@
             <p-messages [value]="[{severity: 'warn', detail: 'The email address is required.'}]" [closable]="false" />
         }
         @if (email.errors?.['email'] && email.touched) {
-            <p-messages [value]="[{ severity: 'warn', detail: 'This is not a valid email address.' }]"] [closable]="false" />
+            <p-messages [value]="[{severity: 'warn', detail: 'This is not a valid email address.'}]" [closable]="false" />
         }
 
         <p-inputGroup>

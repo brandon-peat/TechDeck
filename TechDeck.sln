@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35327.3
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechDeck.Api", "TechDeck.Api\TechDeck.Api.csproj", "{727F2313-8DAD-454D-ABF6-EE80B776C2F8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechDeck.Api", "TechDeck.Api\TechDeck.Api.csproj", "{727F2313-8DAD-454D-ABF6-EE80B776C2F8}"
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "TechDeck.Database", "TechDeck.Database\TechDeck.Database.sqlproj", "{C7D1F837-4955-4FAD-9412-C052227981DE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechDeck.Core", "TechDeck.Core\TechDeck.Core.csproj", "{841A8C8D-4204-4AB7-910F-F78F506FC17B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechDeck.Core", "TechDeck.Core\TechDeck.Core.csproj", "{841A8C8D-4204-4AB7-910F-F78F506FC17B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechDeck.Persistence", "TechDeck.Persistence\TechDeck.Persistence.csproj", "{70ABD97A-6420-4EE8-83D8-AD0236EB261B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechDeck.Persistence", "TechDeck.Persistence\TechDeck.Persistence.csproj", "{70ABD97A-6420-4EE8-83D8-AD0236EB261B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechDeck.Identity", "TechDeck.Identity\TechDeck.Identity.csproj", "{48E2971C-7FA3-4B9A-B5A6-A39FB4484840}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,6 +37,10 @@ Global
 		{70ABD97A-6420-4EE8-83D8-AD0236EB261B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{70ABD97A-6420-4EE8-83D8-AD0236EB261B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{70ABD97A-6420-4EE8-83D8-AD0236EB261B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{48E2971C-7FA3-4B9A-B5A6-A39FB4484840}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{48E2971C-7FA3-4B9A-B5A6-A39FB4484840}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{48E2971C-7FA3-4B9A-B5A6-A39FB4484840}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{48E2971C-7FA3-4B9A-B5A6-A39FB4484840}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

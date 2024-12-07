@@ -1,17 +1,27 @@
 <p-menubar [model]="items">
   <ng-template pTemplate="start">
     <p-chip label="TechDeck" />
+
+    @if (isLoggedIn()) {
+      <p-dropdown [options]="(countries$ | async) ?? []" optionLabel="name" optionValue="id"
+        placeholder="Select a country" />
+    }
   </ng-template>
 
   <ng-template pTemplate="item" let-item>
-    <a [routerLink]="item.route" class="p-ripple p-element p-menuitem-link">
-      <span class="p-menuitem-icon" [class]="item.icon"></span>
-      <span class="ml-2">{{ item.label }}</span>
-    </a>
+    @if (item.isLoggedIn === undefined || (item.isLoggedIn === isLoggedIn())) {
+      <a [routerLink]="item.route" class="p-ripple p-element p-menuitem-link"
+        [style.marginLeft]="item.rightAlign ? 'auto' : 0">
+        <span class="p-menuitem-icon" [class]="item.icon"></span>
+        <span class="ml-2">{{ item.label }}</span>
+      </a>
+    }
   </ng-template>
 
   <ng-template pTemplate="end">
-    <p-dropdown [options]="countries" optionLabel="name" optionValue="id" placeholder="Select a country" />
+    @if (isLoggedIn()) {
+      {{ user()!.name }}
+    }
   </ng-template>
 </p-menubar>
 

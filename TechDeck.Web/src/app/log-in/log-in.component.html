@@ -1,1 +1,31 @@
-<p>log-in works!</p>
+<div class="half-page">
+    <br> 
+    
+    <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <input style="width: 100%" pInputText type="email" formControlName="email" placeholder="Email" /> <br> <br>
+        @if (email.errors?.['required'] && email.touched) {
+            <p-messages [value]="[{severity: 'warn', detail: 'The email address is required.'}]" [closable]="false" />
+        }
+        @if (email.errors?.['email'] && email.touched) {
+            <p-messages [value]="[{severity: 'warn', detail: 'This is not a valid email address.'}]" [closable]="false" />
+        }
+
+        <p-password type="password" formControlName="password" placeholder="Password" [toggleMask]="true" [feedback]="false" /> <br> <br>
+        @if (password.errors?.['required'] && password.touched) {
+            <p-messages [value]="[{severity: 'warn', detail: 'The password is required.'}]" [closable]="false" />
+        }
+        @if ((password.errors?.['minlength']
+           || password.errors?.['specialchar']
+           || password.errors?.['lowercasechar']
+           || password.errors?.['uppercasechar'])
+           && password.touched) {
+            <p-messages [value]="[{severity: 'warn', detail: 'You have not entered a valid password.'}]" [closable]="false" />
+        }
+
+        <button type="submit" pButton [disabled]="!form.valid">Submit</button>
+
+        <div class="card flex justify-content-center">
+            <p-toast />
+        </div>
+    </form>
+</div>

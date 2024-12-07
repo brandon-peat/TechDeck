@@ -1,6 +1,7 @@
 ﻿using MediatR;
 using System.Net;
 using System.Net.Mail;
+using TechDeck.Core.Identity;
 using TechDeck.Core.Models;
 
 namespace TechDeck.Core.People
@@ -12,7 +13,10 @@ namespace TechDeck.Core.People
         string Password)
         : IRequest<ResponseViewModel>;
 
-    public class SignUpCommandHandler(IPersonRepository personRepository) : IRequestHandler<SignUpCommand, ResponseViewModel>
+    public class SignUpCommandHandler(
+        IPersonRepository personRepository,
+        ISecretHasher secretHasher)
+        : IRequestHandler<SignUpCommand, ResponseViewModel>
     {
         public async Task<ResponseViewModel> Handle(SignUpCommand request, CancellationToken cancellationToken)
         {
@@ -21,7 +25,7 @@ namespace TechDeck.Core.People
                 Forename = request.FirstName,
                 Surname = request.LastName,
                 Email = request.Email,
-                PasswordHash = []
+                PasswordHash = secretHasher.Hash(request.Password)
             };
 
             await personRepository.Create(person, cancellationToken);

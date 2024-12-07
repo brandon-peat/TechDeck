@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using TechDeck.Core.Models;
 using TechDeck.Core.People;
+using TechDeck.Identity.Commands;
 
 namespace TechDeck.Api.Controllers
 {
@@ -11,6 +12,10 @@ namespace TechDeck.Api.Controllers
     {
         [HttpPost("sign-up")]
         public async Task<ResponseViewModel> SignUp(SignUpCommand command, CancellationToken cancellationToken)
+            => await mediator.Send(command, cancellationToken);
+
+        [HttpPost("log-in")]
+        public async Task<ResponseViewModel> LogIn(LogInCommand command, CancellationToken cancellationToken)
             => await mediator.Send(command, cancellationToken);
 
         [HttpGet("email-is-in-use/{email}")]
