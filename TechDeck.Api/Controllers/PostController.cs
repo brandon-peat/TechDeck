@@ -21,5 +21,16 @@ namespace TechDeck.Api.Controllers
 
             return await mediator.Send(command, cancellationToken);
         }
+
+        [HttpGet("activity")]
+        public async Task<List<Post>> GetActivityQuery(CancellationToken cancellationToken)
+        {
+            if (!service.IsAuthenticated)
+            {
+                throw new ArgumentException("Unauthorised");
+            }
+
+            return await mediator.Send(new GetActivityQuery(), cancellationToken)
+        }
     }
 }
