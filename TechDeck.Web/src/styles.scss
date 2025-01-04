@@ -2,8 +2,13 @@
 @import "primeng/resources/primeng.css";
 @import "primeicons/primeicons.css";
 
+body {
+    margin: 0;
+}
+
 .half-page {
     max-width: 30rem;
+    padding-top: 1rem;
     margin: auto;
 }
 
@@ -13,4 +18,28 @@
 
 p-menubarsub {
     flex: auto;
+}
+
+.row {
+
+    .p-inputtext,
+    .p-inputwrapper {
+        width: 100%;
+    }
+}
+
+.p-message {
+    margin: 0.5rem 0;
+}
+
+.p-message .p-message-wrapper {
+    padding: 0.5rem 0.75rem;
+}
+
+.p-message-icon {
+    display: none;
+}
+
+.p-message-detail {
+    margin-left: 0;
 }

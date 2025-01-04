@@ -1,51 +1,74 @@
 <div class="half-page">
-    <br> 
-    
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <input style="width: 100%" pInputText type="email" formControlName="email" placeholder="Email" /> <br> <br>
-        @if (email.errors?.['required'] && email.touched) {
-            <p-messages [value]="[{severity: 'warn', detail: 'The email address is required.'}]" [closable]="false" />
-        }
-        @if (email.errors?.['email'] && email.touched) {
-            <p-messages [value]="[{severity: 'warn', detail: 'This is not a valid email address.'}]" [closable]="false" />
-        }
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="row g-3">
+        <div class="col-md-12">
+            <input pInputText type="email" formControlName="email" placeholder="Email" />
 
-        <p-inputGroup>
+            @if (email.errors?.['required'] && email.touched) {
+                <p-messages [value]="[{severity: 'warn', detail: 'The email address is required.'}]"
+                    [closable]="false" />
+            }
+            @if (email.errors?.['email'] && email.touched) {
+                <p-messages [value]="[{severity: 'warn', detail: 'This is not a valid email address.'}]"
+                    [closable]="false" />
+            }
+        </div>
+
+        <div class="col-md-6">
             <input pInputText type="text" formControlName="firstName" placeholder="John" />
+
+            @if (firstName.errors?.['required'] && firstName.touched) {
+                <p-messages [value]="[{severity: 'warn', detail: 'The first name is required.'}]" [closable]="false" />
+            }
+            @if (firstName.errors?.['maxlength'] && firstName.touched) {
+                <p-messages [value]="[{severity: 'warn', detail: 'First name may not exceed 25 characters in length.'}]"
+                    [closable]="false" />
+            }
+        </div>
+
+        <div class="col-md-6">
             <input pInputText type="text" formControlName="lastName" placeholder="Smith" />
-        </p-inputGroup> <br>
-        @if (firstName.errors?.['required'] && firstName.touched) {
-            <p-messages [value]="[{severity: 'warn', detail: 'The first name is required.'}]" [closable]="false" />
-        }
-        @if (firstName.errors?.['maxlength'] && firstName.touched) {
-            <p-messages [value]="[{severity: 'warn', detail: 'First name may not exceed 25 characters in length.'}]" [closable]="false" />
-        }
 
-        @if (lastName.errors?.['required'] && lastName.touched) {
-            <p-messages [value]="[{severity: 'warn', detail: 'The last name is required.'}]" [closable]="false" />
-        }
-        @if (lastName.errors?.['maxlength'] && lastName.touched) {
-            <p-messages [value]="[{severity: 'warn', detail: 'Last name may not exceed 25 characters in length.'}]" [closable]="false" />
-        }
+            @if (lastName.errors?.['required'] && lastName.touched) {
+                <p-messages [value]="[{severity: 'warn', detail: 'The last name is required.'}]" [closable]="false" />
+            }
+            @if (lastName.errors?.['maxlength'] && lastName.touched) {
+                <p-messages [value]="[{severity: 'warn', detail: 'Last name may not exceed 25 characters in length.'}]"
+                    [closable]="false" />
+            }
+        </div>
 
-        <p-password type="password" formControlName="password" placeholder="Password" [toggleMask]="true" [feedback]="false" /> <br> <br>
-        @if (password.errors?.['required'] && password.touched) {
-            <p-messages [value]="[{severity: 'warn', detail: 'The password is required.'}]" [closable]="false" />
-        }
-        @if (password.errors?.['minlength'] && password.touched) {
-            <p-messages [value]="[{severity: 'warn', detail: 'The password must be at least 8 characters in length.'}]" [closable]="false" />
-        }
-        @if (password.errors?.['specialchar'] && password.touched) {
-            <p-messages [value]="[{severity: 'warn', detail: 'The password must contain at least one special character.'}]" [closable]="false" /> 
-        }
-        @if (password.errors?.['lowercasechar'] && password.touched) {
-            <p-messages [value]="[{severity: 'warn', detail: 'The password must contain at least one lower case character.'}]" [closable]="false" />
-        }
-        @if (password.errors?.['uppercasechar'] && password.touched) {
-            <p-messages [value]="[{severity: 'warn', detail: 'The password must contain at least one upper case character.'}]" [closable]="false" />
-        }
+        <div class="col-md-12">
+            <p-password type="password" formControlName="password" placeholder="Password" [toggleMask]="true"
+                [feedback]="false" />
 
-        <button type="submit" pButton [disabled]="!form.valid">Submit</button>
+            @if (password.errors?.['required'] && password.touched) {
+                <p-messages [value]="[{severity: 'warn', detail: 'The password is required.'}]" [closable]="false" />
+            }
+            @if (password.errors?.['minlength'] && password.touched) {
+                <p-messages
+                    [value]="[{severity: 'warn', detail: 'The password must be at least 8 characters in length.'}]"
+                    [closable]="false" />
+            }
+            @if (password.errors?.['specialchar'] && password.touched) {
+                <p-messages
+                    [value]="[{severity: 'warn', detail: 'The password must contain at least one special character.'}]"
+                    [closable]="false" />
+            }
+            @if (password.errors?.['lowercasechar'] && password.touched) {
+                <p-messages
+                    [value]="[{severity: 'warn', detail: 'The password must contain at least one lower case character.'}]"
+                    [closable]="false" />
+            }
+            @if (password.errors?.['uppercasechar'] && password.touched) {
+                <p-messages
+                    [value]="[{severity: 'warn', detail: 'The password must contain at least one upper case character.'}]"
+                    [closable]="false" />
+            }
+        </div>
+
+        <div class="col-md-12">
+            <button type="submit" pButton [disabled]="!form.valid">Submit</button>
+        </div>
 
         <div class="card flex justify-content-center">
             <p-toast />
