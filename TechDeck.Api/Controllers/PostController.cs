@@ -30,7 +30,7 @@ namespace TechDeck.Api.Controllers
                 throw new ArgumentException("Unauthorised");
             }
 
-            return await mediator.Send(new GetActivityQuery(), cancellationToken)
+            return await mediator.Send(new GetActivityQuery(), cancellationToken);
         }
     }
 }
