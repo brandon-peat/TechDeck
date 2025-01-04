@@ -24,7 +24,7 @@ namespace TechDeck.Persistence.Repositories
                         post.PersonId,
                         post.DateCreated,
                         post.Text,
-                        person.Forename + person.Surname))
+                        $"{person.Forename} {person.Surname}"))
                 .ToListAsync(cancellationToken);
         }
     }

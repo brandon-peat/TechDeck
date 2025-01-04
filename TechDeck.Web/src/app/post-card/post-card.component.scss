@@ -1,0 +1,23 @@
+.post-card {
+    background-color: #F9FAFB;
+    margin-bottom: 1rem;
+    padding: 1rem;
+    border-radius: 6px;
+    box-shadow: 0px 2px 3px 0px #00000026;
+
+}
+.top-row {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+}
+.author {
+    gap: 1rem;
+    display: flex;
+    align-items: center;
+    font-weight: bold;
+}
+.date {
+    font-size: 0.75rem;
+    font-weight: bold;
+}
