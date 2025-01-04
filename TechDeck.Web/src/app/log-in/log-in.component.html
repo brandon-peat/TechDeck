@@ -1,28 +1,38 @@
 <div class="half-page">
-    <br> 
-    
-    <form [formGroup]="form" (ngSubmit)="onSubmit()">
-        <input style="width: 100%" pInputText type="email" formControlName="email" placeholder="Email" /> <br> <br>
-        @if (email.errors?.['required'] && email.touched) {
-            <p-messages [value]="[{severity: 'warn', detail: 'The email address is required.'}]" [closable]="false" />
-        }
-        @if (email.errors?.['email'] && email.touched) {
-            <p-messages [value]="[{severity: 'warn', detail: 'This is not a valid email address.'}]" [closable]="false" />
-        }
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="row g-3">
+        <div class="col-md-12">
+            <input pInputText type="email" formControlName="email" placeholder="Email" />
 
-        <p-password type="password" formControlName="password" placeholder="Password" [toggleMask]="true" [feedback]="false" /> <br> <br>
-        @if (password.errors?.['required'] && password.touched) {
-            <p-messages [value]="[{severity: 'warn', detail: 'The password is required.'}]" [closable]="false" />
-        }
-        @if ((password.errors?.['minlength']
-           || password.errors?.['specialchar']
-           || password.errors?.['lowercasechar']
-           || password.errors?.['uppercasechar'])
-           && password.touched) {
-            <p-messages [value]="[{severity: 'warn', detail: 'You have not entered a valid password.'}]" [closable]="false" />
-        }
+            @if (email.errors?.['required'] && email.touched) {
+                <p-messages [value]="[{severity: 'warn', detail: 'The email address is required.'}]"
+                    [closable]="false" />
+            }
+            @if (email.errors?.['email'] && email.touched) {
+                <p-messages [value]="[{severity: 'warn', detail: 'This is not a valid email address.'}]"
+                    [closable]="false" />
+            }
+        </div>
 
-        <button type="submit" pButton [disabled]="!form.valid">Submit</button>
+        <div class="col-md-12">
+            <p-password type="password" formControlName="password" placeholder="Password" [toggleMask]="true"
+                [feedback]="false" />
+
+            @if (password.errors?.['required'] && password.touched) {
+                <p-messages [value]="[{severity: 'warn', detail: 'The password is required.'}]" [closable]="false" />
+            }
+            @if ((password.errors?.['minlength']
+            || password.errors?.['specialchar']
+            || password.errors?.['lowercasechar']
+            || password.errors?.['uppercasechar'])
+            && password.touched) {
+                <p-messages [value]="[{severity: 'warn', detail: 'You have not entered a valid password.'}]"
+                    [closable]="false" />
+            }
+        </div>
+
+        <div class="col-md-12">
+            <button type="submit" pButton [disabled]="!form.valid">Submit</button>
+        </div>
 
         <div class="card flex justify-content-center">
             <p-toast />
