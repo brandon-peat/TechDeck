@@ -1,11 +1,11 @@
-<div class="flex full page">
+<div class="d-flex page w-100">
     <div class="left-column">
         @if (isLoggedIn()) {
             <p-button styleClass="w-75" label="New Post" icon="pi pi-pencil" (click)="showNewPostForm()" />
         }
     </div>
 
-    <div class="main-column">
+    <div class="w-85">
         @if (showForm) {
             <form class="post-form row g-3" [formGroup]="newPostForm" (ngSubmit)="onSubmit()">
                 <div class="col-md-10">
