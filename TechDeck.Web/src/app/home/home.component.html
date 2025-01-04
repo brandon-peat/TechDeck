@@ -1,0 +1,28 @@
+<div class="grid">
+    <div class="col-2">
+        @if (isLoggedIn()) {
+            <button pButton label="New Post" icon="pi pi-pencil" (click)="showNewPostForm()"> </button>
+        }
+
+    </div>
+
+    <div class="col-10">
+        @if (showForm) {
+            <form [formGroup]="newPostForm" (ngSubmit)="onSubmit()" >
+                <textarea pInputTextarea formControlName="text" [autoResize]="true"></textarea> <br>
+                @if (text.errors?.['required'] && text.touched) {
+                    <p-messages [value]="[{severity: 'warn', detail: 'Your post body cannot be empty'}]" [closable]="false" />
+                }
+                @if (text.errors?.['maxlength'] && text.touched) {
+                    <p-messages [value]="[{severity: 'warn', detail: 'Your post body cannot exceed 500 characters.'}]" [closable]="false" />
+                }
+
+                <button type="submit" pButton [disabled]="!newPostForm.valid"> Post </button>
+            </form>
+        }
+
+        <div class="card flex justify-content-center">
+            <p-toast />
+        </div>
+    </div>
+</div>

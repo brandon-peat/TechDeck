@@ -1,6 +1,6 @@
 <p-menubar [model]="items">
   <ng-template pTemplate="start">
-    <p-chip label="TechDeck" />
+    <p-chip styleClass="pointer" label="TechDeck" routerLink="/home"> </p-chip>
 
     @if (isLoggedIn()) {
       <p-dropdown [options]="(countries$ | async) ?? []" optionLabel="name" optionValue="id"
@@ -24,5 +24,6 @@
     }
   </ng-template>
 </p-menubar>
+
 
 <router-outlet />

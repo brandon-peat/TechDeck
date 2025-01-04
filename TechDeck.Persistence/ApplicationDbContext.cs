@@ -9,6 +9,7 @@ namespace TechDeck.Persistence
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
         public required DbSet<Person> People { get; set; }
+        public required DbSet<Post> Post { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

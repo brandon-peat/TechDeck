@@ -4,6 +4,6 @@
     [Surname]      NVARCHAR (30)   NOT NULL,
     [Email]        NVARCHAR (320)  NOT NULL,
     [PasswordHash] NVARCHAR (MAX)  NOT NULL,
-    CONSTRAINT [PK_User.User] PRIMARY KEY CLUSTERED ([Id] ASC)
+    CONSTRAINT [PK_Person] PRIMARY KEY CLUSTERED ([Id] ASC)
 );
 

@@ -21,16 +21,19 @@ import { MenubarModule } from 'primeng/menubar';
 import { MessagesModule } from 'primeng/messages';
 import { PasswordModule } from 'primeng/password';
 import { ToastModule } from 'primeng/toast';
+import { InputTextareaModule } from 'primeng/inputtextarea';
 
 import { MessageService } from 'primeng/api';
 import { httpInterceptorProviders } from './security/interceptor-providers';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
     LogInComponent,
-    SignUpComponent
+    SignUpComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,
@@ -49,7 +52,8 @@ import { httpInterceptorProviders } from './security/interceptor-providers';
     ButtonModule,
     Button,
     PasswordModule,
-    ToastModule
+    ToastModule,
+    InputTextareaModule
   ],
   providers: [
     MessageService, 

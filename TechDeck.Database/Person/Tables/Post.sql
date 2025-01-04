@@ -1,0 +1,8 @@
+﻿CREATE TABLE [Person].[Post] (
+	[Id]			INT				IDENTITY(1, 1) NOT NULL,
+	[PersonId]		INT				NOT NULL,
+	[DateCreated]   DATETIME		NOT NULL DEFAULT(GETDATE()),
+	[Text]			NVARCHAR(500)	NOT NULL,
+	CONSTRAINT [PK_Post] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT FK_Post_Person FOREIGN KEY (PersonId) REFERENCES Person.Person(Id)
+)
