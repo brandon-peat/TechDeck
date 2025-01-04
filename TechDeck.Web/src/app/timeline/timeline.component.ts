@@ -8,9 +8,9 @@ import { PostService } from '../services/post.service';
   styleUrl: './timeline.component.scss'
 })
 export class TimelineComponent {
+  public posts: Post[] = [];
+
   constructor(private readonly postService: PostService) {
     this.postService.getActivity().subscribe(posts => this.posts = posts);
   }
-  
-  public posts: Post[] = [];
 }
