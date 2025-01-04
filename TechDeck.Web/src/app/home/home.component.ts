@@ -39,17 +39,17 @@ export class HomeComponent implements OnInit {
   })
   
   public showNewPostForm(): void {
-    if(this.showForm == true) this.showForm = false;
-    else {
-      this.showForm = true;
-      this.text.markAsUntouched();
+    if(!this.showForm) {
+      this.text.markAsUntouched;
     }
+    
+    this.showForm = !this.showForm;
   }
 
   get text() {
     return this.newPostForm.controls.text;
   }
-  
+
   onSubmit() {
     this.postService.createPost(this.text.value!).subscribe(() =>
       this.messageService.add({
