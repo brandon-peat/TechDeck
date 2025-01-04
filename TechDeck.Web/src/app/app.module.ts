@@ -27,7 +27,6 @@ import { MessageService } from 'primeng/api';
 import { httpInterceptorProviders } from './security/interceptor-providers';
 import { HomeComponent } from './home/home.component';
 import { TimelineComponent } from './timeline/timeline.component';
-import { PostComponent } from './post/post.component';
 import { PostCardComponent } from './post-card/post-card.component';
 
 
@@ -38,7 +37,6 @@ import { PostCardComponent } from './post-card/post-card.component';
     SignUpComponent,
     HomeComponent,
     TimelineComponent,
-    PostComponent,
     PostCardComponent
   ],
   imports: [

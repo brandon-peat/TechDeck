@@ -1,12 +1,12 @@
-<div class="grid">
-    <div class="col-2">
+<div class="flex full">
+    <div class="left-column margin-auto">
         @if (isLoggedIn()) {
             <button pButton label="New Post" icon="pi pi-pencil" (click)="showNewPostForm()"> </button>
         }
 
     </div>
 
-    <div class="col-10">
+    <div class="main-column margin-auto">
         @if (showForm) {
             <form [formGroup]="newPostForm" (ngSubmit)="onSubmit()" >
                 <textarea pInputTextarea formControlName="text" [autoResize]="true"></textarea> <br>
@@ -21,7 +21,9 @@
             </form>
         }
 
-        <div class="card flex justify-content-center">
+        <timeline />
+
+        <div>
             <p-toast />
         </div>
     </div>

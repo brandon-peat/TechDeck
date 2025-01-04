@@ -1,1 +1,5 @@
-<p>timeline works!</p>
+
+@for (post of posts; track post.id)
+{
+    <post-card [post]=post />
+}
