@@ -19,7 +19,7 @@ namespace TechDeck.Api.Controllers
             => await mediator.Send(command, cancellationToken);
 
         [HttpGet("email-is-in-use/{email}")]
-        public async Task<bool> Name(string email, CancellationToken cancellationToken)
+        public async Task<bool> EmailIsInUse(string email, CancellationToken cancellationToken)
             => await mediator.Send(new EmailIsInUseQuery(email), cancellationToken);
     }
 }
