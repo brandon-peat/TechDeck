@@ -1,6 +1,17 @@
 .left-column {
     width: 15%;
+    text-align: center;
 }
 .main-column {
     width: 85%;
+}
+
+.post-form {
+    display: flex;
+    margin-bottom: 1rem;
+    text-align: center;
+}
+.post-button {
+    text-align: center;
+    margin: auto;
 }
