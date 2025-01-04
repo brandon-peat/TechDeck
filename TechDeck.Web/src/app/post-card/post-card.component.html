@@ -1,0 +1,13 @@
+<div class="post-card">
+    <div class="top-row">
+        <div class="author">
+            {{ post.authorName }}
+        </div>
+        <div class="date">
+            {{ post.dateCreated | date: 'MMM d'}}
+        </div>
+    </div>
+    <div class="text">
+        {{ post.text }}
+    </div>
+</div>

@@ -26,6 +26,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MessageService } from 'primeng/api';
 import { httpInterceptorProviders } from './security/interceptor-providers';
 import { HomeComponent } from './home/home.component';
+import { TimelineComponent } from './timeline/timeline.component';
+import { PostCardComponent } from './post-card/post-card.component';
 
 
 @NgModule({
@@ -33,7 +35,9 @@ import { HomeComponent } from './home/home.component';
     AppComponent,
     LogInComponent,
     SignUpComponent,
-    HomeComponent
+    HomeComponent,
+    TimelineComponent,
+    PostCardComponent
   ],
   imports: [
     BrowserModule,
