@@ -1,70 +1,21 @@
 <div class="half-page">
     <form [formGroup]="form" (ngSubmit)="onSubmit()" class="row g-3">
-        <div class="col-md-12">
-            <input pInputText type="email" formControlName="email" placeholder="Email" />
+        <form-field class="col-md-12">
+            <input pInputText type="email" formControlName="email" placeholder="Email" showError />
+        </form-field>
 
-            @if (email.errors?.['required'] && email.touched) {
-                <p-messages [value]="[{severity: 'warn', detail: 'The email address is required.'}]"
-                    [closable]="false" />
-            }
-            @if (email.errors?.['email'] && email.touched) {
-                <p-messages [value]="[{severity: 'warn', detail: 'This is not a valid email address.'}]"
-                    [closable]="false" />
-            }
-        </div>
+        <form-field class="col-md-6">
+            <input pInputText type="text" formControlName="firstName" placeholder="John" showError />
+        </form-field>
 
-        <div class="col-md-6">
-            <input pInputText type="text" formControlName="firstName" placeholder="John" />
+        <form-field class="col-md-6">
+            <input pInputText type="text" formControlName="lastName" placeholder="Smith" showError />
+        </form-field>
 
-            @if (firstName.errors?.['required'] && firstName.touched) {
-                <p-messages [value]="[{severity: 'warn', detail: 'The first name is required.'}]" [closable]="false" />
-            }
-            @if (firstName.errors?.['maxlength'] && firstName.touched) {
-                <p-messages [value]="[{severity: 'warn', detail: 'First name may not exceed 25 characters in length.'}]"
-                    [closable]="false" />
-            }
-        </div>
-
-        <div class="col-md-6">
-            <input pInputText type="text" formControlName="lastName" placeholder="Smith" />
-
-            @if (lastName.errors?.['required'] && lastName.touched) {
-                <p-messages [value]="[{severity: 'warn', detail: 'The last name is required.'}]" [closable]="false" />
-            }
-            @if (lastName.errors?.['maxlength'] && lastName.touched) {
-                <p-messages [value]="[{severity: 'warn', detail: 'Last name may not exceed 25 characters in length.'}]"
-                    [closable]="false" />
-            }
-        </div>
-
-        <div class="col-md-12">
+        <form-field class="col-md-12">
             <p-password type="password" formControlName="password" placeholder="Password" [toggleMask]="true"
-                [feedback]="false" />
-
-            @if (password.errors?.['required'] && password.touched) {
-                <p-messages [value]="[{severity: 'warn', detail: 'The password is required.'}]" [closable]="false" />
-            }
-            @if (password.errors?.['minlength'] && password.touched) {
-                <p-messages
-                    [value]="[{severity: 'warn', detail: 'The password must be at least 8 characters in length.'}]"
-                    [closable]="false" />
-            }
-            @if (password.errors?.['specialchar'] && password.touched) {
-                <p-messages
-                    [value]="[{severity: 'warn', detail: 'The password must contain at least one special character.'}]"
-                    [closable]="false" />
-            }
-            @if (password.errors?.['lowercasechar'] && password.touched) {
-                <p-messages
-                    [value]="[{severity: 'warn', detail: 'The password must contain at least one lower case character.'}]"
-                    [closable]="false" />
-            }
-            @if (password.errors?.['uppercasechar'] && password.touched) {
-                <p-messages
-                    [value]="[{severity: 'warn', detail: 'The password must contain at least one upper case character.'}]"
-                    [closable]="false" />
-            }
-        </div>
+                [feedback]="false" showError />
+        </form-field>
 
         <div class="col-md-12">
             <button type="submit" pButton [disabled]="!form.valid">Submit</button>

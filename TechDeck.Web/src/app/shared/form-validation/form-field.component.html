@@ -1,0 +1,8 @@
+<div class="component-wrapper">
+  <ng-content></ng-content>
+  @if (errorMessages) {
+    @for (errorMessage of errorMessages; track errorMessage) {
+      <p-messages [value]="[{severity: 'warn', detail: errorMessage}]" [closable]="false" />
+    }
+  }
+</div>

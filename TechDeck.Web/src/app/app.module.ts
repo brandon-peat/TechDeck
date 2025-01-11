@@ -28,6 +28,8 @@ import { MessageService } from 'primeng/api';
 import { HomeComponent } from './home/home.component';
 import { PostCardComponent } from './post-card/post-card.component';
 import { httpInterceptorProviders } from './security/interceptor-providers';
+import { FormFieldComponent } from './shared/form-validation/form-field.component';
+import { ShowErrorDirective } from './shared/form-validation/show-error.directive';
 import { TimelineComponent } from './timeline/timeline.component';
 
 @NgModule({
@@ -37,7 +39,9 @@ import { TimelineComponent } from './timeline/timeline.component';
     SignUpComponent,
     HomeComponent,
     TimelineComponent,
-    PostCardComponent
+    PostCardComponent,
+    ShowErrorDirective,
+    FormFieldComponent
   ],
   imports: [
     BrowserModule,
