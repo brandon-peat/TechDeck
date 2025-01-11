@@ -29,6 +29,7 @@ export class AppComponent {
     public readonly countryService: CountryService,
     securityService: SecurityService) { 
 
+    securityService.tryReloadSession();
     this.isLoggedIn = securityService.isLoggedIn;
     this.user = securityService.user;
 
