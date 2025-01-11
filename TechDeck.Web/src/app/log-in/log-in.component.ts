@@ -1,9 +1,10 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { containsLowerCaseChar } from '../validators/contains-lower-case-char.validator';
 import { containsSpecialChar } from '../validators/contains-special-char.validator';
 import { containsUpperCaseChar } from '../validators/contains-upper-case-char.validator';
 
+import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { SecurityService } from '../security/security.service';
 import { AccountService } from '../services/account.service';
@@ -13,12 +14,19 @@ import { AccountService } from '../services/account.service';
   templateUrl: './log-in.component.html',
   styleUrl: './log-in.component.scss'
 })
-export class LogInComponent {
+export class LogInComponent implements OnInit {
   constructor(
     private readonly accountService: AccountService, 
     private readonly securityService: SecurityService,
-    private messageService: MessageService) { }
-  
+    private readonly messageService: MessageService,
+    private readonly router: Router) { }
+
+  public ngOnInit(): void {
+    if (this.securityService.isLoggedIn()) {
+      this.redirectToHome();
+    }
+  }
+
   public form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required, Validators.minLength(8), containsSpecialChar, containsLowerCaseChar, containsUpperCaseChar]),
@@ -39,6 +47,7 @@ export class LogInComponent {
             if (result.isSuccess) {
               this.securityService.userIsLoggedIn(result.value!);
               this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Log in successful' });
+              this.redirectToHome();
             }
             else {
               this.messageService.add({ severity: 'error', summary: 'Failed', detail: result.errorMessage! });
@@ -50,5 +59,9 @@ export class LogInComponent {
         this.messageService.add({ severity: 'error', summary: 'Failed', detail: 'There does not exist an account with this email. Did you mean to sign up instead?' });
       }
     });
+  }
+
+  private redirectToHome() {
+    this.router.navigateByUrl('/home');
   }
 }

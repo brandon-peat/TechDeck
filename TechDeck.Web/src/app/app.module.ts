@@ -17,18 +17,18 @@ import { DropdownModule } from 'primeng/dropdown';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
 import { MessagesModule } from 'primeng/messages';
 import { PasswordModule } from 'primeng/password';
 import { ToastModule } from 'primeng/toast';
-import { InputTextareaModule } from 'primeng/inputtextarea';
 
 import { MessageService } from 'primeng/api';
-import { httpInterceptorProviders } from './security/interceptor-providers';
 import { HomeComponent } from './home/home.component';
-import { TimelineComponent } from './timeline/timeline.component';
 import { PostCardComponent } from './post-card/post-card.component';
-
+import { httpInterceptorProviders } from './security/interceptor-providers';
+import { TimelineComponent } from './timeline/timeline.component';
 
 @NgModule({
   declarations: [
@@ -46,6 +46,7 @@ import { PostCardComponent } from './post-card/post-card.component';
     HttpClientModule,
     FormsModule,
     MenubarModule,
+    MenuModule,
     ChipModule,
     DropdownModule,
     ReactiveFormsModule,

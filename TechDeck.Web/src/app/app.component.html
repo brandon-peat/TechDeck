@@ -1,11 +1,6 @@
 <p-menubar [model]="items">
   <ng-template pTemplate="start">
     <p-chip styleClass="pointer" label="TechDeck" routerLink="/home"> </p-chip>
-
-    @if (isLoggedIn()) {
-      <p-dropdown [options]="(countries$ | async) ?? []" optionLabel="name" optionValue="id"
-        placeholder="Select a country" />
-    }
   </ng-template>
 
   <ng-template pTemplate="item" let-item>
@@ -20,10 +15,16 @@
 
   <ng-template pTemplate="end">
     @if (isLoggedIn()) {
-      {{ user()!.name }}
+      <div class="d-flex align-items-center gap-2">
+        <div>
+          {{ user()!.name }}
+        </div>
+        <p-button (onClick)="accountMenu.toggle($event)" icon="pi pi-user" />
+      </div>
     }
   </ng-template>
 </p-menubar>
 
+<p-menu #accountMenu [model]="accountItems" [popup]="true" />
 
 <router-outlet />

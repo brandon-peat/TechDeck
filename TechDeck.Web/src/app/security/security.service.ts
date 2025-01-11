@@ -1,4 +1,5 @@
 import { Injectable, signal, WritableSignal } from "@angular/core";
+import { Router } from "@angular/router";
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { LocalStorageService } from "./local-storage.service";
 import { UserAuthBase } from "./user-auth-base";
@@ -11,7 +12,9 @@ export class SecurityService {
   public isLoggedIn: WritableSignal<boolean> = signal(false);
   public user: WritableSignal<UserAuthBase | null> = signal(null);
 
-  constructor(private readonly localStorageService: LocalStorageService) {}
+  constructor(
+    private readonly localStorageService: LocalStorageService,
+    private readonly router: Router) {}
 
   public tryReloadSession(): void {
     const auth = this.localStorageService.getData('auth');
@@ -33,5 +36,12 @@ export class SecurityService {
     user.name = decodedToken['name'];
 
     this.user.set(user);
+  }
+
+  public logOut(): void {
+    this.localStorageService.removeData('auth');
+    this.isLoggedIn.set(false);
+    this.user.set(null);
+    this.router.navigateByUrl('/log-in');
   }
 }
