@@ -31,6 +31,7 @@ import { httpInterceptorProviders } from './security/interceptor-providers';
 import { FormFieldComponent } from './shared/form-validation/form-field.component';
 import { ShowErrorDirective } from './shared/form-validation/show-error.directive';
 import { TimelineComponent } from './timeline/timeline.component';
+import { ViewPostComponent } from './view-post/view-post.component';
 
 @NgModule({
   declarations: [
@@ -39,9 +40,10 @@ import { TimelineComponent } from './timeline/timeline.component';
     SignUpComponent,
     HomeComponent,
     TimelineComponent,
-    PostCardComponent,
-    ShowErrorDirective,
-    FormFieldComponent
+        PostCardComponent,
+        ShowErrorDirective,
+        FormFieldComponent,
+        ViewPostComponent
   ],
   imports: [
     BrowserModule,

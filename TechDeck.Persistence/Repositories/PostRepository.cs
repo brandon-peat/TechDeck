@@ -2,6 +2,7 @@
 using TechDeck.Core.People;
 using System.Linq;
 using TechDeck.Core.People.ViewModels;
+using System;
 
 namespace TechDeck.Persistence.Repositories
 {
@@ -13,11 +14,12 @@ namespace TechDeck.Persistence.Repositories
             await db.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<List<PostViewModel>> GetActivity(CancellationToken cancellationToken)
+        public async Task<PaginatedList<PostViewModel>> GetActivityPaged(int pageNumber, int pageSize, CancellationToken cancellationToken)
         {
-            return await db.Post
+            var posts = await db.Post
                 .OrderByDescending(Post => Post.DateCreated)
-                .Take(10)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
                 .Join(db.People, post => post.PersonId, person => person.Id,
                     (post, person) => new PostViewModel(
                         post.Id,
@@ -26,6 +28,25 @@ namespace TechDeck.Persistence.Repositories
                         post.Text,
                         $"{person.Forename} {person.Surname}"))
                 .ToListAsync(cancellationToken);
+
+            var count = await db.Post.CountAsync();
+            var totalPages = (int) Math.Ceiling(count / (double) pageSize);
+
+            return new PaginatedList<PostViewModel>(posts, pageNumber, totalPages);
+        }
+
+        public async Task<PostViewModel> GetPost(int postId,  CancellationToken cancellationToken)
+        {
+            return await db.Post
+                .Where(post => post.Id == postId)
+                .Join(db.People, post => post.PersonId, person => person.Id,
+                    (post, person) => new PostViewModel(
+                        post.Id,
+                        post.PersonId,
+                        post.DateCreated,
+                        post.Text,
+                        $"{person.Forename} {person.Surname}"))
+                .FirstAsync(cancellationToken);
         }
     }
 }

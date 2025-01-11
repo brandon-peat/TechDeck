@@ -23,15 +23,26 @@ namespace TechDeck.Api.Controllers
             return await mediator.Send(command, cancellationToken);
         }
 
-        [HttpGet("activity")]
-        public async Task<List<PostViewModel>> GetActivityQuery(CancellationToken cancellationToken)
+        [HttpPost("activity")]
+        public async Task<PaginatedList<PostViewModel>> GetActivityPagedQuery(GetActivityPagedQuery query, CancellationToken cancellationToken)
         {
             if (!service.IsAuthenticated)
             {
                 throw new ArgumentException("Unauthorised");
             }
 
-            return await mediator.Send(new GetActivityQuery(), cancellationToken);
+            return await mediator.Send(query, cancellationToken);
+        }
+
+        [HttpGet("post/{postId}")]
+        public async Task<PostViewModel> GetPostQuery(int postId, CancellationToken cancellationToken)
+        {
+            if (!service.IsAuthenticated)
+            {
+                throw new ArgumentException("Unauthorised");
+            }
+
+            return await mediator.Send(new GetPostQuery(postId), cancellationToken);
         }
     }
 }

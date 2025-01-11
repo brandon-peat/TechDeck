@@ -2,3 +2,4 @@
 {
     <post-card [post]=post />
 }
+<p-button label="Load More" [hidden]="!currentPage.hasNextPage" (onClick)="nextActivityPage()"/>
