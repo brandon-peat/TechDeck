@@ -10,6 +10,7 @@ namespace TechDeck.Persistence
 
         public required DbSet<Person> People { get; set; }
         public required DbSet<Post> Post { get; set; }
+        public required DbSet<Like> Like { get; set; }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {

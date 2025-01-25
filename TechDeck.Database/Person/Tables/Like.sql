@@ -1,0 +1,9 @@
+﻿CREATE TABLE [Person].[Like]
+(
+	[Id]		INT		IDENTITY(1, 1) NOT NULL,
+	[PostId]	INT		NOT NULL,
+	[PersonId]	INT		NOT NULL,
+	CONSTRAINT [PK_Like] PRIMARY KEY CLUSTERED ([Id] ASC),
+	CONSTRAINT FK_Like_Post FOREIGN KEY (PostId) REFERENCES Person.Post(Id),
+	CONSTRAINT FK_Like_Person FOREIGN KEY (PersonId) REFERENCES Person.Person(Id)
+)

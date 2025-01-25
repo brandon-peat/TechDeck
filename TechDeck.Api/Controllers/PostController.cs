@@ -10,7 +10,7 @@ namespace TechDeck.Api.Controllers
 {
     [ApiController]
     [Route("post")]
-    public class PostController(IMediator mediator, IAuthenticatedUserService service) : Controller
+    public class PostController(IMediator mediator,IAuthenticatedUserService service) : Controller
     {
         [HttpPost("create-post")]
         public async Task<ResponseViewModel> CreatePost(CreatePostCommand command, CancellationToken cancellationToken)
@@ -43,6 +43,39 @@ namespace TechDeck.Api.Controllers
             }
 
             return await mediator.Send(new GetPostQuery(postId), cancellationToken);
+        }
+
+        [HttpPost("like/{postId}")]
+        public async Task<ResponseViewModel> LikePost(int postId, CancellationToken cancellationToken)
+        {
+            if (!service.IsAuthenticated)
+            {
+                throw new ArgumentException("Unauthorised");
+            }
+
+            return await mediator.Send(new LikePostCommand(postId), cancellationToken);
+        }
+
+        [HttpGet("number-of-likes/{postId}")]
+        public async Task<int> GetLikesTotalQuery(int postId, CancellationToken cancellationToken)
+        {
+            if (!service.IsAuthenticated)
+            {
+                throw new ArgumentException("Unauthorised");
+            }
+
+            return await mediator.Send(new GetLikesTotalQuery(postId), cancellationToken);
+        }
+
+        [HttpGet("have-i-liked/{postId}")]
+        public async Task<bool> HaveILikedQuery(int postId, CancellationToken cancellationToken)
+        {
+            if (!service.IsAuthenticated)
+            {
+                throw new ArgumentException("Unauthorised");
+            }
+
+            return await mediator.Send(new HaveILikedQuery(postId), cancellationToken);
         }
     }
 }

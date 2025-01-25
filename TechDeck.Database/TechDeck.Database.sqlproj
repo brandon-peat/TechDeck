@@ -64,6 +64,7 @@
     <Build Include="Person\Tables\Person.sql" />
     <Build Include="Security\Person.sql" />
     <Build Include="Person\Tables\Post.sql" />
+    <Build Include="Person\Tables\Like.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TechDeck.Database.publish.xml" />

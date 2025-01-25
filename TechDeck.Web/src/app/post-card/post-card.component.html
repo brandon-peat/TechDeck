@@ -10,4 +10,13 @@
     <div class="text">
         {{ post.text }}
     </div>
+    <div class="controls d-flex">
+        <i class="like pi"
+            *ngIf="!(this.post.authorName == this.user()!.name)"
+            [class.pi-heart]="!liked"
+            [class.pi-heart-fill]="liked"
+            [class.red]="liked"
+            (click)="likePost($event)"></i>
+        <p class="likes"> {{ likes }} </p>
+    </div>
 </div>

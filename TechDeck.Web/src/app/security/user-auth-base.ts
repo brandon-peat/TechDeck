@@ -1,4 +1,5 @@
 export class UserAuthBase {
+  userId: number = 0;
   userName: string = "";
   bearerToken: string = "";
   isAuthenticated: boolean = false;

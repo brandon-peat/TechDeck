@@ -9,7 +9,9 @@ namespace TechDeck.Core.People
         string Text)
         : IRequest<ResponseViewModel>;
 
-    public class CreatePostCommandHandler(IPostRepository postRepository, IAuthenticatedUserService service)
+    public class CreatePostCommandHandler(
+        IPostRepository postRepository,
+        IAuthenticatedUserService service)
         : IRequestHandler<CreatePostCommand, ResponseViewModel>
     {
         public async Task<ResponseViewModel> Handle(CreatePostCommand request, CancellationToken cancellationToken)
