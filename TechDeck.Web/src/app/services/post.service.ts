@@ -32,5 +32,9 @@ export class PostService {
   
   public haveILiked(postId: number): Observable<boolean> {
     return this.http.get<boolean>('https://localhost:7101/post/have-i-liked/' + postId)
-  } 
+  }
+
+  public getLikeUsersPaged(pageNumber: number, pageSize: number, postId: number): Observable<PaginatedList<string>> {
+    return this.http.post<PaginatedList<string>>('https://localhost:7101/post/get-like-users', {pageNumber, pageSize, postId});
+  }
 }

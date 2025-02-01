@@ -10,13 +10,19 @@
     <div class="text">
         {{ post.text }}
     </div>
-    <div class="controls d-flex">
+    <div class="controls d-flex post" #overlayTarget>
         <i class="like pi"
-            *ngIf="!(this.post.authorName == this.user()!.name)"
+            [class.greyed-out-like-button]="this.post.authorName == this.user()!.name"
             [class.pi-heart]="!liked"
             [class.pi-heart-fill]="liked"
             [class.red]="liked"
             (click)="likePost($event)"></i>
-        <p class="likes"> {{ likes }} </p>
+        <p class="likes" (click)="showUsersLiked($event); op.toggle($event, overlayTarget);"> {{ likes }} </p>
+        <p-overlayPanel #op>
+            @for (user of likeUsers; track $index) {
+                {{ user }} <br>
+            }
+            <p class="more-users-button" (click)="likeUsersNextPage($event)" [hidden]="!currentPage.hasNextPage"> Show More... </p>
+        </p-overlayPanel>
     </div>
 </div>

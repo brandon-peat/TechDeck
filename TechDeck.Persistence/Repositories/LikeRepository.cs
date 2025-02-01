@@ -22,5 +22,27 @@ namespace TechDeck.Persistence.Repositories
             await db.Like.FirstOrDefaultAsync(like => like.PostId == postId && like.PersonId == personId, cancellationToken);
         public async Task<int> GetLikes(int postId, CancellationToken cancellationToken) =>
             await db.Like.Where<Like>(like => like.PostId == postId).CountAsync(cancellationToken);
+        public async Task<PaginatedList<string>> GetLikeUsersPaged(int pageNumber, int pageSize, int postId, CancellationToken cancellationToken)
+        {
+            var names = await db.Like
+            .Where(like => like.PostId == postId)
+            .Join(db.People,
+                  like => like.PersonId,
+                  person => person.Id,
+                  (like, person) => new {
+                      fullName = person.Forename + " " + person.Surname
+                  })
+            .Skip((pageNumber - 1) * pageSize)
+            .Take(pageSize)
+            .Select(name => name.fullName)
+            .ToListAsync(cancellationToken);
+
+            var count = await db.Like
+                .Where(like => like.PostId == postId)
+                .CountAsync();
+            var totalPages = (int)Math.Ceiling(count / (double)pageSize);
+
+            return new PaginatedList<string>(names, pageNumber, totalPages);
+        }
     }
 }

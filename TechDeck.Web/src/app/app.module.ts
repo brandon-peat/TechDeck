@@ -21,6 +21,7 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { MenuModule } from 'primeng/menu';
 import { MenubarModule } from 'primeng/menubar';
 import { MessagesModule } from 'primeng/messages';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PasswordModule } from 'primeng/password';
 import { ToastModule } from 'primeng/toast';
 
@@ -62,6 +63,7 @@ import { ViewPostComponent } from './view-post/view-post.component';
     InputTextModule,
     ButtonModule,
     Button,
+    OverlayPanelModule,
     PasswordModule,
     ToastModule,
     InputTextareaModule

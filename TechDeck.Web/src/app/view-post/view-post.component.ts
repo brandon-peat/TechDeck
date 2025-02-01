@@ -1,7 +1,7 @@
 import { Component, inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { PostService } from '../services/post.service';
 import { Post } from '../models/post';
+import { PostService } from '../services/post.service';
 
 @Component({
   selector: 'view-post',
@@ -13,7 +13,7 @@ export class ViewPostComponent {
   public postId: number | null = 0;
   public post!: Post;
 
-  constructor(private postService: PostService) {}
+  constructor(private readonly postService: PostService) {}
 
   ngOnInit(): void {
     this.postId = Number(this.route.snapshot.paramMap.get('id'));

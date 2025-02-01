@@ -77,5 +77,16 @@ namespace TechDeck.Api.Controllers
 
             return await mediator.Send(new HaveILikedQuery(postId), cancellationToken);
         }
+
+        [HttpPost("get-like-users")]
+        public async Task<PaginatedList<string>> GetLikeUsersPagedQuery(GetLikeUsersPagedQuery query, CancellationToken cancellationToken)
+        {
+            if (!service.IsAuthenticated)
+            {
+                throw new ArgumentException("Unauthorised");
+            }
+
+            return await mediator.Send(query, cancellationToken);
+        }
     }
 }
