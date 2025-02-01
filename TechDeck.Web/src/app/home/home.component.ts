@@ -1,4 +1,4 @@
-import { Component, Signal, OnInit } from '@angular/core';
+import { Component, OnInit, Signal, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 import { SecurityService } from '../security/security.service';
@@ -7,6 +7,7 @@ import { PostService } from '../services/post.service';
 
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { TimelineComponent } from '../timeline/timeline.component';
 
 @Component({
   selector: 'home',
@@ -14,6 +15,7 @@ import { MessageService } from 'primeng/api';
   styleUrl: './home.component.scss'
 })
 export class HomeComponent implements OnInit {
+  @ViewChild(TimelineComponent) timeline!: TimelineComponent;
   public isLoggedIn: Signal<boolean>;
   public user: Signal<UserAuthBase | null>;
   public showForm: boolean = false;
@@ -51,10 +53,12 @@ export class HomeComponent implements OnInit {
   }
 
   onSubmit() {
-    this.postService.createPost(this.text.value!).subscribe(() =>
+    this.postService.createPost(this.text.value!).subscribe(() => {
       this.messageService.add({
         severity: 'success',
         summary: 'Success',
-        detail: 'Post created successfully!' }));
+        detail: 'Post created successfully!' });
+      this.timeline.refreshActivity();
+    });
   }
 }

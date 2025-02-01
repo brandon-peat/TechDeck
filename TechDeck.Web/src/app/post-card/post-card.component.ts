@@ -72,7 +72,9 @@ icon: any;
   }
 
   ngOnChanges(): void {
-    this.postService.haveILiked(this.post.id).subscribe(liked => this.liked = liked);
-    this.postService.getLikes(this.post.id).subscribe(likes => this.likes = likes);
+    if(this.post.id != 0) {
+      this.postService.haveILiked(this.post.id).subscribe(liked => this.liked = liked);
+      this.postService.getLikes(this.post.id).subscribe(likes => this.likes = likes);
+    }
   }
 }

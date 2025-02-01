@@ -11,7 +11,13 @@ import { PostService } from '../services/post.service';
 export class ViewPostComponent {
   private readonly route = inject(ActivatedRoute);
   public postId: number | null = 0;
-  public post!: Post;
+  public post: Post = {
+    id: -1,
+    personId: 0,
+    dateCreated: new Date(),
+    text: "",
+    authorName: ""
+  };
 
   constructor(private readonly postService: PostService) {}
 
