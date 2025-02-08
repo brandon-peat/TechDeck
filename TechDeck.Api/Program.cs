@@ -1,5 +1,8 @@
+using Microsoft.Extensions.Azure;
 using Microsoft.IdentityModel.Tokens;
+using Scalar.AspNetCore;
 using System.Text;
+using TechDeck.Api.Transformers;
 using TechDeck.Core;
 using TechDeck.Identity;
 using TechDeck.Identity.Models;
@@ -17,7 +20,7 @@ var jwtSettings = new JwtSettings(
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddOpenApi("v1", options => { options.AddDocumentTransformer<BearerSecuritySchemeTransformer>(); });
 
 builder.Services.AddCors(options =>
 {
@@ -56,12 +59,20 @@ builder.Services
         };
     });
 
+builder.Services.AddAzureClients(clientBuilder =>
+{
+    clientBuilder.AddBlobServiceClient(builder.Configuration["StorageConnectionString:blobServiceUri"]!).WithName("Default");
+    clientBuilder.AddQueueServiceClient(builder.Configuration["StorageConnectionString:queueServiceUri"]!).WithName("StorageConnectionString");
+    clientBuilder.AddTableServiceClient(builder.Configuration["StorageConnectionString:tableServiceUri"]!).WithName("StorageConnectionString");
+});
+
 var app = builder.Build();
 
 if (app.Environment.IsDevelopment())
 {
-    app.UseSwagger();
-    app.UseSwaggerUI();
+    app.MapOpenApi();
+    app.MapScalarApiReference(options =>
+        options.WithHttpBearerAuthentication(bearer => bearer.Token = "your-bearer-token"));
 }
 
 app.UseHttpsRedirection();

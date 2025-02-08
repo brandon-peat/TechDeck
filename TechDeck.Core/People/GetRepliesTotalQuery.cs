@@ -1,5 +1,4 @@
 ﻿using MediatR;
-using TechDeck.Core.People.ViewModels;
 
 namespace TechDeck.Core.People
 {
@@ -8,6 +7,6 @@ namespace TechDeck.Core.People
     public class GetRepliesTotalQueryHandler(IReplyRepository repository) : IRequestHandler<GetRepliesTotalQuery, int>
     {
         public async Task<int> Handle(GetRepliesTotalQuery request, CancellationToken cancellationToken) =>
-            await repository.GetRepliesTotal(request.PostId, cancellationToken);
+            await repository.GetTotalReplies(request.PostId, cancellationToken);
     }
 }

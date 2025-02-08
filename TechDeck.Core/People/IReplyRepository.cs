@@ -8,6 +8,6 @@ namespace TechDeck.Core.People
 
         Task<PaginatedList<ReplyViewModel>> GetRepliesPaged(int postId, int pageNumber, int pageSize, CancellationToken cancellationToken);
 
-        Task<int> GetRepliesTotal(int postId, CancellationToken cancellationToken);
+        Task<int> GetTotalReplies(int postId, CancellationToken cancellationToken);
     }
 }
