@@ -100,5 +100,27 @@ namespace TechDeck.Api.Controllers
 
             return await mediator.Send(command, cancellationToken);
         }
+
+        [HttpPost("replies/query")]
+        public async Task<PaginatedList<ReplyViewModel>> GetRepliesPagedQuery(GetRepliesPagedQuery query, CancellationToken cancellationToken)
+        {
+            if (!service.IsAuthenticated)
+            {
+                throw new ArgumentException("Unauthorised");
+            }
+
+            return await mediator.Send(query, cancellationToken);
+        }
+
+        [HttpGet("number-of-replies/{postId}")]
+        public async Task<int> GetRepliesTotalQuery(int postId, CancellationToken cancellationToken)
+        {
+            if (!service.IsAuthenticated)
+            {
+                throw new ArgumentException("Unauthorised");
+            }
+
+            return await mediator.Send(new GetRepliesTotalQuery(postId), cancellationToken);
+        }
     }
 }

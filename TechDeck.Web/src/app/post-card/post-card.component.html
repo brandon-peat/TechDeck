@@ -17,7 +17,7 @@
             [class.pi-heart-fill]="liked"
             [class.red]="liked"
             (click)="likePost($event)"></i>
-        <p class="likes" (click)="showUsersLiked($event); op.toggle($event, overlayTarget);"> {{ likes }} </p>
+        <p class="counter" (click)="showUsersLiked($event); op.toggle($event, overlayTarget);"> {{ likeCount }} </p>
         <p-overlayPanel #op>
             @for (user of likeUsers; track $index) {
                 {{ user }} <br>
@@ -26,7 +26,8 @@
         </p-overlayPanel>
         
         <i class="post-action-icon reply pi pi-comment"
-            (click)="toggleReplyFormWrapper($event)"></i>
+            (click)="toggleReplyForm($event)"></i>
+        <p class="counter"> {{ replyCount }} </p>
     </div>
 </div>
 

@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { PaginatedList } from '../models/paginated-list';
 import { Post } from '../models/post';
+import { Reply } from '../models/reply';
 
 @Injectable({
   providedIn: 'root'
@@ -40,5 +41,13 @@ export class PostService {
 
   public createReply(postId: number, text: string): Observable<void> {
     return this.http.post<void>('https://localhost:7101/post/reply', {postId, text});
+  }
+
+  public getRepliesPaged(postId: number, pageNumber: number, pageSize: number): Observable<PaginatedList<Reply>> {
+    return this.http.post<PaginatedList<Reply>>('https://localhost:7101/post/replies/query', {postId, pageNumber, pageSize});
+  }
+
+  public getReplies(postId: number): Observable<number> {
+    return this.http.get<number>('https://localhost:7101/post/number-of-replies/' + postId);
   }
 }

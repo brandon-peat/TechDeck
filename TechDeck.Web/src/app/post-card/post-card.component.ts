@@ -27,7 +27,8 @@ export class PostCardComponent {
   showUsers: boolean = false;
   showReplyForm: boolean = false;
   liked: boolean = false;
-  likes: number = 0;
+  likeCount: number = 0;
+  replyCount: number = 0;
   icon: any;
 
   public replyForm = new FormGroup({
@@ -52,8 +53,8 @@ export class PostCardComponent {
     if(this.post.authorName != this.user()!.name) {
       this.liked = !this.liked;
       this.postService.likePost(this.post.id).subscribe();
-      if(this.liked) this.likes++;
-      else this.likes--;
+      if(this.liked) this.likeCount++;
+      else this.likeCount--;
     }
   }
   public showUsersLiked(event: Event): void {
@@ -79,11 +80,8 @@ export class PostCardComponent {
     });
   }
 
-  public toggleReplyFormWrapper(event: Event): void {
-    event.stopPropagation();
-    this.toggleReplyForm();
-  }
-  private toggleReplyForm(): void {
+  public toggleReplyForm(event: Event | null = null): void {
+    event?.stopPropagation();
     this.showReplyForm = !this.showReplyForm;
     this.replyForm.reset();
   }
@@ -106,9 +104,10 @@ export class PostCardComponent {
   }
 
   ngOnChanges(): void {
-    if(this.post.id != 0) {
+    if(this.post.id != -1) {
       this.postService.haveILiked(this.post.id).subscribe(liked => this.liked = liked);
-      this.postService.getLikes(this.post.id).subscribe(likes => this.likes = likes);
+      this.postService.getLikes(this.post.id).subscribe(likes => this.likeCount = likes);
+      this.postService.getReplies(this.post.id).subscribe(replies => this.replyCount = replies);
       this.post.replies = [];
     }
   }

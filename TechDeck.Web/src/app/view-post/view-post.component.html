@@ -1,5 +1,7 @@
 <div class="page">
     <div class="w-50 mx-auto">
         <post-card [post]=post! />
+        
+        <p class="more-replies-button" (click)="repliesNextPage()" [hidden]="!currentPage.hasNextPage"> Show More... </p>
     </div>
 </div>
