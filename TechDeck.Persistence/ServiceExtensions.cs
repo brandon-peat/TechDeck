@@ -17,7 +17,9 @@ namespace TechDeck.Persistence
 
             services.AddTransient<IPersonRepository, PersonRepository>();
             services.AddTransient<IPostRepository, PostRepository>();
-            services.AddTransient<ILikeRepository, LikeRepository > ();
+            services.AddTransient<ILikeRepository, LikeRepository >();
+            services.AddTransient<IReplyRepository, ReplyRepository>();
+
         }
     }
 }

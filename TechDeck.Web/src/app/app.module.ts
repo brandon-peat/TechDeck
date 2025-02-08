@@ -33,6 +33,7 @@ import { FormFieldComponent } from './shared/form-validation/form-field.componen
 import { ShowErrorDirective } from './shared/form-validation/show-error.directive';
 import { TimelineComponent } from './timeline/timeline.component';
 import { ViewPostComponent } from './view-post/view-post.component';
+import { ReplyCardComponent } from './reply-card/reply-card.component';
 
 @NgModule({
   declarations: [
@@ -44,7 +45,8 @@ import { ViewPostComponent } from './view-post/view-post.component';
         PostCardComponent,
         ShowErrorDirective,
         FormFieldComponent,
-        ViewPostComponent
+        ViewPostComponent,
+        ReplyCardComponent
   ],
   imports: [
     BrowserModule,

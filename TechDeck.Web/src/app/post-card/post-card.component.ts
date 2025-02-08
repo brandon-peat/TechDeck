@@ -1,5 +1,7 @@
 import { Component, Input, Signal } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { MessageService } from 'primeng/api';
 import { PaginatedList } from '../models/paginated-list';
 import { Post } from '../models/post';
 import { SecurityService } from '../security/security.service';
@@ -23,13 +25,19 @@ export class PostCardComponent {
       hasNextPage: true
     };
   showUsers: boolean = false;
+  showReplyForm: boolean = false;
   liked: boolean = false;
   likes: number = 0;
-icon: any;
+  icon: any;
+
+  public replyForm = new FormGroup({
+      text: new FormControl('', [Validators.required, Validators.maxLength(280)]),
+  })
 
   constructor(
     private router: Router,
     private readonly securityService: SecurityService,
+    private readonly messageService: MessageService,
     private readonly postService: PostService
   ) { 
     securityService.tryReloadSession();
@@ -71,10 +79,37 @@ icon: any;
     });
   }
 
+  public toggleReplyFormWrapper(event: Event): void {
+    event.stopPropagation();
+    this.toggleReplyForm();
+  }
+  private toggleReplyForm(): void {
+    this.showReplyForm = !this.showReplyForm;
+    this.replyForm.reset();
+  }
+  public onSubmit(): void {
+    this.postService.createReply(this.post.id!, this.replyForm.controls.text.value!).subscribe(() => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Success',
+        detail: 'Post created successfully!' });
+      this.post.replies.push({
+        id: 0,
+        personId: 0,
+        postId: 0,
+        dateCreated: new Date(),
+        text: this.replyForm.controls.text.value!,
+        authorName: this.user()!.name
+      });
+      this.toggleReplyForm();
+    });
+  }
+
   ngOnChanges(): void {
     if(this.post.id != 0) {
       this.postService.haveILiked(this.post.id).subscribe(liked => this.liked = liked);
       this.postService.getLikes(this.post.id).subscribe(likes => this.likes = likes);
+      this.post.replies = [];
     }
   }
 }

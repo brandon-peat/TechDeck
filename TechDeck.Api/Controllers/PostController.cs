@@ -1,5 +1,6 @@
 ﻿using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Runtime.CompilerServices;
 using TechDeck.Api.Responses;
 using TechDeck.Core.Identity;
 using TechDeck.Core.Models;
@@ -87,6 +88,17 @@ namespace TechDeck.Api.Controllers
             }
 
             return await mediator.Send(query, cancellationToken);
+        }
+
+        [HttpPost("reply")]
+        public async Task<ResponseViewModel> CreateReplyToPost(CreateReplyCommand command, CancellationToken cancellationToken)
+        {
+            if (!service.IsAuthenticated)
+            {
+                throw new ArgumentException("Unauthorised");
+            }
+
+            return await mediator.Send(command, cancellationToken);
         }
     }
 }

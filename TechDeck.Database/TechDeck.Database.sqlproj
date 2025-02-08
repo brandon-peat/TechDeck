@@ -65,8 +65,12 @@
     <Build Include="Security\Person.sql" />
     <Build Include="Person\Tables\Post.sql" />
     <Build Include="Person\Tables\Like.sql" />
+    <Build Include="Person\Tables\Reply.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TechDeck.Database.publish.xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <RefactorLog Include="TechDeck.Database.refactorlog" />
   </ItemGroup>
 </Project>

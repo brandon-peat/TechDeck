@@ -27,9 +27,17 @@
 .post {
     position: relative;
 }
-.like {
+.post-action-icon {
     font-size: 0.9rem;
     color: black;
+}
+.reply {
+    margin-left: 0.75rem;
+}
+.reply:hover {
+    font-size: 1rem;
+    transition: 0.1s;
+    cursor: pointer
 }
 .like:hover:not(.greyed-out-like-button) {
     font-size: 1rem;
@@ -48,4 +56,18 @@
 }
 .greyed-out-like-button {
     color: rgb(158, 151, 151);
+}
+
+
+
+
+.reply-form-card {
+    margin: 0 2rem 1rem 5rem;
+    background-color: #F9FAFB;
+    padding: 1rem 1rem 0.5rem 1rem;
+    border-radius: 6px;
+    box-shadow: 0px 2px 3px 0px #00000026;
+}
+.reply-body {
+    min-height: 4rem;
 }

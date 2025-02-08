@@ -16,7 +16,8 @@ export class ViewPostComponent {
     personId: 0,
     dateCreated: new Date(),
     text: "",
-    authorName: ""
+    authorName: "",
+    replies: []
   };
 
   constructor(private readonly postService: PostService) {}

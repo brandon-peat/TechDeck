@@ -11,7 +11,7 @@
         {{ post.text }}
     </div>
     <div class="controls d-flex post" #overlayTarget>
-        <i class="like pi"
+        <i class="post-action-icon like pi"
             [class.greyed-out-like-button]="this.post.authorName == this.user()!.name"
             [class.pi-heart]="!liked"
             [class.pi-heart-fill]="liked"
@@ -24,5 +24,26 @@
             }
             <p class="more-users-button" (click)="likeUsersNextPage($event)" [hidden]="!currentPage.hasNextPage"> Show More... </p>
         </p-overlayPanel>
+        
+        <i class="post-action-icon reply pi pi-comment"
+            (click)="toggleReplyFormWrapper($event)"></i>
     </div>
 </div>
+
+<div class="reply-form-card" [hidden]="!showReplyForm">
+    <form [formGroup]="replyForm" class="reply-form row" (ngSubmit)="onSubmit()">
+        <form-field class="col-md-10">
+            <textarea class="reply-body" pInputTextarea formControlName="text" aria-describedby="reply-help" [autoResize]="true" fluid="true"
+            showError="Reply body"> </textarea>
+            <small id="reply-help"> You can write up to 280 characters in your reply. </small>
+        </form-field>
+        <div class="col-md-2">
+            <p-button styleClass="w-100" class="reply-submit" label="Post Reply" type="submit" icon="pi pi-comment" [disabled]="!replyForm.valid" />
+        </div>
+    </form>
+</div>
+
+@for (reply of post.replies; track reply.id)
+{
+    <reply-card [reply]=reply />
+}

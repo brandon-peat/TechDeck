@@ -37,4 +37,8 @@ export class PostService {
   public getLikeUsersPaged(pageNumber: number, pageSize: number, postId: number): Observable<PaginatedList<string>> {
     return this.http.post<PaginatedList<string>>('https://localhost:7101/post/get-like-users', {pageNumber, pageSize, postId});
   }
+
+  public createReply(postId: number, text: string): Observable<void> {
+    return this.http.post<void>('https://localhost:7101/post/reply', {postId, text});
+  }
 }
