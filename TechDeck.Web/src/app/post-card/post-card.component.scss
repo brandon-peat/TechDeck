@@ -4,6 +4,10 @@
     padding: 1rem 1rem 0.5rem 1rem;
     border-radius: 6px;
     box-shadow: 0px 2px 3px 0px #00000026;
+    cursor: pointer;
+}
+.post-card:hover {
+    background-color: #ececec;
 }
 .top-row {
     display: flex;
@@ -53,9 +57,11 @@
 .more-users-button {
     font-size: 0.7rem;
     margin: 0.5rem 0 0 0;
+    cursor: pointer;
 }
 .greyed-out-like-button {
     color: rgb(158, 151, 151);
+    cursor: default;
 }
 
 
