@@ -99,6 +99,7 @@ export class PostCardComponent {
         text: this.replyForm.controls.text.value!,
         authorName: this.user()!.name
       });
+      this.replyCount++;
       this.toggleReplyForm();
     });
   }
