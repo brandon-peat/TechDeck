@@ -25,17 +25,19 @@ export class SecurityService {
   }
 
   public userIsLoggedIn(user: UserAuthBase): void {
-    this.isLoggedIn.set(true);
-
-    this.localStorageService.saveData('auth', JSON.stringify(user));
-
     const helper = new JwtHelperService();
 
-    const decodedToken = helper.decodeToken(user.bearerToken);
-
-    user.name = decodedToken['name'];
-
-    this.user.set(user);
+    if (!helper.isTokenExpired(user.bearerToken)) {
+      this.isLoggedIn.set(true);
+  
+      this.localStorageService.saveData('auth', JSON.stringify(user));
+  
+      const decodedToken = helper.decodeToken(user.bearerToken);
+  
+      user.name = decodedToken['name'];
+  
+      this.user.set(user);
+    }
   }
 
   public logOut(): void {
