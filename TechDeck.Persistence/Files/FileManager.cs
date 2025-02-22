@@ -17,7 +17,7 @@ namespace TechDeck.Persistence.Files
 
             var blobClient = container.GetBlobClient(fileName);
 
-            await blobClient.UploadAsync(stream, cancellationToken);
+            await blobClient.UploadAsync(stream, overwrite: true, cancellationToken: cancellationToken);
         }
     }
 }
