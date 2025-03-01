@@ -66,6 +66,7 @@
     <Build Include="Person\Tables\Post.sql" />
     <Build Include="Person\Tables\Like.sql" />
     <Build Include="Person\Tables\Reply.sql" />
+    <Build Include="Person\Tables\Attachment.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TechDeck.Database.publish.xml" />

@@ -12,6 +12,7 @@ namespace TechDeck.Persistence
         public required DbSet<Post> Post { get; set; }
         public required DbSet<Like> Like { get; set; }
         public required DbSet<Reply> Reply { get; set; }
+        public required DbSet<Attachment> Attachment {  get; set; }
 
 
         protected override void OnModelCreating(ModelBuilder builder)

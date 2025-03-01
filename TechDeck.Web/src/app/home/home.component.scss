@@ -11,7 +11,17 @@
     margin-bottom: 1rem;
     text-align: center;
 }
+.post-text {
+    width: 125%;
+}
 .post-button {
     text-align: center;
     margin: auto;
+}
+.attach-file {
+    float: right;
+    font-size: 0.8rem;
+}
+.file-input {
+    display: none;
 }

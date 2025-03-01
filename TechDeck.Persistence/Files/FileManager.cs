@@ -1,10 +1,25 @@
 ﻿using Azure.Storage.Blobs;
 using TechDeck.Core.Files;
+using TechDeck.Core.People;
 
 namespace TechDeck.Persistence.Files
 {
     internal class FileManager(BlobServiceClient client) : IFileManager
     {
+        public async Task<Stream> DownloadFile(
+            string containerName,
+            string fileName,
+            CancellationToken cancellationToken)
+        {
+            var container = client.GetBlobContainerClient(containerName);
+
+            var blobClient = container.GetBlobClient(fileName);
+
+            var file = await blobClient.DownloadStreamingAsync(cancellationToken: cancellationToken);
+
+            return file.Value.Content;
+        }
+
         public async Task UploadFile(
             string containerName,
             string fileName,
@@ -18,6 +33,8 @@ namespace TechDeck.Persistence.Files
             var blobClient = container.GetBlobClient(fileName);
 
             await blobClient.UploadAsync(stream, overwrite: true, cancellationToken: cancellationToken);
+
+            await blobClient.SetHttpHeadersAsync(new() { ContentType = "image/jpeg" }, cancellationToken: cancellationToken);
         }
     }
 }

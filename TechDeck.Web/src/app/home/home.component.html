@@ -8,11 +8,19 @@
     <div class="main-column">
         @if (showForm) {
             <form class="post-form row g-3" [formGroup]="newPostForm" (ngSubmit)="onSubmit()">
-                <form-field class="col-md-10">
+                <form-field class="col-md-8">
                     <textarea class="post-text" pInputTextarea formControlName="text" [autoResize]="true"
-                        showError="Post body"></textarea>
+                        showError="Post body"> </textarea>
                 </form-field>
-                <div class="col-md-2">
+                <div class="post-controls col-md-2">
+                    <p-button class="attach-file" icon="pi pi-image" [rounded]="true" [text]="true"
+                        (click)="fileInput.click()"/>
+                    <input type="file" multiple id="file" class="file-input" #fileInput
+                    (change)="handleFileInput($event)">
+                    
+                    
+                </div>
+                <div class="post-button-container col-md-2">
                     <p-button class="post-button" label="Post" type="submit" icon="pi pi-comment"
                         [disabled]="!newPostForm.valid" />
                 </div>
@@ -22,7 +30,7 @@
         <timeline/>
 
         <div>
-            <p-toast />
+            <p-toast key="cornerToasts" />
         </div>
     </div>
 </div>

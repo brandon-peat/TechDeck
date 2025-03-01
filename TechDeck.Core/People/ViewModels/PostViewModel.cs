@@ -5,5 +5,6 @@
         int PersonId,
         DateTime DateCreated,
         string Text,
-        string AuthorName);
+        string AuthorName,
+        List<Guid> ImageUrls);
 }

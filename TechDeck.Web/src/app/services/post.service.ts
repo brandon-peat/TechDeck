@@ -11,8 +11,15 @@ import { Reply } from '../models/reply';
 export class PostService {
   constructor(private readonly http: HttpClient) { }
 
-  public createPost(text: string): Observable<void> {
-    return this.http.post<void>('https://localhost:7101/post/create-post', {text});
+  public createPost(text: string, files?: FileList): Observable<void> {
+    let fd = new FormData()
+    fd.append('text', text);
+    if(files != undefined) {
+      for(var file in Array.from(files)) {
+        fd.append('files', files.item(Number(file))!);
+      }
+    }
+    return this.http.post<void>('https://localhost:7101/post/create-post', fd);
   }
 
   public getActivityPaged(pageNumber: number, pageSize: number): Observable<PaginatedList<Post>> {

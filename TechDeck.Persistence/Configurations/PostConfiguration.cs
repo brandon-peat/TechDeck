@@ -10,6 +10,13 @@ namespace TechDeck.Persistence.Configurations
         {
             builder.ToTable("Post", "Person");
             builder.HasKey(post => post.Id);
+
+            builder
+                .HasMany(post => post.Attachments)
+                .WithOne()
+                .HasForeignKey(attachment => attachment.PostId);
+
+            builder.Navigation(post => post.Attachments).AutoInclude();
         }
     }
 }

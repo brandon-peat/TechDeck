@@ -3,6 +3,7 @@ using TechDeck.Core.People;
 using System.Linq;
 using TechDeck.Core.People.ViewModels;
 using System;
+using TechDeck.Core.Files;
 
 namespace TechDeck.Persistence.Repositories
 {
@@ -26,18 +27,20 @@ namespace TechDeck.Persistence.Repositories
                         post.PersonId,
                         post.DateCreated,
                         post.Text,
-                        $"{person.Forename} {person.Surname}"))
+                        $"{person.Forename} {person.Surname}",
+                        post.Attachments.Select(a => a.Name).ToList()
+                    )
+                )
                 .ToListAsync(cancellationToken);
 
-            var count = await db.Post.CountAsync();
+            var count = await db.Post.CountAsync(cancellationToken);
             var totalPages = (int) Math.Ceiling(count / (double) pageSize);
 
             return new PaginatedList<PostViewModel>(posts, pageNumber, totalPages);
         }
 
-        public async Task<PostViewModel> GetPost(int postId,  CancellationToken cancellationToken)
-        {
-            return await db.Post
+        public async Task<PostViewModel> GetPost(int postId, CancellationToken cancellationToken) =>
+            await db.Post
                 .Where(post => post.Id == postId)
                 .Join(db.People, post => post.PersonId, person => person.Id,
                     (post, person) => new PostViewModel(
@@ -45,8 +48,10 @@ namespace TechDeck.Persistence.Repositories
                         post.PersonId,
                         post.DateCreated,
                         post.Text,
-                        $"{person.Forename} {person.Surname}"))
+                        $"{person.Forename} {person.Surname}",
+                        post.Attachments.Select(a => a.Name).ToList()
+                    )
+                )
                 .FirstAsync(cancellationToken);
-        }
     }
 }

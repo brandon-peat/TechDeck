@@ -14,6 +14,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Button, ButtonModule } from 'primeng/button';
 import { ChipModule } from 'primeng/chip';
 import { DropdownModule } from 'primeng/dropdown';
+import { FileUploadModule } from 'primeng/fileupload';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
@@ -28,12 +29,13 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { HomeComponent } from './home/home.component';
 import { PostCardComponent } from './post-card/post-card.component';
+import { ReplyCardComponent } from './reply-card/reply-card.component';
 import { httpInterceptorProviders } from './security/interceptor-providers';
 import { FormFieldComponent } from './shared/form-validation/form-field.component';
 import { ShowErrorDirective } from './shared/form-validation/show-error.directive';
 import { TimelineComponent } from './timeline/timeline.component';
 import { ViewPostComponent } from './view-post/view-post.component';
-import { ReplyCardComponent } from './reply-card/reply-card.component';
+
 
 @NgModule({
   declarations: [
@@ -68,7 +70,8 @@ import { ReplyCardComponent } from './reply-card/reply-card.component';
     OverlayPanelModule,
     PasswordModule,
     ToastModule,
-    InputTextareaModule
+    InputTextareaModule,
+    FileUploadModule
   ],
   providers: [
     MessageService, 
