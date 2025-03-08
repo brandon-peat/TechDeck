@@ -1,0 +1,35 @@
+.banner {
+    width: 35%;
+    margin: auto;
+    padding-bottom: calc(35% / 3);
+    position: relative;
+    background-image: linear-gradient(to right bottom, #be1ae1, #8a62ff, #4a85ff, #009eff, #04b1fb);
+    background-repeat: no-repeat;
+    background-size: cover;
+    border-radius: 2vw 2vw 0 0;
+}
+.info {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    position: absolute;
+    bottom: calc(-37.5% - 0.5vw);
+}
+.profile-picture {
+    width: calc(25% + 1vw);
+    padding-top: 25%;
+    margin: 0 2.5% 0 5%;
+    background-color: aqua;
+    border-radius: 50%;
+    border: 0.5vw solid white;
+    box-sizing: border-box;
+    background-image: url('..\\src\\assets\\profile-picture-placeholder.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.name {
+    margin: 10% 0 0 0;
+    width: 65%;
+    font-size: 1.5rem;
+    overflow-wrap: break-word;
+}

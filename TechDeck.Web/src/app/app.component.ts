@@ -1,4 +1,5 @@
 import { Component, Signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { SecurityService } from './security/security.service';
 import { UserAuthBase } from './security/user-auth-base';
@@ -17,13 +18,14 @@ export class AppComponent {
   ];
 
   public accountItems: MenuItem[] = [
+    { label: 'My Profile', icon: 'pi pi-user', command: () => this.router.navigateByUrl('/profile') },
     { label: 'Log out', icon: 'pi pi-sign-out', command: () => this.logOut() }
   ];
   
   public isLoggedIn: Signal<boolean>;
   public user: Signal<UserAuthBase | null>;
 
-  constructor(private readonly securityService: SecurityService) { 
+  constructor(private readonly securityService: SecurityService, private readonly router: Router) { 
     securityService.tryReloadSession();
 
     this.isLoggedIn = securityService.isLoggedIn;

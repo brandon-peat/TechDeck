@@ -1,0 +1,13 @@
+@if(isLoggedIn()) {
+    <div class="d-flex page w-100">
+        <div class="banner">
+            <div class="info">
+                <div class="profile-picture"> </div>
+        
+                <p class="name">
+                    {{ user()!.name }}
+                </p>
+            </div>
+        </div>
+    </div>
+}
