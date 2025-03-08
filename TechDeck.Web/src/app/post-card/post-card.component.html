@@ -22,25 +22,26 @@
         </p-galleria>
     }
     @if (displayType == 'timeline') {
-        <div class="container" (click)="showTimelineFullScreenGallery($event)">
-            <div class="row">
-                @if (images[0]) {
+        @if (images[0]) {
+            <div class="container" (click)="showTimelineFullScreenGallery($event)">
+                <div class="row">
                     <div class="col image"
                         [style.background-image]="'url(' + images[0].itemImageSrc + ')'">
                     </div>
-                }
-                @if (images[1]) {
-                    <div class="col image"
-                        [style.background-image]="'url(' + images[1].itemImageSrc + ')'">
-                    </div>
-                }
-                @if (images[2]) {
-                    <div class="col image"
-                        [style.background-image]="'url(' + images[2].itemImageSrc + ')'">
-                    </div>
-                }
+                    
+                    @if (images[1]) {
+                        <div class="col image"
+                            [style.background-image]="'url(' + images[1].itemImageSrc + ')'">
+                        </div>
+                    }
+                    @if (images[2]) {
+                        <div class="col image"
+                            [style.background-image]="'url(' + images[2].itemImageSrc + ')'">
+                        </div>
+                    }
+                </div>
             </div>
-        </div>
+        }
     }
     <p-galleria [value]="images" [(visible)]="fullScreen" [(activeIndex)]="mainGalleryActiveIndex"
         [numVisible]="images.length" [circular]="true" [fullScreen]="true" [showThumbnails]="false"
@@ -52,7 +53,7 @@
     </p-galleria>
 
     <div class="controls d-flex post" #overlayTarget>
-        <i class="post-action-icon like pi" [class.greyed-out-like-button]="this.post.authorName == this.user()!.name"
+        <i class="post-action-icon like pi" [class.greyed-out-like-button]="this.post.personId == this.user()!.userId"
             [class.pi-heart]="!liked" [class.pi-heart-fill]="liked" [class.red]="liked" (click)="likePost($event)"></i>
         <p class="counter" (click)="showUsersLiked($event); op.toggle($event, overlayTarget);"> {{ likeCount }} </p>
         <p-overlayPanel #op>

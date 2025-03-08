@@ -54,7 +54,7 @@ export class PostCardComponent {
   }
   public likePost(event: Event): void {
     event.stopPropagation();
-    if(this.post.authorName != this.user()!.name) {
+    if(this.post.personId != this.user()!.userId) {
       this.liked = !this.liked;
       this.postService.likePost(this.post.id).subscribe();
       if(this.liked) this.likeCount++;
