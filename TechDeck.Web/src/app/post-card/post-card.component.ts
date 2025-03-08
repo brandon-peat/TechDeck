@@ -15,6 +15,7 @@ import { PostService } from '../services/post.service';
 })
 export class PostCardComponent {
   @Input({required: true}) post!: Post;
+  @Input({required: true}) displayType!: string;
   public user: Signal<UserAuthBase | null>;
   public likeUsers: string[] = [];
   currentPage: PaginatedList<string> = {
@@ -30,6 +31,9 @@ export class PostCardComponent {
   likeCount: number = 0;
   replyCount: number = 0;
   icon: any;
+  images: any[] = [];
+  fullScreen: boolean = false;
+  mainGalleryActiveIndex: number = 0;
 
   public replyForm = new FormGroup({
       text: new FormControl('', [Validators.required, Validators.maxLength(280)]),
@@ -104,12 +108,20 @@ export class PostCardComponent {
     });
   }
 
+  public showTimelineFullScreenGallery(event: Event): void {
+    event.stopPropagation();
+    this.fullScreen = !this.fullScreen;
+  }
+
   ngOnChanges(): void {
     if(this.post.id != -1) {
       this.postService.haveILiked(this.post.id).subscribe(liked => this.liked = liked);
       this.postService.getLikes(this.post.id).subscribe(likes => this.likeCount = likes);
       this.postService.getReplies(this.post.id).subscribe(replies => this.replyCount = replies);
       this.post.replies = [];
+
+      for(var index in this.post.imageUrls)
+        this.images[index] = { itemImageSrc: 'https://localhost:7101/post/' + this.post.imageUrls[index] };
     }
   }
 }

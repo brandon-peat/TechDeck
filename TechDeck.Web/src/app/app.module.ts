@@ -15,6 +15,7 @@ import { Button, ButtonModule } from 'primeng/button';
 import { ChipModule } from 'primeng/chip';
 import { DropdownModule } from 'primeng/dropdown';
 import { FileUploadModule } from 'primeng/fileupload';
+import { GalleriaModule } from 'primeng/galleria';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
 import { InputTextModule } from 'primeng/inputtext';
@@ -31,6 +32,7 @@ import { HomeComponent } from './home/home.component';
 import { PostCardComponent } from './post-card/post-card.component';
 import { ReplyCardComponent } from './reply-card/reply-card.component';
 import { httpInterceptorProviders } from './security/interceptor-providers';
+import { SecurePipe } from './security/secure-pipe';
 import { FormFieldComponent } from './shared/form-validation/form-field.component';
 import { ShowErrorDirective } from './shared/form-validation/show-error.directive';
 import { TimelineComponent } from './timeline/timeline.component';
@@ -48,7 +50,8 @@ import { ViewPostComponent } from './view-post/view-post.component';
         ShowErrorDirective,
         FormFieldComponent,
         ViewPostComponent,
-        ReplyCardComponent
+        ReplyCardComponent,
+        SecurePipe
   ],
   imports: [
     BrowserModule,
@@ -71,7 +74,8 @@ import { ViewPostComponent } from './view-post/view-post.component';
     PasswordModule,
     ToastModule,
     InputTextareaModule,
-    FileUploadModule
+    FileUploadModule,
+    GalleriaModule
   ],
   providers: [
     MessageService, 

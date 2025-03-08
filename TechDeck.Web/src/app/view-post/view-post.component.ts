@@ -21,7 +21,8 @@ export class ViewPostComponent {
     dateCreated: new Date(),
     text: "",
     authorName: "",
-    replies: []
+    replies: [],
+    imageUrls: []
   };
   public currentPage: PaginatedList<Reply> = {
     items: [],

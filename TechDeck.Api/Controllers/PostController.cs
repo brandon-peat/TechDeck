@@ -25,6 +25,7 @@ namespace TechDeck.Api.Controllers
         }
 
         [HttpGet("{fileName}")]
+        [AllowAnonymous]
         public async Task<IActionResult> GetImage(string fileName, CancellationToken cancellationToken)
         {
             return File(await fileManager.DownloadFile("attachments", fileName, cancellationToken), "image/jpeg");

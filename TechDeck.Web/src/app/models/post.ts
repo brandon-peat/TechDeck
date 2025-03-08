@@ -7,4 +7,5 @@ export interface Post {
   text: string;
   authorName: string;
   replies: Reply[];
+  imageUrls: string[];
 }
