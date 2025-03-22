@@ -1,8 +1,8 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { UserAuthBase } from '../security/user-auth-base';
 import { Result } from '../models/result';
+import { UserAuthBase } from '../security/user-auth-base';
 
 @Injectable({
   providedIn: 'root'
@@ -28,5 +28,25 @@ export class AccountService {
       email,
       password
     });
+  }
+
+  public uploadProfilePicture(file: File): Observable<void> {
+    let fd = new FormData();
+    fd.append('file', file);
+    return this.http.post<void>('https://localhost:7101/account/profile-picture', fd);
+  }
+
+  public uploadBanner(file: File): Observable<void> {
+    let fd = new FormData();
+    fd.append('file', file);
+    return this.http.post<void>('https://localhost:7101/account/banner', fd);
+  }
+
+  public updateName(firstName: string, lastName: string): Observable<void> {
+    return this.http.post<void>('https://localhost:7101/account/name', {firstName, lastName});
+  }
+
+  public getName(userId: number): Observable<string> {
+    return this.http.get('https://localhost:7101/account/name/' + userId, { responseType: 'text' });
   }
 }

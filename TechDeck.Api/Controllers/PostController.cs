@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using TechDeck.Core.Files;
+using TechDeck.Core.Identity;
 using TechDeck.Core.Models;
 using TechDeck.Core.People;
 using TechDeck.Core.People.ViewModels;
@@ -11,7 +12,7 @@ namespace TechDeck.Api.Controllers
     [ApiController]
     [Authorize]
     [Route("post")]
-    public class PostController(IMediator mediator, IFileManager fileManager) : Controller
+    public class PostController(IMediator mediator, IFileManager fileManager, IAuthenticatedUserService authenticatedUserService) : Controller
     {
         [HttpPost("create-post")]
         public async Task<ResponseViewModel> CreatePost(

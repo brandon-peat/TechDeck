@@ -6,6 +6,17 @@ namespace TechDeck.Persistence.Files
 {
     internal class FileManager(BlobServiceClient client) : IFileManager
     {
+        public async Task<bool> CheckExists(
+            string containerName,
+            string fileName,
+            CancellationToken cancellationToken)
+        {
+            var container = client.GetBlobContainerClient(containerName);
+
+            var blobClient = container.GetBlobClient(fileName + ".jpeg");
+
+            return await blobClient.ExistsAsync(cancellationToken: cancellationToken);
+        }
         public async Task<Stream> DownloadFile(
             string containerName,
             string fileName,
@@ -30,7 +41,7 @@ namespace TechDeck.Persistence.Files
 
             await container.CreateIfNotExistsAsync(cancellationToken: cancellationToken);
 
-            var blobClient = container.GetBlobClient(fileName);
+            var blobClient = container.GetBlobClient(fileName + ".jpeg");
 
             await blobClient.UploadAsync(stream, overwrite: true, cancellationToken: cancellationToken);
 
