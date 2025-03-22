@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { PaginatedList } from '../models/paginated-list';
 import { Post } from '../models/post';
 import { PostService } from '../services/post.service';
@@ -10,7 +10,8 @@ const firstPage: number = 1;
   templateUrl: './timeline.component.html',
   styleUrl: './timeline.component.scss'
 })
-export class TimelineComponent {
+export class TimelineComponent implements OnInit {
+  @Input({required: true}) isProfile!: boolean;
   public posts: Post[] = [];
   public currentPage: PaginatedList<Post> = {
     items: [],
@@ -20,21 +21,32 @@ export class TimelineComponent {
     hasNextPage: true
   };
 
-  constructor(private readonly postService: PostService) {
+  constructor(private readonly postService: PostService) {}
+
+  ngOnInit(): void {
     this.nextActivityPage();
   }
 
   public nextActivityPage() {
-    this.postService.getActivityPaged(this.currentPage.pageNumber + 1, 10).subscribe(page => {
-        this.currentPage = page;
-        this.posts.push(...this.currentPage.items);
+    const api = this.isProfile 
+      ? this.postService.getProfilePostsPaged(this.currentPage.pageNumber + 1, 10)
+      : this.postService.getActivityPaged(this.currentPage.pageNumber + 1, 10);
+
+    api.subscribe(page => {
+      this.currentPage = page;
+      this.posts.push(...this.currentPage.items)
     });
   }
+
   public refreshActivity() {
     this.posts = [];
-    this.postService.getActivityPaged(firstPage, this.currentPage.pageNumber * 10).subscribe(page => {
+    const api = this.isProfile 
+      ? this.postService.getProfilePostsPaged(firstPage, this.currentPage.pageNumber * 10)
+      : this.postService.getActivityPaged(firstPage, this.currentPage.pageNumber * 10);
+
+    api.subscribe(page => {
       this.currentPage = page;
-      this.posts.push(...this.currentPage.items);
-  });
+      this.posts.push(...this.currentPage.items)
+    });
   }
 }

@@ -7,7 +7,11 @@ namespace TechDeck.Core.People
     {
         Task Create(Post post, CancellationToken cancellationToken);
 
-        Task<PaginatedList<PostViewModel>> GetActivityPaged(int pageNumber, int pageSize, CancellationToken cancellationToken);
+        Task<PaginatedList<PostViewModel>> GetActivityPaged(
+            int pageNumber,
+            int pageSize,
+            int? userId,
+            CancellationToken cancellationToken);
 
         Task<PostViewModel> GetPost(int postId, CancellationToken cancellationToken);
     }

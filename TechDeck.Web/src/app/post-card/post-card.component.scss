@@ -7,6 +7,20 @@
     cursor: pointer;
 }
 
+.profile-picture {
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    margin-right: 1rem;
+    margin-bottom: 0.5rem;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.content {
+    width: calc(100% - 5rem);
+}
+
 .post-card:hover {
     background-color: #ececec;
 }
@@ -24,6 +38,10 @@
 .date {
     font-size: 0.75rem;
     font-weight: bold;
+}
+
+.text {
+    word-break: break-word;
 }
 
 .controls {

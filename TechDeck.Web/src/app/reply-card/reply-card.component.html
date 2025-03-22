@@ -1,13 +1,17 @@
-<div class="reply-card">
-    <div class="top-row">
-        <div class="author">
-            {{ reply.authorName }}
+<div class="reply-card d-flex">
+    <div class="profile-picture" [style.backgroundImage]="profilePictureStyle"> </div>
+
+    <div class="content">    
+        <div class="top-row">
+            <div class="author">
+                {{ reply.authorName }}
+            </div>
+            <div class="date">
+                {{ reply.dateCreated | date: 'MMM d'}}
+            </div>
         </div>
-        <div class="date">
-            {{ reply.dateCreated | date: 'MMM d'}}
+        <div class="text">
+            {{ reply.text }}
         </div>
-    </div>
-    <div class="text">
-        {{ reply.text }}
     </div>
 </div>

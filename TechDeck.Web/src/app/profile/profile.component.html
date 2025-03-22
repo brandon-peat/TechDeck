@@ -19,6 +19,12 @@
                 <input class="name" [(value)]="nameInput" (blur)="onNameBlur($event)">
             </div>
         </div>
+
+        <div class="break"> </div>
+
+        <div class="timeline-container">
+            <timeline [isProfile]=true />
+        </div>
     </div>
 
     <div class="card flex justify-content-center">

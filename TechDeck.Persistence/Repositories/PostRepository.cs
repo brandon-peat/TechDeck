@@ -15,9 +15,15 @@ namespace TechDeck.Persistence.Repositories
             await db.SaveChangesAsync(cancellationToken);
         }
 
-        public async Task<PaginatedList<PostViewModel>> GetActivityPaged(int pageNumber, int pageSize, CancellationToken cancellationToken)
+        public async Task<PaginatedList<PostViewModel>> GetActivityPaged(
+            int pageNumber,
+            int pageSize,
+            int? userId,
+            CancellationToken cancellationToken)
         {
-            var posts = await db.Post
+            var query = db.Post.Where(p => userId == null || p.PersonId == userId);
+
+            var posts = await query
                 .OrderByDescending(Post => Post.DateCreated)
                 .Skip((pageNumber - 1) * pageSize)
                 .Take(pageSize)
@@ -33,7 +39,8 @@ namespace TechDeck.Persistence.Repositories
                 )
                 .ToListAsync(cancellationToken);
 
-            var count = await db.Post.CountAsync(cancellationToken);
+                
+            var count = await query.CountAsync(cancellationToken);
             var totalPages = (int) Math.Ceiling(count / (double) pageSize);
 
             return new PaginatedList<PostViewModel>(posts, pageNumber, totalPages);

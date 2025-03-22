@@ -6,6 +6,7 @@ import { PaginatedList } from '../models/paginated-list';
 import { Post } from '../models/post';
 import { SecurityService } from '../security/security.service';
 import { UserAuthBase } from '../security/user-auth-base';
+import { ImageLoaderService } from '../services/image-loader.service';
 import { PostService } from '../services/post.service';
 
 @Component({
@@ -18,6 +19,7 @@ export class PostCardComponent {
   @Input({required: true}) displayType!: string;
   public user: Signal<UserAuthBase | null>;
   public likeUsers: string[] = [];
+  public profilePictureStyle: any;
   currentPage: PaginatedList<string> = {
       items: [],
       pageNumber: 0,
@@ -43,7 +45,8 @@ export class PostCardComponent {
     private router: Router,
     private readonly securityService: SecurityService,
     private readonly messageService: MessageService,
-    private readonly postService: PostService
+    private readonly postService: PostService,
+    private readonly imageLoaderService: ImageLoaderService
   ) { 
     securityService.tryReloadSession();
     this.user = securityService.user;
@@ -123,5 +126,10 @@ export class PostCardComponent {
       for(var index in this.post.imageUrls)
         this.images[index] = { itemImageSrc: 'https://localhost:7101/post/' + this.post.imageUrls[index] };
     }
+  }
+
+  ngOnInit(): void {
+    this.imageLoaderService.loadProfilePicture(this.post.personId)
+      .then(style => this.profilePictureStyle = style);
   }
 }

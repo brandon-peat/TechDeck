@@ -12,7 +12,7 @@ namespace TechDeck.Api.Controllers
     [ApiController]
     [Authorize]
     [Route("post")]
-    public class PostController(IMediator mediator, IFileManager fileManager, IAuthenticatedUserService authenticatedUserService) : Controller
+    public class PostController(IMediator mediator, IFileManager fileManager) : Controller
     {
         [HttpPost("create-post")]
         public async Task<ResponseViewModel> CreatePost(
@@ -35,6 +35,12 @@ namespace TechDeck.Api.Controllers
         [HttpPost("activity")]
         public async Task<PaginatedList<PostViewModel>> GetActivityPagedQuery(GetActivityPagedQuery query, CancellationToken cancellationToken)
             => await mediator.Send(query, cancellationToken);
+
+        [HttpPost("my-posts")]
+        public async Task<PaginatedList<PostViewModel>> GetUserPostsPagedQuery(GetUserPostsPagedQuery query, CancellationToken cancellationToken)
+        {
+            return await mediator.Send(query, cancellationToken);
+        }
 
         [HttpGet("post/{postId}")]
         public async Task<PostViewModel> GetPostQuery(int postId, CancellationToken cancellationToken)

@@ -26,6 +26,10 @@ export class PostService {
     return this.http.post<PaginatedList<Post>>('https://localhost:7101/post/activity', {pageNumber, pageSize});
   }
 
+  public getProfilePostsPaged(pageNumber: number, pageSize: number): Observable<PaginatedList<Post>> {
+    return this.http.post<PaginatedList<Post>>('https://localhost:7101/post/my-posts', {pageNumber, pageSize});
+  }
+
   public getPost(postId: number): Observable<Post> {
     return this.http.get<Post>('https://localhost:7101/post/post/' + postId);
   }

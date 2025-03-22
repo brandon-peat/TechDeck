@@ -3,6 +3,7 @@ import { MessageService } from 'primeng/api';
 import { SecurityService } from '../security/security.service';
 import { UserAuthBase } from '../security/user-auth-base';
 import { AccountService } from '../services/account.service';
+import { ImageLoaderService } from '../services/image-loader.service';
 
 @Component({
   selector: 'profile',
@@ -20,7 +21,8 @@ export class ProfileComponent {
   constructor(
     private readonly securityService: SecurityService,
     private readonly accountService: AccountService,
-    private readonly messageService: MessageService,)
+    private readonly messageService: MessageService,
+    private readonly imageLoaderService: ImageLoaderService)
   {
     this.isLoggedIn = this.securityService.isLoggedIn;
     this.user = this.securityService.user;
@@ -32,41 +34,19 @@ export class ProfileComponent {
   public bannerInput(event: Event): void {
     const target = event.target as HTMLInputElement;
     this.accountService.uploadBanner(target.files![0]).subscribe(() => {
-      const timestamp = new Date().getTime();
-      const imageUrl = `https://localhost:7101/account/banner/${this.user()!.userId}?t=${timestamp}`;
-      this.checkBanner(imageUrl);
+      const imageUrl = this.imageLoaderService.getTimestampedUrl(`https://localhost:7101/account/banner/${this.user()!.userId}`);
+      this.imageLoaderService.loadImageWithFallback(imageUrl, "linear-gradient(to right bottom, #be1ae1, #8a62ff, #4a85ff, #009eff)")
+        .then(style => this.bannerStyle = style);
     });
   }
 
   public profilePictureInput(event: Event): void {
     const target = event.target as HTMLInputElement;
     this.accountService.uploadProfilePicture(target.files![0]).subscribe(() => {
-      const timestamp = new Date().getTime();
-      const imageUrl = `https://localhost:7101/account/profile-picture/${this.user()!.userId}?t=${timestamp}`;
-      this.checkProfilePicture(imageUrl);
+      const imageUrl = this.imageLoaderService.getTimestampedUrl(`https://localhost:7101/account/profile-picture/${this.user()!.userId}`);
+      this.imageLoaderService.loadProfilePicture(this.user()!.userId)
+        .then(style => this.profilePictureStyle = style);
     });
-  }
-  
-  private checkBanner(url: string): void {
-    const img = new Image();
-    img.onload = () => {
-      this.bannerStyle = `url(${url})`;
-    };
-    img.onerror = () => {
-      this.bannerStyle = "linear-gradient(to right bottom, #be1ae1, #8a62ff, #4a85ff, #009eff)";
-    };
-    img.src = url;
-  }
-
-  private checkProfilePicture(url: string): void {
-    const img = new Image();
-    img.onload = () => {
-      this.profilePictureStyle = `url(${url})`;
-    };
-    img.onerror = () => {
-      this.profilePictureStyle = "url(../../assets/profile-picture-placeholder.jpg)";
-    };
-    img.src = url;
   }
 
   public onNameBlur(event: Event) {
@@ -99,10 +79,10 @@ export class ProfileComponent {
   }
 
   public ngOnInit(): void {
-    const timestamp = new Date().getTime();
-    const profilePictureUrl = `https://localhost:7101/account/profile-picture/${this.user()!.userId}?t=${timestamp}`;
-    this.checkProfilePicture(profilePictureUrl);
-    const bannerUrl = `https://localhost:7101/account/banner/${this.user()!.userId}?t=${timestamp}`;
-    this.checkBanner(bannerUrl);
+    const userId = this.user()!.userId;
+    this.imageLoaderService.loadProfilePicture(userId)
+      .then(style => this.profilePictureStyle = style);
+    this.imageLoaderService.loadBanner(userId)
+      .then(style => this.bannerStyle = style);
   }
 }

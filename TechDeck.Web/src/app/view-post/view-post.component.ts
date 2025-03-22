@@ -15,15 +15,7 @@ const pageSize: number = 10;
 export class ViewPostComponent {
   private readonly route = inject(ActivatedRoute);
   public postId: number | null = 0;
-  public post: Post = {
-    id: -1,
-    personId: 0,
-    dateCreated: new Date(),
-    text: "",
-    authorName: "",
-    replies: [],
-    imageUrls: []
-  };
+  public post: Post | null = null;
   public currentPage: PaginatedList<Reply> = {
     items: [],
     pageNumber: 0,
@@ -37,7 +29,7 @@ export class ViewPostComponent {
   public repliesNextPage() {
     this.postService.getRepliesPaged(this.postId!, this.currentPage.pageNumber + 1, pageSize).subscribe(page => {
       this.currentPage = page;
-      this.post.replies.push(...this.currentPage.items);
+      this.post!.replies.push(...this.currentPage.items);
     });
   }
 

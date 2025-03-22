@@ -11,7 +11,7 @@ namespace TechDeck.Core.People
         {
             var pageSize = request.PageSize > 1000 ? 1000 : request.PageSize;
 
-            return await repository.GetActivityPaged(request.PageNumber, pageSize, cancellationToken);
+            return await repository.GetActivityPaged(request.PageNumber, pageSize, null, cancellationToken);
         }
     }
 }
