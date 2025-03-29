@@ -87,8 +87,11 @@
     pointer-events: auto;
     border: 2px solid white;
   }
-  .name:hover, .name:focus {
-    border: 2px solid gray;
-    border-radius: 5px;
-    transition: 0.3s;
+  .name.editable {
+    :hover,
+    :focus {
+      border: 2px solid gray;
+      border-radius: 5px;
+      transition: 0.3s;
+    }
   }

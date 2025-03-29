@@ -36,11 +36,9 @@ namespace TechDeck.Api.Controllers
         public async Task<PaginatedList<PostViewModel>> GetActivityPagedQuery(GetActivityPagedQuery query, CancellationToken cancellationToken)
             => await mediator.Send(query, cancellationToken);
 
-        [HttpPost("my-posts")]
+        [HttpPost("profile-posts")]
         public async Task<PaginatedList<PostViewModel>> GetUserPostsPagedQuery(GetUserPostsPagedQuery query, CancellationToken cancellationToken)
-        {
-            return await mediator.Send(query, cancellationToken);
-        }
+            => await mediator.Send(query, cancellationToken);
 
         [HttpGet("post/{postId}")]
         public async Task<PostViewModel> GetPostQuery(int postId, CancellationToken cancellationToken)

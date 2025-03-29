@@ -55,6 +55,14 @@ export class PostCardComponent {
   public viewPost(): void {
     this.router.navigateByUrl('/view-post/' + this.post.id);
   }
+  public viewProfile(event: Event): void {
+    event?.stopPropagation();
+    this.router.navigateByUrl(
+      this.post.personId == this.user()!.userId
+        ? '/my-profile'
+        : '/profile/' + this.post.personId
+    );
+  }
   public likePost(event: Event): void {
     event.stopPropagation();
     if(this.post.personId != this.user()!.userId) {

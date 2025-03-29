@@ -16,6 +16,11 @@
     background-repeat: no-repeat;
     background-size: cover;
 }
+.profile-picture:hover {
+    box-shadow: 0px 2px 3px 0px #00000078;
+    transform: scale(1.03);
+    transition: 0.2s;
+}
 
 .content {
     width: calc(100% - 5rem);
@@ -33,6 +38,10 @@
 
 .author {
     font-weight: bold;
+}
+.author:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 
 .date {

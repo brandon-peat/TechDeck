@@ -1,4 +1,6 @@
-import { Component, Signal } from '@angular/core';
+import { Component, inject, Signal } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { ActivatedRoute } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { SecurityService } from '../security/security.service';
 import { UserAuthBase } from '../security/user-auth-base';
@@ -11,24 +13,32 @@ import { ImageLoaderService } from '../services/image-loader.service';
   styleUrls: ['./profile.component.scss']
 })
 export class ProfileComponent {
+  public readonly route = inject(ActivatedRoute);
   public isLoggedIn: Signal<boolean>;
   public user: Signal<UserAuthBase | null>;
   public file?: File;
   public profilePictureStyle: any;
   public bannerStyle: any;
   public nameInput: string = '';
+  public isMyProfile: boolean = false;
+  public personId: number;
 
   constructor(
     private readonly securityService: SecurityService,
     private readonly accountService: AccountService,
     private readonly messageService: MessageService,
-    private readonly imageLoaderService: ImageLoaderService)
+    private readonly imageLoaderService: ImageLoaderService,
+    private readonly titleService: Title)
   {
     this.isLoggedIn = this.securityService.isLoggedIn;
     this.user = this.securityService.user;
-    accountService.getName(this.user()!.userId).subscribe(name => {
+
+    this.personId = Number(this.route.snapshot.paramMap.get('id') ?? this.user()!.userId);
+    accountService.getName(this.personId).subscribe(name => {
       this.nameInput = name;
     });
+
+    this.isMyProfile = (this.route.snapshot.paramMap.get('id') == null);
   }
 
   public bannerInput(event: Event): void {
@@ -79,10 +89,15 @@ export class ProfileComponent {
   }
 
   public ngOnInit(): void {
-    const userId = this.user()!.userId;
-    this.imageLoaderService.loadProfilePicture(userId)
+    if(!this.isMyProfile) {
+      this.accountService.getName(this.personId).subscribe(name => {
+        this.titleService.setTitle(`${name}'s Profile - Tech Deck`);
+      });
+    }
+
+    this.imageLoaderService.loadProfilePicture(this.personId)
       .then(style => this.profilePictureStyle = style);
-    this.imageLoaderService.loadBanner(userId)
+    this.imageLoaderService.loadBanner(this.personId)
       .then(style => this.bannerStyle = style);
   }
 }

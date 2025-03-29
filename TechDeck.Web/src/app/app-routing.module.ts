@@ -11,7 +11,8 @@ const routes: Routes = [
   { path: 'log-in', component: LogInComponent, title: "Log In - Techdeck" },
   { path: 'sign-up', component: SignUpComponent, title: "Sign Up - Techdeck" },
   { path: 'view-post/:id', component: ViewPostComponent, title: "Post View - Techdeck"},
-  { path: 'profile', component: ProfileComponent, title: "My Profile - Techdeck" },
+  { path: 'profile/:id', component: ProfileComponent, title: "Profile - Techdeck" },
+  { path: 'my-profile', component: ProfileComponent, title: "My Profile - Techdeck" },
 
   { path: '', redirectTo: '/sign-up', pathMatch: 'full'},
 

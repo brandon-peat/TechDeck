@@ -1,9 +1,9 @@
 <div class="post-card d-flex" (click)="viewPost()">
-    <div class="profile-picture" [style.backgroundImage]="profilePictureStyle"> </div>
+    <div class="profile-picture" [style.backgroundImage]="profilePictureStyle" (click)="viewProfile($event)"> </div>
 
     <div class="content">
         <div class="top-row">
-            <div class="author">
+            <div class="author" (click)="viewProfile($event)">
                 {{ post.authorName }}
             </div>
             <div class="date">

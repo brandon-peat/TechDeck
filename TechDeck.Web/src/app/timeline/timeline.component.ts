@@ -12,6 +12,7 @@ const firstPage: number = 1;
 })
 export class TimelineComponent implements OnInit {
   @Input({required: true}) isProfile!: boolean;
+  @Input({required: false}) userId!: number;
   public posts: Post[] = [];
   public currentPage: PaginatedList<Post> = {
     items: [],
@@ -29,7 +30,7 @@ export class TimelineComponent implements OnInit {
 
   public nextActivityPage() {
     const api = this.isProfile 
-      ? this.postService.getProfilePostsPaged(this.currentPage.pageNumber + 1, 10)
+      ? this.postService.getProfilePostsPaged(this.currentPage.pageNumber + 1, 10, this.userId)
       : this.postService.getActivityPaged(this.currentPage.pageNumber + 1, 10);
 
     api.subscribe(page => {
@@ -41,7 +42,7 @@ export class TimelineComponent implements OnInit {
   public refreshActivity() {
     this.posts = [];
     const api = this.isProfile 
-      ? this.postService.getProfilePostsPaged(firstPage, this.currentPage.pageNumber * 10)
+      ? this.postService.getProfilePostsPaged(firstPage, this.currentPage.pageNumber * 10, this.userId)
       : this.postService.getActivityPaged(firstPage, this.currentPage.pageNumber * 10);
 
     api.subscribe(page => {

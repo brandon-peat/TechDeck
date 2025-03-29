@@ -18,7 +18,7 @@ export class AppComponent {
   ];
 
   public accountItems: MenuItem[] = [
-    { label: 'My Profile', icon: 'pi pi-user', command: () => this.router.navigateByUrl('/profile') },
+    { label: 'My Profile', icon: 'pi pi-user', command: () => this.router.navigateByUrl('/my-profile') },
     { label: 'Log out', icon: 'pi pi-sign-out', command: () => this.logOut() }
   ];
   

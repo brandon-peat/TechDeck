@@ -26,8 +26,8 @@ export class PostService {
     return this.http.post<PaginatedList<Post>>('https://localhost:7101/post/activity', {pageNumber, pageSize});
   }
 
-  public getProfilePostsPaged(pageNumber: number, pageSize: number): Observable<PaginatedList<Post>> {
-    return this.http.post<PaginatedList<Post>>('https://localhost:7101/post/my-posts', {pageNumber, pageSize});
+  public getProfilePostsPaged(pageNumber: number, pageSize: number, personId: number): Observable<PaginatedList<Post>> {
+    return this.http.post<PaginatedList<Post>>('https://localhost:7101/post/profile-posts', {pageNumber, pageSize, personId});
   }
 
   public getPost(postId: number): Observable<Post> {
@@ -47,7 +47,7 @@ export class PostService {
   }
 
   public getLikeUsersPaged(pageNumber: number, pageSize: number, postId: number): Observable<PaginatedList<string>> {
-    return this.http.post<PaginatedList<string>>('https://localhost:7101/post/get-like-users', {pageNumber, pageSize, postId});
+    return this.http.post<PaginatedList<string>>('https://localhost:7101/post/get-like-users', { pageNumber, pageSize, postId });
   }
 
   public createReply(postId: number, text: string): Observable<void> {
@@ -55,7 +55,7 @@ export class PostService {
   }
 
   public getRepliesPaged(postId: number, pageNumber: number, pageSize: number): Observable<PaginatedList<Reply>> {
-    return this.http.post<PaginatedList<Reply>>('https://localhost:7101/post/replies/query', {postId, pageNumber, pageSize});
+    return this.http.post<PaginatedList<Reply>>('https://localhost:7101/post/replies/query', { postId, pageNumber, pageSize });
   }
 
   public getReplies(postId: number): Observable<number> {

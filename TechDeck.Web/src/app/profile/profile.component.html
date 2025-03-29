@@ -2,28 +2,40 @@
     <div class="d-flex page w-100">
         <div class="header-container">
             <div class="banner" [style.backgroundImage]="bannerStyle">
-                <div class="banner-overlay overlay" (click)="bannerFileInput.click()">
-                    <i class="pi pi-upload"></i>
-                    <input type="file" #bannerFileInput (change)="bannerInput($event)" />
-                </div>
+                @if (isMyProfile) {
+                    <div class="banner-overlay overlay" (click)="bannerFileInput.click()">
+                        <i class="pi pi-upload"></i>
+                        <input type="file" #bannerFileInput (change)="bannerInput($event)" />
+                    </div>
+                }
             </div>
-            
             <div class="info">
                 <div class="profile-picture" [style.backgroundImage]="profilePictureStyle">
-                    <div class="profile-picture-overlay overlay" (click)="profilePictureFileInput.click()">
-                        <i class="pi pi-upload"></i>
-                        <input type="file" #profilePictureFileInput (change)="profilePictureInput($event)" />
-                    </div>
+                    @if (isMyProfile) {
+                        <div class="profile-picture-overlay overlay" (click)="profilePictureFileInput.click()">
+                            <i class="pi pi-upload"></i>
+                            <input type="file" #profilePictureFileInput (change)="profilePictureInput($event)" />
+                        </div>
+                    }
                 </div>
                 
-                <input class="name" [(value)]="nameInput" (blur)="onNameBlur($event)">
+                @if (isMyProfile) {
+                    <input class="name editable"
+                        [(value)]="nameInput"
+                        (blur)="onNameBlur($event)">
+                }
+                @else {
+                    <p class="name">
+                        {{ nameInput }}
+                    </p>
+                }
             </div>
         </div>
 
         <div class="break"> </div>
 
         <div class="timeline-container">
-            <timeline [isProfile]=true />
+            <timeline [isProfile]=true [userId]="personId" />
         </div>
     </div>
 
