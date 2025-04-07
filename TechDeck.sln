@@ -13,6 +13,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TechDeck.Persistence", "Tec
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechDeck.Identity", "TechDeck.Identity\TechDeck.Identity.csproj", "{48E2971C-7FA3-4B9A-B5A6-A39FB4484840}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{9D2C5499-0046-45A9-B6A6-C61796214C17}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TechDeck.UnitTests", "TechDeck.UnitTests\TechDeck.UnitTests.csproj", "{7F8683AC-0703-45B5-A920-1CBC51C1CCCD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,9 +45,16 @@ Global
 		{48E2971C-7FA3-4B9A-B5A6-A39FB4484840}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{48E2971C-7FA3-4B9A-B5A6-A39FB4484840}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{48E2971C-7FA3-4B9A-B5A6-A39FB4484840}.Release|Any CPU.Build.0 = Release|Any CPU
+		{7F8683AC-0703-45B5-A920-1CBC51C1CCCD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7F8683AC-0703-45B5-A920-1CBC51C1CCCD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7F8683AC-0703-45B5-A920-1CBC51C1CCCD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7F8683AC-0703-45B5-A920-1CBC51C1CCCD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7F8683AC-0703-45B5-A920-1CBC51C1CCCD} = {9D2C5499-0046-45A9-B6A6-C61796214C17}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {CCE78520-7819-4FDE-8949-1144B9E6AFFE}

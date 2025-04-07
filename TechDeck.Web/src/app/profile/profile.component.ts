@@ -1,18 +1,21 @@
-import { Component, inject, Signal } from '@angular/core';
+import { Component, inject, OnInit, Signal, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { SecurityService } from '../security/security.service';
 import { UserAuthBase } from '../security/user-auth-base';
 import { AccountService } from '../services/account.service';
 import { ImageLoaderService } from '../services/image-loader.service';
+import { TimelineComponent } from '../timeline/timeline.component';
 
 @Component({
   selector: 'profile',
   templateUrl: './profile.component.html',
   styleUrls: ['./profile.component.scss']
 })
-export class ProfileComponent {
+export class ProfileComponent implements OnInit {
+  @ViewChild(TimelineComponent) timeline!: TimelineComponent;
+
   public readonly route = inject(ActivatedRoute);
   public isLoggedIn: Signal<boolean>;
   public user: Signal<UserAuthBase | null>;
@@ -21,24 +24,49 @@ export class ProfileComponent {
   public bannerStyle: any;
   public nameInput: string = '';
   public isMyProfile: boolean = false;
-  public personId: number;
+  public personId: number = 0;
 
   constructor(
     private readonly securityService: SecurityService,
     private readonly accountService: AccountService,
     private readonly messageService: MessageService,
     private readonly imageLoaderService: ImageLoaderService,
-    private readonly titleService: Title)
-  {
+    private readonly titleService: Title
+  ) {
     this.isLoggedIn = this.securityService.isLoggedIn;
     this.user = this.securityService.user;
+  }
 
-    this.personId = Number(this.route.snapshot.paramMap.get('id') ?? this.user()!.userId);
-    accountService.getName(this.personId).subscribe(name => {
+  ngOnInit(): void {
+    this.ReloadWhenNavigatingToDifferentProfile();
+  }
+
+  private ReloadWhenNavigatingToDifferentProfile() {
+    this.route.paramMap.subscribe((params: ParamMap) => {
+      this.personId = Number(params.get('id') ?? this.user()!.userId);
+      this.isMyProfile = !params.has('id');
+
+      this.loadProfileData();
+
+      if (this.timeline) {
+        this.timeline.userId = this.personId;
+        this.timeline.refreshActivity();
+      }
+    });
+  }
+
+  private loadProfileData(): void {
+    this.accountService.getName(this.personId).subscribe(name => {
+      if (!this.isMyProfile) {
+        this.titleService.setTitle(`${name}'s Profile - Tech Deck`);
+      }
       this.nameInput = name;
     });
 
-    this.isMyProfile = (this.route.snapshot.paramMap.get('id') == null);
+    this.imageLoaderService.loadProfilePicture(this.personId)
+      .then(style => this.profilePictureStyle = style);
+    this.imageLoaderService.loadBanner(this.personId)
+      .then(style => this.bannerStyle = style);
   }
 
   public bannerInput(event: Event): void {
@@ -59,7 +87,7 @@ export class ProfileComponent {
     });
   }
 
-  public onNameBlur(event: Event) {
+  public onNameBlur(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     let newName = inputElement.value.trim();
 
@@ -74,30 +102,15 @@ export class ProfileComponent {
     let firstName = newName.split(" ")[0];
     let lastName = newName.split(" ")[1];
 
-    if(firstName.length > 25) {
+    if (firstName.length > 25) {
       this.messageService.add({ severity: 'error', summary: 'Failed', detail: 'Your first name must be less than 25 characters.' });
-    }
-    else if(lastName.length > 25) {
+    } else if (lastName.length > 25) {
       this.messageService.add({ severity: 'error', summary: 'Failed', detail: 'Your last name must be less than 25 characters.' });
-    }
-    else {
+    } else {
       this.accountService.updateName(firstName, lastName).subscribe(() => {
         this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Your name was updated successfully.' });
         this.securityService.updateName(newName);
       });
     }
-  }
-
-  public ngOnInit(): void {
-    if(!this.isMyProfile) {
-      this.accountService.getName(this.personId).subscribe(name => {
-        this.titleService.setTitle(`${name}'s Profile - Tech Deck`);
-      });
-    }
-
-    this.imageLoaderService.loadProfilePicture(this.personId)
-      .then(style => this.profilePictureStyle = style);
-    this.imageLoaderService.loadBanner(this.personId)
-      .then(style => this.bannerStyle = style);
   }
 }

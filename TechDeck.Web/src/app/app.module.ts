@@ -15,6 +15,7 @@ import { Button, ButtonModule } from 'primeng/button';
 import { ChipModule } from 'primeng/chip';
 import { DropdownModule } from 'primeng/dropdown';
 import { FileUploadModule } from 'primeng/fileupload';
+import { FloatLabelModule } from 'primeng/floatlabel';
 import { GalleriaModule } from 'primeng/galleria';
 import { InputGroupModule } from 'primeng/inputgroup';
 import { InputGroupAddonModule } from 'primeng/inputgroupaddon';
@@ -30,6 +31,7 @@ import { ToastModule } from 'primeng/toast';
 import { MessageService } from 'primeng/api';
 import { HomeComponent } from './home/home.component';
 import { PostCardComponent } from './post-card/post-card.component';
+import { ProfileComponent } from './profile/profile.component';
 import { ReplyCardComponent } from './reply-card/reply-card.component';
 import { httpInterceptorProviders } from './security/interceptor-providers';
 import { SecurePipe } from './security/secure-pipe';
@@ -37,7 +39,8 @@ import { FormFieldComponent } from './shared/form-validation/form-field.componen
 import { ShowErrorDirective } from './shared/form-validation/show-error.directive';
 import { TimelineComponent } from './timeline/timeline.component';
 import { ViewPostComponent } from './view-post/view-post.component';
-import { ProfileComponent } from './profile/profile.component';
+import { PersonSearchResultCardComponent } from './person-search-result-card/person-search-result-card.component';
+import { PersonSearchBarComponent } from './person-search-bar/person-search-bar.component';
 
 
 @NgModule({
@@ -53,7 +56,9 @@ import { ProfileComponent } from './profile/profile.component';
         ViewPostComponent,
         ReplyCardComponent,
         SecurePipe,
-        ProfileComponent
+        ProfileComponent,
+        PersonSearchResultCardComponent,
+        PersonSearchBarComponent
   ],
   imports: [
     BrowserModule,
@@ -77,7 +82,8 @@ import { ProfileComponent } from './profile/profile.component';
     ToastModule,
     InputTextareaModule,
     FileUploadModule,
-    GalleriaModule
+    GalleriaModule,
+    FloatLabelModule
   ],
   providers: [
     MessageService, 

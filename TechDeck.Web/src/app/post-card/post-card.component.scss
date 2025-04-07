@@ -7,6 +7,10 @@
     cursor: pointer;
 }
 
+.post-card:hover {
+    background-color: #ececec;
+}
+
 .profile-picture {
     width: 4rem;
     height: 4rem;
@@ -24,10 +28,6 @@
 
 .content {
     width: calc(100% - 5rem);
-}
-
-.post-card:hover {
-    background-color: #ececec;
 }
 
 .top-row {

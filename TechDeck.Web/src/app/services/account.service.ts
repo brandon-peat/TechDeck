@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
+import { PaginatedList } from '../models/paginated-list';
 import { Result } from '../models/result';
+import { SearchPerson } from '../models/search-person';
 import { UserAuthBase } from '../security/user-auth-base';
 
 @Injectable({
@@ -48,5 +50,11 @@ export class AccountService {
 
   public getName(userId: number): Observable<string> {
     return this.http.get('https://localhost:7101/account/name/' + userId, { responseType: 'text' });
+  }
+
+  public searchPeoplePaged(pageNumber: number, pageSize: number, searchTerm: string)
+    : Observable<PaginatedList<SearchPerson>> {
+    return this.http.post<PaginatedList<SearchPerson>>('https://localhost:7101/account/search', 
+      {pageNumber, pageSize, searchTerm});
   }
 }

@@ -1,0 +1,24 @@
+@if(isLoggedIn()) {
+    <input type="text" pInputText #inputText
+      placeholder="Search People..."
+      (input)="onSearchInput($event)"
+      (focus)="op.show($event)"
+      (blur)="op.hide()"
+      class="search-bar"/>
+
+    <p-overlayPanel #op>
+      <div class="flex flex-column search-overlay">
+        @for (person of searchedPeople; track $index) {
+          <person-search-result-card [person]="searchedPeople[$index]" />
+        }
+        
+        @if (currentPage.items.length == 0) {
+          <p class="no-results"> No results </p>
+        }
+        @else if (currentPage.hasNextPage) {
+          <p class="show-more-people-button" (mousedown)="searchNextPage($event, inputText.value)"> Show More... </p>
+        }
+
+      </div>
+    </p-overlayPanel>
+  }

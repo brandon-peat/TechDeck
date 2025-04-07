@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TechDeck.Core.People;
+using TechDeck.Core.People.ViewModels;
 
 namespace TechDeck.Persistence.Repositories
 {
@@ -36,6 +37,33 @@ namespace TechDeck.Persistence.Repositories
                 .SingleOrDefaultAsync(cancellationToken);
 
             return fullName ?? string.Empty;
+        }
+
+        public async Task<PaginatedList<SearchedPersonViewModel>> SearchPeoplePaged(
+            int pageNumber,
+            int pageSize,
+            string searchTerm,
+            CancellationToken cancellationToken)
+        {
+            var query = db.People
+                .Where(person =>
+                    person.Forename.Contains(searchTerm) ||
+                    person.Surname.Contains(searchTerm) ||
+                    (person.Forename + " " + person.Surname).Contains(searchTerm));
+
+            var totalItems = await query.CountAsync(cancellationToken);
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            var items = await query
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .Select(person => new SearchedPersonViewModel(
+                    person.Id,
+                    person.Forename,
+                    person.Surname))
+                .ToListAsync(cancellationToken);
+
+            return new PaginatedList<SearchedPersonViewModel>(items, pageNumber, totalPages);
         }
     }
 }

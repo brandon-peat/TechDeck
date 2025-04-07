@@ -79,5 +79,9 @@ namespace TechDeck.Api.Controllers
                 
             return Ok(response);
         }
+
+        [HttpPost("search")]
+        public async Task<PaginatedList<SearchedPersonViewModel>> Search(SearchPeoplePagedQuery query, CancellationToken cancellationToken)
+            => await mediator.Send(query, cancellationToken);
     }
 }

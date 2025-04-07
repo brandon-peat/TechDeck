@@ -1,0 +1,17 @@
+.search-bar {
+    width: 25vw;
+    margin-left: calc(15vw - 6rem);
+}
+.search-overlay {
+    width: calc(25vw - 2.5rem);
+    max-height: 60vh;
+    overflow-y: auto;
+}
+
+.show-more-people-button {
+    margin: 1rem 0 0 0;
+    cursor: pointer;
+}
+.no-results {
+    margin: 0;
+}

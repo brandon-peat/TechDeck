@@ -1,6 +1,8 @@
 <p-menubar [model]="items">
-  <ng-template pTemplate="start">
+  <ng-template pTemplate="start" style="min-width: 100%;">
     <p-chip styleClass="pointer" label="TechDeck" routerLink="/home"> </p-chip>
+
+    <person-search-bar />
   </ng-template>
 
   <ng-template pTemplate="item" let-item>

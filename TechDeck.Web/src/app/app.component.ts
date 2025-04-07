@@ -25,7 +25,9 @@ export class AppComponent {
   public isLoggedIn: Signal<boolean>;
   public user: Signal<UserAuthBase | null>;
 
-  constructor(private readonly securityService: SecurityService, private readonly router: Router) { 
+  constructor(
+    private readonly securityService: SecurityService,
+    private readonly router: Router) { 
     securityService.tryReloadSession();
 
     this.isLoggedIn = securityService.isLoggedIn;
