@@ -2,7 +2,9 @@
   <ng-template pTemplate="start" style="min-width: 100%;">
     <p-chip styleClass="pointer" label="TechDeck" routerLink="/home"> </p-chip>
 
-    <person-search-bar />
+    <div class="search-bar-container">
+      <person-search-bar />
+    </div>
   </ng-template>
 
   <ng-template pTemplate="item" let-item>
@@ -29,4 +31,16 @@
 
 <p-menu #accountMenu [model]="accountItems" [popup]="true" />
 
-<router-outlet />
+<div class="container-fluid p-0">
+  <div class="row g-0">
+    <div [class.col-md-8]="showMessagesArea" [class.col-md-12]="!showMessagesArea">
+      <router-outlet />
+    </div>
+
+    @if (showMessagesArea && isLoggedIn()) {
+      <div class="col-md-4">
+        <messages-area />
+      </div>
+    }
+  </div>
+</div>

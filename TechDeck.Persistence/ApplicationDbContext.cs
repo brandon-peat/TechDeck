@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using System.Reflection;
 using TechDeck.Core.People;
+using TechDeck.Core.People.Messaging;
 
 namespace TechDeck.Persistence
 {
@@ -14,10 +15,18 @@ namespace TechDeck.Persistence
         public virtual required DbSet<Like> Like { get; set; }
         public virtual required DbSet<Reply> Reply { get; set; }
         public virtual required DbSet<Attachment> Attachment { get; set; }
-
+        public virtual required DbSet<Message> Message { get; set; }
+        public IQueryable<Conversation> GetConversations(int currentPersonId)
+        {
+            return FromExpression(() => GetConversations(currentPersonId));
+        }
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            builder.HasDbFunction(() => GetConversations(default))
+                   .HasName("fn_GetConversations")
+                   .HasSchema("Person");
+
             builder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
     }

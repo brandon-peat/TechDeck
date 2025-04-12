@@ -19,11 +19,13 @@ export class AppComponent {
 
   public accountItems: MenuItem[] = [
     { label: 'My Profile', icon: 'pi pi-user', command: () => this.router.navigateByUrl('/my-profile') },
+    { label: 'Messages', icon: 'pi pi-comment', command: () => this.showMessagesArea = !this.showMessagesArea },
     { label: 'Log out', icon: 'pi pi-sign-out', command: () => this.logOut() }
   ];
   
   public isLoggedIn: Signal<boolean>;
   public user: Signal<UserAuthBase | null>;
+  public showMessagesArea = false;
 
   constructor(
     private readonly securityService: SecurityService,

@@ -1,0 +1,43 @@
+import { Component, Signal } from '@angular/core';
+import { Message } from 'primeng/api';
+import { Conversation } from '../models/conversation';
+import { PaginatedList } from '../models/paginated-list';
+import { SecurityService } from '../security/security.service';
+import { UserAuthBase } from '../security/user-auth-base';
+import { MessageService } from '../services/message.service';
+
+@Component({
+  selector: 'messages-area',
+  templateUrl: './messages-area.component.html',
+  styleUrl: './messages-area.component.scss'
+})
+export class MessagesAreaComponent {
+  public conversation: Message[] = [];
+  public conversations: Conversation[] = [];
+  public currentPage: PaginatedList<Conversation> = PaginatedList.default();
+
+  public showSearchBar: boolean = false;
+  public showConversation: boolean = false;
+
+  public user: Signal<UserAuthBase | null>;
+  
+  constructor(
+    securityService: SecurityService,
+    private readonly messageService: MessageService) 
+  {
+    securityService.tryReloadSession();
+    this.user = securityService.user;
+  }
+
+  ngOnInit(): void {
+    this.nextActivityPage();
+  }
+
+  public nextActivityPage() {
+    this.messageService.getConversationsPaged(this.currentPage.pageNumber + 1, 10)
+      .subscribe(page => {
+        this.currentPage = page;
+        this.conversations.push(...this.currentPage.items)
+      });
+  }
+}

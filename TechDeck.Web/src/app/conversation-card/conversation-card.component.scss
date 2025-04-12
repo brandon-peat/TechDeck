@@ -1,0 +1,43 @@
+.container {
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.25rem;
+}
+.container:hover {
+    background-color: #ececec;
+    border-radius: 1rem;
+    transition: 0.2s;
+
+    .name {
+        text-decoration: underline;
+    }
+    .profile-picture {
+        box-shadow: 0px 2px 3px 0px #00000078;
+        transform: scale(1.03);
+        transition: 0.2s;
+    }
+}
+
+.profile-picture {
+    width: 3.5rem;
+    height: 3.5rem;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.info {
+    flex-direction: column;
+    justify-content: center;
+}
+
+.name {
+    font-weight: bold;
+    color: black;
+}
+
+.last-message-preview {
+    color: #6b7280;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}

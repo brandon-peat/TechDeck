@@ -17,7 +17,7 @@ export class PersonSearchResultCardComponent {
 
   constructor(
     private readonly router: Router, 
-    private readonly securityService: SecurityService,
+    securityService: SecurityService,
     private readonly imageLoaderService: ImageLoaderService) 
   {
     securityService.tryReloadSession();

@@ -59,6 +59,7 @@
     <Folder Include="Person\" />
     <Folder Include="Person\Tables\" />
     <Folder Include="Security\" />
+    <Folder Include="Person\Functions\" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Person\Tables\Person.sql" />
@@ -67,6 +68,8 @@
     <Build Include="Person\Tables\Like.sql" />
     <Build Include="Person\Tables\Reply.sql" />
     <Build Include="Person\Tables\Attachment.sql" />
+    <Build Include="Person\Tables\Message.sql" />
+    <Build Include="Person\Functions\fn_GetConversations.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="TechDeck.Database.publish.xml" />

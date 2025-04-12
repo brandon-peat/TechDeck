@@ -1,0 +1,14 @@
+<div class="d-flex container pointer">
+    <div class="profile-picture" [style.backgroundImage]="profilePictureStyle"> </div>
+    
+    <div class="d-flex info">
+        <span class="name">
+            {{ conversation.fullName }}
+        </span>
+    
+        <span class="last-message-preview">
+            @if(conversation.isLastMessageFromMe) { {{ 'You: ' }} }
+            {{ conversation.text }}
+        </span>
+    </div>
+</div>

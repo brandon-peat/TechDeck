@@ -3,5 +3,4 @@ export interface SearchPerson {
   forename: string;
   surname: string;
   fullName: string;
-  imageUrl: string;
 }

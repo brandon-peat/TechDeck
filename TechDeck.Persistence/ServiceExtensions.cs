@@ -3,6 +3,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using TechDeck.Core.Files;
 using TechDeck.Core.People;
+using TechDeck.Core.People.Messaging;
 using TechDeck.Persistence.Files;
 using TechDeck.Persistence.Repositories;
 
@@ -21,6 +22,8 @@ namespace TechDeck.Persistence
             services.AddTransient<IPostRepository, PostRepository>();
             services.AddTransient<ILikeRepository, LikeRepository>();
             services.AddTransient<IReplyRepository, ReplyRepository>();
+            services.AddTransient<IMessageRepository, MessageRepository>();
+            services.AddTransient<IMessageReadRepository, MessageReadRepository>();
 
             services.AddTransient<IFileManager, FileManager>();
         }

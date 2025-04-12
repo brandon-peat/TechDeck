@@ -14,13 +14,7 @@ export class TimelineComponent implements OnInit {
   @Input({required: true}) isProfile!: boolean;
   @Input({required: false}) userId!: number;
   public posts: Post[] = [];
-  public currentPage: PaginatedList<Post> = {
-    items: [],
-    pageNumber: 0,
-    totalPages: 0,
-    hasPreviousPage: false,
-    hasNextPage: true
-  };
+  public currentPage: PaginatedList<Post> = PaginatedList.default();
 
   constructor(private readonly postService: PostService) {}
 

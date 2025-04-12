@@ -41,6 +41,8 @@ import { TimelineComponent } from './timeline/timeline.component';
 import { ViewPostComponent } from './view-post/view-post.component';
 import { PersonSearchResultCardComponent } from './person-search-result-card/person-search-result-card.component';
 import { PersonSearchBarComponent } from './person-search-bar/person-search-bar.component';
+import { MessagesAreaComponent } from './messages-area/messages-area.component';
+import { ConversationCardComponent } from './conversation-card/conversation-card.component';
 
 
 @NgModule({
@@ -58,7 +60,9 @@ import { PersonSearchBarComponent } from './person-search-bar/person-search-bar.
         SecurePipe,
         ProfileComponent,
         PersonSearchResultCardComponent,
-        PersonSearchBarComponent
+        PersonSearchBarComponent,
+        MessagesAreaComponent,
+        ConversationCardComponent
   ],
   imports: [
     BrowserModule,
