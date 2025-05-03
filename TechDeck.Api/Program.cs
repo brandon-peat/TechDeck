@@ -2,6 +2,7 @@ using Microsoft.Extensions.Azure;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
 using System.Text;
+using TechDeck.Api.Hubs;
 using TechDeck.Api.Transformers;
 using TechDeck.Core;
 using TechDeck.Identity;
@@ -20,6 +21,7 @@ var jwtSettings = new JwtSettings(
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSignalR();
 builder.Services.AddOpenApi("v1", options => { options.AddDocumentTransformer<BearerSecuritySchemeTransformer>(); });
 
 builder.Services.AddCors(options =>
@@ -74,6 +76,8 @@ if (app.Environment.IsDevelopment())
     app.MapScalarApiReference(options =>
         options.WithHttpBearerAuthentication(bearer => bearer.Token = "your-bearer-token"));
 }
+
+app.MapHub<MessagingHub>("messagingHub");
 
 app.UseHttpsRedirection();
 
