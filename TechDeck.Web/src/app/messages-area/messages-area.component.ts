@@ -12,7 +12,7 @@ import { MessageService } from '../services/message.service';
   styleUrl: './messages-area.component.scss'
 })
 export class MessagesAreaComponent {
-  public conversation: Message[] = [];
+  public selectedConversationUserId: number = 0;
   public conversations: Conversation[] = [];
   public currentPage: PaginatedList<Conversation> = PaginatedList.default();
 
@@ -30,10 +30,19 @@ export class MessagesAreaComponent {
   }
 
   ngOnInit(): void {
-    this.nextActivityPage();
+    this.nextConversationPage();
   }
 
-  public nextActivityPage() {
+  public openChat(personId: number): void {
+    this.selectedConversationUserId = personId;
+    this.showConversation = true;
+  }
+
+  public closeChat(): void {
+    this.showConversation = false;
+  }
+
+  public nextConversationPage() {
     this.messageService.getConversationsPaged(this.currentPage.pageNumber + 1, 10)
       .subscribe(page => {
         this.currentPage = page;

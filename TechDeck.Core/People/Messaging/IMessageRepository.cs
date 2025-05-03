@@ -4,6 +4,7 @@ namespace TechDeck.Core.People
 {
     public interface IMessageRepository
     {
-        Task CreateMessage(Message message, CancellationToken cancellationToken);
+        Task<int> CreateMessage(Message message, CancellationToken cancellationToken);
+        Task MarkConversationAsRead(int currentPersonId, int otherPersonId, CancellationToken cancellationToken);
     }
 }

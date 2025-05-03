@@ -26,5 +26,31 @@ namespace TechDeck.Persistence.Repositories
 
             return new PaginatedList<Conversation>(items, pageNumber, totalPages);
         }
+
+        public async Task<PaginatedList<Message>> GetMessagesPaged(
+            int pageNumber,
+            int pageSize,
+            int currentPersonId,
+            int otherPersonId,
+            CancellationToken cancellationToken)
+        {
+            var messages = db.Message
+                .Where(m => (m.SenderId == currentPersonId && m.RecipientId == otherPersonId) ||
+                            (m.SenderId == otherPersonId && m.RecipientId == currentPersonId))
+                .OrderByDescending(m => m.DateTimeSent);
+
+            var totalItems = await messages.CountAsync(cancellationToken);
+            var totalPages = (int)Math.Ceiling(totalItems / (double)pageSize);
+
+            var items = await messages
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync(cancellationToken);
+
+            return new PaginatedList<Message>(items, pageNumber, totalPages);
+        }
+
+        public async Task<int> GetUnreadMessagesTotal(int personId, CancellationToken cancellationToken)
+            => await db.Message.CountAsync(message => message.RecipientId == personId && !message.IsRead, cancellationToken);
     }
 }

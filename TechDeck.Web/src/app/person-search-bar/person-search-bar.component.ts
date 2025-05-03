@@ -1,4 +1,5 @@
-import { Component, Signal } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Signal } from '@angular/core';
+import { Router } from '@angular/router';
 import { debounceTime, Subject } from 'rxjs';
 import { PaginatedList } from '../models/paginated-list';
 import { SearchPerson } from '../models/search-person';
@@ -16,6 +17,9 @@ const pageSize = 10;
   styleUrl: './person-search-bar.component.scss'
 })
 export class PersonSearchBarComponent {
+  @Input({ required: true }) public type!: string;
+  @Output() public openChatEvent = new EventEmitter<number>();
+  
   searchedPeople: SearchPerson[] = [];
   public currentPage: PaginatedList<SearchPerson> = PaginatedList.default<SearchPerson>();
   searchSubject = new Subject<string>();
@@ -23,7 +27,11 @@ export class PersonSearchBarComponent {
   public isLoggedIn: Signal<boolean>;
   public user: Signal<UserAuthBase | null>;
 
-  constructor(private readonly accountService: AccountService, securityService: SecurityService) {
+  constructor(
+    private readonly router: Router,
+    private readonly accountService: AccountService,
+    securityService: SecurityService)
+  {
     securityService.tryReloadSession();
 
     this.isLoggedIn = securityService.isLoggedIn;
@@ -57,5 +65,14 @@ export class PersonSearchBarComponent {
       this.currentPage = page;
       this.searchedPeople.push(...this.currentPage.items);
     });
+  }
+
+  public resultCardClicked(personId: number): void {
+    if(this.type == 'profile') {
+      this.router.navigateByUrl(personId == this.user()!.userId ? 'my-profile' : 'profile/' + personId);
+    }
+    else if(this.type == 'chat') {
+      this.openChatEvent.emit(personId);
+    }
   }
 }

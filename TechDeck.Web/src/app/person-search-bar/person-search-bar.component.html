@@ -3,13 +3,14 @@
       placeholder="Search People..."
       (input)="onSearchInput($event)"
       (focus)="op.show($event)"
-      (blur)="op.hide()"
       class="search-bar"/>
 
     <p-overlayPanel #op>
       <div class="flex flex-column search-overlay">
         @for (person of searchedPeople; track $index) {
-          <person-search-result-card [person]="searchedPeople[$index]" />
+          <person-search-result-card
+            (click)="this.resultCardClicked(searchedPeople[$index].id)"
+            [person]="searchedPeople[$index]" />
         }
         
         @if (currentPage.items.length == 0) {

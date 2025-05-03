@@ -43,6 +43,8 @@ import { PersonSearchResultCardComponent } from './person-search-result-card/per
 import { PersonSearchBarComponent } from './person-search-bar/person-search-bar.component';
 import { MessagesAreaComponent } from './messages-area/messages-area.component';
 import { ConversationCardComponent } from './conversation-card/conversation-card.component';
+import { ChatComponent } from './chat/chat.component';
+import { MessageBubbleComponent } from './message-bubble/message-bubble.component';
 
 
 @NgModule({
@@ -62,7 +64,9 @@ import { ConversationCardComponent } from './conversation-card/conversation-card
         PersonSearchResultCardComponent,
         PersonSearchBarComponent,
         MessagesAreaComponent,
-        ConversationCardComponent
+        ConversationCardComponent,
+        ChatComponent,
+        MessageBubbleComponent
   ],
   imports: [
     BrowserModule,

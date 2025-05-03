@@ -1,9 +1,13 @@
-.container {
+@import '../../variables';
+
+.conversation-card-container {
     align-items: center;
     gap: 0.5rem;
-    padding: 0.25rem;
+    margin: 0.25rem 0.25rem 0.25rem -0.25rem;
+    padding-left: 0.5rem;
+    border-radius: 1rem;
 }
-.container:hover {
+.conversation-card-container:hover {
     background-color: #ececec;
     border-radius: 1rem;
     transition: 0.2s;
@@ -17,18 +21,50 @@
         transition: 0.2s;
     }
 }
+.unread {
+    position: relative;
+
+    &::before {
+        content: '';
+        position: absolute;
+        left: 0;
+        top: 15%;
+        bottom: 15%;
+        width: 3px;
+        background-color: $buttons;
+    }
+}
 
 .profile-picture {
+    margin: 0.25rem;
     width: 3.5rem;
     height: 3.5rem;
     border-radius: 50%;
     background-repeat: no-repeat;
     background-size: cover;
+    position: relative;
+}
+
+.unread-messages-count {
+    width: 1.5rem;
+    height: 1.5rem;
+    padding-top: 0.25rem;
+    font-size: 0.875rem;
+    text-align: center;
+    font-weight: bold;
+    border-radius: 50%;
+    background-color: $buttons;
+    color: white;
+
+    position: absolute;
+    bottom: -0.25rem;
+    right: -0.25rem;
 }
 
 .info {
     flex-direction: column;
     justify-content: center;
+    max-width: calc(100% - 5rem);
 }
 
 .name {
@@ -39,5 +75,6 @@
 .last-message-preview {
     color: #6b7280;
     overflow: hidden;
+    white-space: nowrap;
     text-overflow: ellipsis;
 }

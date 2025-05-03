@@ -1,8 +1,12 @@
 <div class="messages-area">
+    @if(showConversation) {
+        <chat [personId]="selectedConversationUserId" (backButtonClickedEvent)="closeChat()" />
+    }
+    @else {
     @if (this.showSearchBar) {
         <div class="person-search-area">
             <div class="person-search-bar-container">
-                <person-search-bar />
+                    <person-search-bar [type]="'chat'" (openChatEvent)="openChat($event)" />
             </div>
 
             <p-button icon="pi pi-times" (click)="this.showSearchBar = false" />
@@ -19,10 +23,11 @@
     }
 
     @for (conversation of conversations; track $index) {
-        <conversation-card [conversation]="conversation" />
+            <conversation-card (openChatEvent)="openChat($event)" [conversation]="conversation" />
     }
 
     @if (currentPage.hasNextPage) {
-        <p> Show Older Conversations...</p>
+            <p class="show-older-conversations pointer" (click)="nextConversationPage()"> Show Older Conversations...</p>
+        }
     }
 </div>

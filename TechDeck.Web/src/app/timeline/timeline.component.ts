@@ -13,6 +13,7 @@ const firstPage: number = 1;
 export class TimelineComponent implements OnInit {
   @Input({required: true}) isProfile!: boolean;
   @Input({required: false}) userId!: number;
+  
   public posts: Post[] = [];
   public currentPage: PaginatedList<Post> = PaginatedList.default();
 

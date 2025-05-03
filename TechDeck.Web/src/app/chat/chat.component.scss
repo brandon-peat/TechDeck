@@ -1,0 +1,49 @@
+@import '../../variables.scss';
+
+.chat-header {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+
+.start-of-message-history {
+    width: fit-content;
+    margin: 0.25rem auto 0.5rem auto;
+    color: #4b5563;
+    padding-bottom: 0.25rem;
+    border-bottom: 2px solid $borders;
+}
+
+.chat-person-profile-picture {
+    width: 3rem;
+    height: 3rem;
+    border-radius: 50%;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.chat-person-name {
+    font-weight: bold;
+    font-size: 1.25rem;
+}
+
+.message-bubbles-container {
+    max-height: 70vh;
+    
+    display: flex;
+    flex-direction: column;
+    margin: 0.5rem 0 0.5rem 0;
+    gap: 0.125rem;
+}
+
+.unread-messages {
+    margin: 0.25rem auto 0.5rem auto;
+    color: $buttons;
+    padding-bottom: 0.25rem;
+    border-bottom: 2px solid $buttons;
+}
+
+.input {
+    border-radius: 1rem;
+}

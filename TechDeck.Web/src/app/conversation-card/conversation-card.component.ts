@@ -1,4 +1,4 @@
-import { Component, Input, Signal } from '@angular/core';
+import { Component, EventEmitter, Input, Output, Signal } from '@angular/core';
 import { Conversation } from '../models/conversation';
 import { SecurityService } from '../security/security.service';
 import { UserAuthBase } from '../security/user-auth-base';
@@ -11,6 +11,8 @@ import { ImageLoaderService } from '../services/image-loader.service';
 })
 export class ConversationCardComponent {
   @Input({ required: true }) conversation!: Conversation;
+  @Output() openChatEvent = new EventEmitter<number>();
+  
   public user: Signal<UserAuthBase | null>;
   public profilePictureStyle: any;
 

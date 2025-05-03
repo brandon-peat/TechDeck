@@ -1,5 +1,4 @@
 import { Component, Input, Signal } from '@angular/core';
-import { Router } from '@angular/router';
 import { SearchPerson } from '../models/search-person';
 import { SecurityService } from '../security/security.service';
 import { UserAuthBase } from '../security/user-auth-base';
@@ -16,7 +15,6 @@ export class PersonSearchResultCardComponent {
   public profilePictureStyle: any;
 
   constructor(
-    private readonly router: Router, 
     securityService: SecurityService,
     private readonly imageLoaderService: ImageLoaderService) 
   {
@@ -27,10 +25,5 @@ export class PersonSearchResultCardComponent {
   ngOnChanges(): void {
     this.imageLoaderService.loadProfilePicture(this.person.id)
       .then(style => this.profilePictureStyle = style);
-  }
-
-  public navigateToProfile(event: Event): void {
-    event.stopPropagation();
-    this.router.navigateByUrl(this.person.id == this.user()!.userId ? 'my-profile' : 'profile/' + this.person.id);
   }
 }

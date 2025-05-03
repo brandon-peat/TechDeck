@@ -13,9 +13,11 @@ namespace TechDeck.Core.People.Messaging
             GetConversationsPagedQuery request,
             CancellationToken cancellationToken)
         {
+            var pageSize = request.PageSize > 1000 ? 1000 : request.PageSize;
+
             return await repository.GetConversationsPaged(
                 request.PageNumber,
-                request.PageSize,
+                pageSize,
                 service.PersonId!.Value,
                 cancellationToken);
         }

@@ -1,0 +1,40 @@
+@import '../../_variables.scss';
+
+.bubble {
+    max-width: 85%;
+    overflow-wrap: break-word;
+    width: fit-content;
+    padding: 0.5rem;
+}
+
+.mine {
+    border-radius: 1rem 0 0 1rem;
+    background-color: $buttons;
+    color: #ffffff;
+    float: right;
+
+    &.top {
+        border-top-right-radius: 1rem;
+    }
+    &.bottom:not(.top) {
+        border-bottom-right-radius: 1rem;
+    }
+}
+
+.theirs:not(.mine) {
+    border: 2px solid $borders;
+    border-radius: 0 1rem 1rem 0;
+    background-color: #ececec;
+    float: left;
+
+    &.top {
+        border-top-left-radius: 1rem;
+    }
+    &.bottom:not(.top) {
+        border-bottom-left-radius: 1rem;
+    }
+}
+
+.bottom {
+    margin-bottom: 0.5rem;
+}

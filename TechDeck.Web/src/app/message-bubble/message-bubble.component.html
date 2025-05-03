@@ -1,0 +1,8 @@
+<div class="bubble"
+    [class.mine]="message.senderId == this.user()!.userId"
+    [class.theirs]="message.recipientId == this.user()!.userId"
+    [class.top]="isFirstInGroup"
+    [class.bottom]="isLastInGroup">
+
+    {{ message.text }}
+</div>

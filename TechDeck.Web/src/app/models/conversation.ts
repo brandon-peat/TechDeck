@@ -3,9 +3,10 @@ export interface Conversation {
   personId: number;
   dateTimeSent: Date;
   text: string;
-  isRead: boolean;
   isLastMessageFromMe: boolean;
+  unreadMessagesCount: number;
   forename: string;
   surname: string;
   fullName: string;
+  isRead: boolean;
 }

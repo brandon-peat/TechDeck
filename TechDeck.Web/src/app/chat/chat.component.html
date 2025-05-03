@@ -1,0 +1,55 @@
+<div class="container h-100">
+    <div class="row">
+        <div class="col chat-header">
+            <p-button
+                icon="pi pi-arrow-left"
+                [rounded]="true"
+                [outlined]="true"
+                (onClick)="backButtonClickedEvent.emit()" />
+
+            <div class="chat-person-profile-picture" [style.backgroundImage]="profilePictureStyle()"> </div>
+
+            <span class="chat-person-name">
+                {{ personName() }}
+            </span>
+        </div>
+    </div>
+
+    <div class="row flex-grow-1 overflow-auto" #scroll>
+        <div class="col">
+            <div class="message-bubbles-container" #messageBubblesContainer>
+                @if(!currentPage.hasNextPage) {
+                    <p class="start-of-message-history">
+                        This is the start of your message history with {{ personName() }}.
+                    </p>
+                }
+                
+                @for(messageGroup of messagesReversedGrouped(); track $index) {
+                    @for(message of messageGroup.messages; track $index) {
+                        @if(message?.id === firstUnreadMessageId()) {
+                            <p class="unread-messages">
+                                Unread Messages
+                            </p>
+                        }
+
+                        <message-bubble
+                            [message]="message"
+                            [isFirstInGroup]="$index === 0"
+                            [isLastInGroup]="$index === messageGroup.messages.length - 1">
+                        </message-bubble>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col">
+            <textarea class="input" rows="1"
+                [autoResize]="true"
+                [placeholder]="'Send '+ personName() + ' a message...'"
+                (keydown.enter)="sendMessage($event)"
+                pInputTextarea></textarea>
+        </div>
+    </div>
+</div>

@@ -7,5 +7,16 @@
             int pageSize,
             int personId,
             CancellationToken cancellationToken);
+
+        Task<PaginatedList<Message>> GetMessagesPaged(
+            int pageNumber,
+            int pageSize,
+            int currentPersonId,
+            int otherPersonId,
+            CancellationToken cancellationToken); 
+
+        Task<int> GetUnreadMessagesTotal(
+            int personId,
+            CancellationToken cancellationToken);
     }
 }
