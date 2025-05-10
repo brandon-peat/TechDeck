@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Http;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 using TechDeck.Core.Identity;
 
 namespace TechDeck.Identity.Security
@@ -10,17 +11,14 @@ namespace TechDeck.Identity.Security
         {
             ArgumentNullException.ThrowIfNull(httpContextAccessor);
 
-            var token = httpContextAccessor.HttpContext!.Request.Headers.Authorization.ToString();
-
-            if (!string.IsNullOrWhiteSpace(token))
+            var httpContext = httpContextAccessor.HttpContext;
+            if (httpContext?.User?.Identity?.IsAuthenticated == true)
             {
-                var handler = new JwtSecurityTokenHandler();
+                var claimsPrincipal = httpContext.User;
 
-                var jsonToken = handler.ReadJwtToken(token.Substring(7));
-
-                PersonId = Convert.ToInt32(jsonToken.Claims.Single(claim => claim.Type == "id").Value);
-                Email = jsonToken.Claims.Single(claim => claim.Type == JwtRegisteredClaimNames.Sub).Value;
-                Name = jsonToken.Claims.Single(claim => claim.Type == "name").Value;
+                PersonId = Convert.ToInt32(claimsPrincipal.FindFirst("id")?.Value);
+                Email = claimsPrincipal.FindFirst(ClaimTypes.Email)?.Value;
+                Name = claimsPrincipal.FindFirst("name")?.Value;
                 IsAuthenticated = true;
             }
         }

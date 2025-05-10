@@ -5,12 +5,12 @@ using TechDeck.Core.Models;
 
 namespace TechDeck.Core.People.Messaging
 {
-    public record SendMessageCommand(string Text, int RecipientId) : IRequest<int>;
+    public record SendMessageCommand(string Text, int RecipientId) : IRequest<Message>;
 
     public class CreateMessageCommandHandler(IMessageRepository messageRepository, IAuthenticatedUserService service)
-        : IRequestHandler<SendMessageCommand, int>
+        : IRequestHandler<SendMessageCommand, Message>
     {
-        public async Task<int> Handle(SendMessageCommand request, CancellationToken cancellationToken)
+        public async Task<Message> Handle(SendMessageCommand request, CancellationToken cancellationToken)
         {
             var message = new Message
             {

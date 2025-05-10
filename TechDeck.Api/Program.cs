@@ -1,3 +1,6 @@
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
@@ -28,7 +31,13 @@ builder.Services.AddCors(options =>
 {
     options.AddPolicy(
         name: allowAnyOrigin,
-        policy => policy.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
+        policy =>
+        {
+            policy.WithOrigins("http://localhost:4200")
+                .AllowAnyMethod()
+                .AllowAnyHeader()
+                .AllowCredentials();
+        });
 });
 
 builder.Services.AddCoreLayer();
@@ -41,10 +50,10 @@ builder.Services.AddSingleton(jwtSettings);
 builder.Services
     .AddAuthentication(options =>
     {
-        options.DefaultAuthenticateScheme = "JwtBearer";
-        options.DefaultChallengeScheme = "JwtBearer";
+        options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     })
-    .AddJwtBearer("JwtBearer", options =>
+    .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new()
         {
@@ -58,6 +67,20 @@ builder.Services
 
             ValidateLifetime = true,
             ClockSkew = TimeSpan.FromMinutes(jwtSettings.MinutesToExpiration)
+        };
+
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                var accessToken = context.Request.Query["access_token"];
+
+                if (!string.IsNullOrEmpty(accessToken))
+                {
+                    context.Token = accessToken;
+                }
+                return Task.CompletedTask;
+            }
         };
     });
 
@@ -77,15 +100,14 @@ if (app.Environment.IsDevelopment())
         options.WithHttpBearerAuthentication(bearer => bearer.Token = "your-bearer-token"));
 }
 
-app.MapHub<MessagingHub>("messagingHub");
+app.UseCors(allowAnyOrigin);
 
 app.UseHttpsRedirection();
 
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.UseCors(allowAnyOrigin);
-
+app.MapHub<MessagingHub>("/messagingHub");
 app.MapControllers();
 
 app.Run();

@@ -6,11 +6,11 @@ namespace TechDeck.Persistence.Repositories
 {
     public class MessageRepository(ApplicationDbContext db) : IMessageRepository
     {
-        public async Task<int> CreateMessage(Message message, CancellationToken cancellationToken)
+        public async Task<Message> CreateMessage(Message message, CancellationToken cancellationToken)
         {
             db.Add(message);
             await db.SaveChangesAsync(cancellationToken);
-            return message.Id;
+            return message;
         }
 
         public async Task MarkConversationAsRead(int currentPersonId, int otherPersonId, CancellationToken cancellationToken)

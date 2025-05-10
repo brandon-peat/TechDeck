@@ -1,5 +1,4 @@
 import { Component, Signal } from '@angular/core';
-import { Message } from 'primeng/api';
 import { Conversation } from '../models/conversation';
 import { PaginatedList } from '../models/paginated-list';
 import { SecurityService } from '../security/security.service';
@@ -47,6 +46,7 @@ export class MessagesAreaComponent {
       .subscribe(page => {
         this.currentPage = page;
         this.conversations.push(...this.currentPage.items)
-      });
+      }
+    );
   }
 }

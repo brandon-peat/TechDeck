@@ -6,6 +6,7 @@ import { UserAuthBase } from '../security/user-auth-base';
 import { AccountService } from '../services/account.service';
 import { ImageLoaderService } from '../services/image-loader.service';
 import { MessageService } from '../services/message.service';
+import { SignalRService } from '../services/signal-r.service';
 import { GroupedMessages, MessageGroup } from './grouped-messages';
 
 @Component({
@@ -26,6 +27,7 @@ export class ChatComponent {
 
   private readonly firstPage = 1;
   private readonly pageSize = 40;
+
   private messages: WritableSignal<Message[]> = signal([]);
   public messagesReversedGrouped: Signal<MessageGroup[]> = computed(() => 
     GroupedMessages.groupMessages(this.messages()
@@ -46,6 +48,7 @@ export class ChatComponent {
     private readonly messageService: MessageService,
     private readonly accountService: AccountService,
     private readonly imageLoaderService: ImageLoaderService,
+    private readonly signalRService: SignalRService,
     private readonly cdr: ChangeDetectorRef,
     securityService: SecurityService)
   {
@@ -66,6 +69,8 @@ export class ChatComponent {
 
     this.imageLoaderService.loadProfilePicture(this.personId)
       .then(style => this.profilePictureStyle.set(style));
+      
+    this.connectSignalR();
   }
 
   ngAfterViewInit(): void {
@@ -89,6 +94,26 @@ export class ChatComponent {
     if (this.observer) {
       this.observer.disconnect();
     }
+  }
+
+  private connectSignalR(): void {
+    this.signalRService.connect().then(() => {
+      this.signalRService.getHubConnection()
+        .on('ReceiveMessage', (message: Message) => {
+          if (message.senderId != this.personId) {
+            return;
+          }
+          
+          message.dateTimeSent = new Date(message.dateTimeSent);
+          this.messages.set([message, ...this.messages()]);
+          this.currentPage.items.push(message);
+          this.cdr.detectChanges();
+
+          if(this.scrollContainer.nativeElement.scrollTop === 0) {
+            setTimeout(() => this.scrollToBottom('smooth'));
+          }
+        });
+    });
   }
 
   private onScroll(): void {
@@ -129,22 +154,10 @@ export class ChatComponent {
       return;
     }
 
-    this.messageService.sendMessage(message, this.personId).subscribe(id => {
-      this.messages.set([
-        {
-        id: id,
-        senderId: this.user()!.userId,
-        recipientId: this.personId,
-        dateTimeSent: new Date(Date.now()),
-        text: message,
-        isRead: false
-        },
-        ...this.messages()
-      ]);
-
+    this.signalRService.sendMessage(message, this.personId).then(() => {
       setTimeout(() => this.scrollToBottom('smooth'));
+      textarea.value = '';
+      textarea.style.height = 'auto';
     });
-    textarea.value = '';
-    textarea.style.height = 'auto';
   }
 }

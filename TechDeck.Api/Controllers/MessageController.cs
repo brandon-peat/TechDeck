@@ -12,10 +12,6 @@ namespace TechDeck.Api.Controllers
     [Route("message")]
     public class MessageController(IMediator mediator) : Controller
     {
-        [HttpPost("send")]
-        public async Task<int> SendMessage(SendMessageCommand command, CancellationToken cancellationToken)
-            => await mediator.Send(command, cancellationToken);
-
         [HttpPost("conversations")]
         public async Task<PaginatedList<Conversation>> GetConversationsPagedQuery(
             GetConversationsPagedQuery query, CancellationToken cancellationToken)
