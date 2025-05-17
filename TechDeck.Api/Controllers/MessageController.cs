@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using TechDeck.Core.Models;
 using TechDeck.Core.People;
 using TechDeck.Core.People.Messaging;
+using TechDeck.Core.People.ViewModels;
 
 namespace TechDeck.Api.Controllers
 {
@@ -16,6 +17,10 @@ namespace TechDeck.Api.Controllers
         public async Task<PaginatedList<Conversation>> GetConversationsPagedQuery(
             GetConversationsPagedQuery query, CancellationToken cancellationToken)
             => await mediator.Send(query, cancellationToken);
+
+        [HttpGet("conversation/{personId}")]
+        public async Task<Conversation> GetConversationQuery(int personId, CancellationToken cancellationToken)
+            => await mediator.Send(new GetConversationQuery(personId), cancellationToken);
 
         [HttpPost("messages")]
         public async Task<PaginatedList<Message>> GetMessagesPagedQuery(GetMessagesPagedQuery query, CancellationToken cancellationToken)

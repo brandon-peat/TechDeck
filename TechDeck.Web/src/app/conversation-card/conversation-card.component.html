@@ -1,5 +1,5 @@
 <div class="d-flex conversation-card-container pointer"
-    [class.unread]="!conversation.isRead && !conversation.isLastMessageFromMe"
+    [class.unread]="!conversation.isRead && (!conversation.isLastMessageFromMe || conversation.personId == this.user()!.userId)"
     (click)="this.openChatEvent.emit(conversation.personId)">
     
     <div class="profile-picture" [style.backgroundImage]="profilePictureStyle">

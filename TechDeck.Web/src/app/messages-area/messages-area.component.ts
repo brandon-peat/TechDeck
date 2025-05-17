@@ -1,9 +1,5 @@
-import { Component, Signal } from '@angular/core';
-import { Conversation } from '../models/conversation';
-import { PaginatedList } from '../models/paginated-list';
-import { SecurityService } from '../security/security.service';
-import { UserAuthBase } from '../security/user-auth-base';
-import { MessageService } from '../services/message.service';
+import { Component } from '@angular/core';
+import { SignalRService } from '../services/signal-r.service';
 
 @Component({
   selector: 'messages-area',
@@ -11,42 +7,25 @@ import { MessageService } from '../services/message.service';
   styleUrl: './messages-area.component.scss'
 })
 export class MessagesAreaComponent {
-  public selectedConversationUserId: number = 0;
-  public conversations: Conversation[] = [];
-  public currentPage: PaginatedList<Conversation> = PaginatedList.default();
-
-  public showSearchBar: boolean = false;
   public showConversation: boolean = false;
+  public selectedConversationPersonId: number = 0;
 
-  public user: Signal<UserAuthBase | null>;
-  
-  constructor(
-    securityService: SecurityService,
-    private readonly messageService: MessageService) 
-  {
-    securityService.tryReloadSession();
-    this.user = securityService.user;
-  }
+  constructor(private readonly signalRService: SignalRService) { }
 
   ngOnInit(): void {
-    this.nextConversationPage();
+    this.signalRService.connect();
+  }
+
+  ngOnDestroy(): void {
+    this.signalRService.getHubConnection().stop();
   }
 
   public openChat(personId: number): void {
-    this.selectedConversationUserId = personId;
+    this.selectedConversationPersonId = personId;
     this.showConversation = true;
   }
 
   public closeChat(): void {
     this.showConversation = false;
-  }
-
-  public nextConversationPage() {
-    this.messageService.getConversationsPaged(this.currentPage.pageNumber + 1, 10)
-      .subscribe(page => {
-        this.currentPage = page;
-        this.conversations.push(...this.currentPage.items)
-      }
-    );
   }
 }

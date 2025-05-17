@@ -15,6 +15,10 @@ export class MessageService {
     return this.http.post<PaginatedList<Conversation>>('https://localhost:7101/message/conversations', { pageNumber, pageSize });
   }
 
+  public getConversation(personId: number): Observable<Conversation> {
+    return this.http.get<Conversation>(`https://localhost:7101/message/conversation/${personId}`);
+  }
+
   public sendMessage(text: string, recipientId: number): Observable<number> {
     return this.http.post<number>('https://localhost:7101/message/send', { text, recipientId });
   }

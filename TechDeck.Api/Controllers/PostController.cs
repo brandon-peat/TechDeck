@@ -21,16 +21,13 @@ namespace TechDeck.Api.Controllers
             CancellationToken cancellationToken)
         {
             var streams = files.Select(f => f.OpenReadStream()).ToList();
-
             return await mediator.Send(new CreatePostCommand(text, streams), cancellationToken);
         }
 
         [HttpGet("{fileName}")]
         [AllowAnonymous]
         public async Task<IActionResult> GetImage(string fileName, CancellationToken cancellationToken)
-        {
-            return File(await fileManager.DownloadFile("attachments", fileName, cancellationToken), "image/jpeg");
-        }
+            => File(await fileManager.DownloadFile("attachments", fileName, cancellationToken), "image/jpeg");
 
         [HttpPost("activity")]
         public async Task<PaginatedList<PostViewModel>> GetActivityPagedQuery(GetActivityPagedQuery query, CancellationToken cancellationToken)
@@ -42,9 +39,7 @@ namespace TechDeck.Api.Controllers
 
         [HttpGet("post/{postId}")]
         public async Task<PostViewModel> GetPostQuery(int postId, CancellationToken cancellationToken)
-        {
-            return await mediator.Send(new GetPostQuery(postId), cancellationToken);
-        }
+            => await mediator.Send(new GetPostQuery(postId), cancellationToken);
 
         [HttpPost("like/{postId}")]
         public async Task<ResponseViewModel> LikePost(int postId, CancellationToken cancellationToken)

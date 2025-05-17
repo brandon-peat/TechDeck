@@ -1,0 +1,28 @@
+@if (this.showSearchBar) {
+    <div class="person-search-area">
+        <div class="person-search-bar-container">
+            <person-search-bar [type]="'chat'" (openChatEvent)="conversationSelectedEvent.emit($event)" />
+        </div>
+
+        <p-button icon="pi pi-times" (click)="this.showSearchBar = false" />
+    </div>
+}
+@else {
+    <button class="new-conversation-button"
+        label="New Conversation"
+        (click)="this.showSearchBar = true"
+        icon="pi pi-plus"
+        [rounded]="true"
+        pButton>
+    </button>
+}
+
+@for (conversation of conversations; track $index) {
+    <conversation-card (openChatEvent)="conversationSelectedEvent.emit($event)" [conversation]="conversation" />
+}
+
+@if (currentPage.hasNextPage) {
+    <p class="show-older-conversations pointer" (click)="nextConversationPage()">
+        Show Older Conversations...
+    </p>
+}

@@ -3,22 +3,19 @@ using TechDeck.Core.Identity;
 
 namespace TechDeck.Core.People.Messaging
 {
-    public record GetConversationsPagedQuery(int PageNumber, int PageSize)
-        : IRequest<PaginatedList<Conversation>>;
+    public record GetConversationQuery(int PersonId)
+        : IRequest<Conversation>;
 
-    public class GetConversationsPagedQueryHandler(IMessageReadRepository repository, IAuthenticatedUserService service)
-        : IRequestHandler<GetConversationsPagedQuery, PaginatedList<Conversation>>
+    public class GetConversationQueryHandler(IMessageReadRepository repository, IAuthenticatedUserService service)
+        : IRequestHandler<GetConversationQuery, Conversation>
     {
-        public async Task<PaginatedList<Conversation>> Handle(
-            GetConversationsPagedQuery request,
+        public async Task<Conversation> Handle(
+            GetConversationQuery request,
             CancellationToken cancellationToken)
         {
-            var pageSize = request.PageSize > 1000 ? 1000 : request.PageSize;
-
-            return await repository.GetConversationsPaged(
-                request.PageNumber,
-                pageSize,
+            return await repository.GetConversation(
                 service.PersonId!.Value,
+                request.PersonId,
                 cancellationToken);
         }
     }

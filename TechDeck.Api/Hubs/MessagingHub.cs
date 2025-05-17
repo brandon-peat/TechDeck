@@ -16,7 +16,11 @@ namespace TechDeck.Api.Hubs
         {
             var message = await mediator.Send(new SendMessageCommand(text, recipientId));
 
-            await Clients.Group(recipientId.ToString()).SendAsync("ReceiveMessage", message);
+            if (recipientId != service.PersonId)
+            {
+                await Clients.Group(recipientId.ToString()).SendAsync("ReceiveMessage", message);
+            }
+
             await Clients.Caller.SendAsync("ReceiveMessage", message);
         }
 

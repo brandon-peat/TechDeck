@@ -97,23 +97,21 @@ export class ChatComponent {
   }
 
   private connectSignalR(): void {
-    this.signalRService.connect().then(() => {
-      this.signalRService.getHubConnection()
-        .on('ReceiveMessage', (message: Message) => {
-          if (message.senderId != this.personId) {
-            return;
-          }
-          
-          message.dateTimeSent = new Date(message.dateTimeSent);
-          this.messages.set([message, ...this.messages()]);
-          this.currentPage.items.push(message);
-          this.cdr.detectChanges();
+    this.signalRService.getHubConnection()
+      .on('ReceiveMessage', (message: Message) => {
+        if (message.senderId != this.user()!.userId && message.recipientId != this.user()!.userId) {
+          return;
+        }
 
-          if(this.scrollContainer.nativeElement.scrollTop === 0) {
-            setTimeout(() => this.scrollToBottom('smooth'));
-          }
-        });
-    });
+        message.dateTimeSent = new Date(message.dateTimeSent);
+        this.messages.set([message, ...this.messages()]);
+        this.currentPage.items.push(message);
+        this.cdr.detectChanges();
+
+        if(this.scrollContainer.nativeElement.scrollTop === 0) {
+          setTimeout(() => this.scrollToBottom('smooth'));
+        }
+      });
   }
 
   private onScroll(): void {

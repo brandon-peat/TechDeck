@@ -45,6 +45,7 @@ import { MessagesAreaComponent } from './messages-area/messages-area.component';
 import { ConversationCardComponent } from './conversation-card/conversation-card.component';
 import { ChatComponent } from './chat/chat.component';
 import { MessageBubbleComponent } from './message-bubble/message-bubble.component';
+import { ConversationListComponent } from './conversation-list/conversation-list.component';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import { MessageBubbleComponent } from './message-bubble/message-bubble.componen
         MessagesAreaComponent,
         ConversationCardComponent,
         ChatComponent,
-        MessageBubbleComponent
+        MessageBubbleComponent,
+        ConversationListComponent
   ],
   imports: [
     BrowserModule,

@@ -8,6 +8,11 @@
             int personId,
             CancellationToken cancellationToken);
 
+        Task<Conversation> GetConversation(
+            int currentPersonId,
+            int otherPersonId,
+            CancellationToken cancellationToken);
+
         Task<PaginatedList<Message>> GetMessagesPaged(
             int pageNumber,
             int pageSize,

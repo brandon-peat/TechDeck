@@ -26,6 +26,8 @@ export class ConversationCardComponent {
 
   ngOnChanges(): void {
     this.imageLoaderService.loadProfilePicture(this.conversation.personId)
-      .then(style => this.profilePictureStyle = style);
+      .then(style => {
+        this.profilePictureStyle = style;
+    });
   }
 }

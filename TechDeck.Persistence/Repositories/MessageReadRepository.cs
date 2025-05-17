@@ -3,6 +3,7 @@ using TechDeck.Core.People;
 using System.Linq;
 using System;
 using TechDeck.Core.People.Messaging;
+using TechDeck.Core.People.ViewModels;
 
 namespace TechDeck.Persistence.Repositories
 {
@@ -25,6 +26,17 @@ namespace TechDeck.Persistence.Repositories
                 .ToListAsync(cancellationToken);
 
             return new PaginatedList<Conversation>(items, pageNumber, totalPages);
+        }
+
+        public async Task<Conversation> GetConversation(
+            int currentPersonId,
+            int otherPersonId,
+            CancellationToken cancellationToken)
+        {
+            return await db
+                .GetConversations(currentPersonId)
+                .Where(conversation => conversation.PersonId == otherPersonId)
+                .FirstAsync(cancellationToken);
         }
 
         public async Task<PaginatedList<Message>> GetMessagesPaged(

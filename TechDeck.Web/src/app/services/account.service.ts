@@ -48,8 +48,8 @@ export class AccountService {
     return this.http.post<void>('https://localhost:7101/account/name', {firstName, lastName});
   }
 
-  public getName(userId: number): Observable<string> {
-    return this.http.get('https://localhost:7101/account/name/' + userId, { responseType: 'text' });
+  public getName(personId: number): Observable<string> {
+    return this.http.get('https://localhost:7101/account/name/' + personId, { responseType: 'text' });
   }
 
   public searchPeoplePaged(pageNumber: number, pageSize: number, searchTerm: string)
