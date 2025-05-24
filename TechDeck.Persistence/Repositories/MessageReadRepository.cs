@@ -32,12 +32,10 @@ namespace TechDeck.Persistence.Repositories
             int currentPersonId,
             int otherPersonId,
             CancellationToken cancellationToken)
-        {
-            return await db
+            => await db
                 .GetConversations(currentPersonId)
                 .Where(conversation => conversation.PersonId == otherPersonId)
                 .FirstAsync(cancellationToken);
-        }
 
         public async Task<PaginatedList<Message>> GetMessagesPaged(
             int pageNumber,

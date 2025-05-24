@@ -9,9 +9,8 @@ namespace TechDeck.Api.Hubs
     public class MessagingHub(IMediator mediator, IAuthenticatedUserService service) : Hub
     {
         public override async Task OnConnectedAsync()
-        {
-            await Groups.AddToGroupAsync(Context.ConnectionId, service.PersonId!.Value.ToString());
-        }
+            => await Groups.AddToGroupAsync(Context.ConnectionId, service.PersonId!.Value.ToString());
+
         public async Task SendMessage(string text, int recipientId)
         {
             var message = await mediator.Send(new SendMessageCommand(text, recipientId));

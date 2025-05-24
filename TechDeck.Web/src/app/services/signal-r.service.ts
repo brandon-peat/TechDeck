@@ -10,7 +10,7 @@ export class SignalRService {
 
   constructor(private readonly securityService: SecurityService) {
     this.hubConnection = new HubConnectionBuilder()
-      .withUrl('https://localhost:7101/messagingHub', {
+      .withUrl('https://localhost:7101/messaging-hub', {
         accessTokenFactory: () => {
           const user = this.securityService.user();
           return user?.bearerToken || '';
@@ -19,11 +19,11 @@ export class SignalRService {
       .build();
   }
 
-  getHubConnection(): HubConnection {
+  public getHubConnection(): HubConnection {
     return this.hubConnection;
   }
 
-  async connect(): Promise<void> {
+  public async connect(): Promise<void> {
       await this.hubConnection.start();
   }
 

@@ -107,7 +107,7 @@ app.UseHttpsRedirection();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapHub<MessagingHub>("/messagingHub");
+app.MapHub<MessagingHub>("/messaging-hub");
 app.MapControllers();
 
 app.Run();
