@@ -24,10 +24,10 @@ export class SignalRService {
   }
 
   public async connect(): Promise<void> {
-      await this.hubConnection.start();
+    await this.hubConnection.start();
   }
 
-  public sendMessage(text: string, recipientId: number ): Promise<void> {
+  public sendMessage(text: string, recipientId: number): Promise<void> {
     return this.hubConnection.invoke('SendMessage', text, recipientId);
   }
 }

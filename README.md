@@ -3,6 +3,7 @@
 TechDeck is a full-stack social platform for sharing posts and messaging. It features a modern Angular web frontend, a .NET backend API, and a SQL Server database. Users can create posts (with images), reply, like, search for people, and chat in real time.
 
 ## Features
+
 - User registration, authentication, and profile management
 - Create, view, and reply to posts (with image attachments)
 - Like posts and view who liked them
@@ -11,6 +12,7 @@ TechDeck is a full-stack social platform for sharing posts and messaging. It fea
 - Personal timeline and public activity feed
 
 ## Solution Structure
+
 - `TechDeck.Web` – Angular frontend (UI for posts, profiles, chat, etc.)
 - `TechDeck.Api` – ASP.NET Core Web API (business logic, authentication, messaging, etc.)
 - `TechDeck.Core` – Core domain models and interfaces
@@ -24,8 +26,12 @@ TechDeck is a full-stack social platform for sharing posts and messaging. It fea
 1. Open the `.sln` file in the root
 2. In the `TechDeck.Database` project, double click the script `TechDeck.Database.publish.xml`
 3. Select `Publish`
+4. Open the `.sln` file in the root
+5. In the `TechDeck.Database` project, double click the script `TechDeck.Database.publish.xml`
+6. Select `Publish`
 
 If you open SQL Server Management Studio and connect to:
+
 - Server name: `(localdb)\MSSQLLocalDB`
 - Authentication: Windows Authentication
 

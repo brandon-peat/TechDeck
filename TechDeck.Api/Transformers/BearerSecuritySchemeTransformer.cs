@@ -5,34 +5,34 @@ using Microsoft.OpenApi.Models;
 namespace TechDeck.Api.Transformers
 {
 
-internal sealed class BearerSecuritySchemeTransformer(Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider authenticationSchemeProvider) : IOpenApiDocumentTransformer
-{
-    public async Task TransformAsync(OpenApiDocument document, OpenApiDocumentTransformerContext context, CancellationToken cancellationToken)
+    internal sealed class BearerSecuritySchemeTransformer(Microsoft.AspNetCore.Authentication.IAuthenticationSchemeProvider authenticationSchemeProvider) : IOpenApiDocumentTransformer
     {
-        var authenticationSchemes = await authenticationSchemeProvider.GetAllSchemesAsync();
-        if (authenticationSchemes.Any(authScheme => authScheme.Name == JwtBearerDefaults.AuthenticationScheme))
+        public async Task TransformAsync(OpenApiDocument document, OpenApiDocumentTransformerContext context, CancellationToken cancellationToken)
         {
-            var requirements = new Dictionary<string, OpenApiSecurityScheme>
+            var authenticationSchemes = await authenticationSchemeProvider.GetAllSchemesAsync();
+            if (authenticationSchemes.Any(authScheme => authScheme.Name == JwtBearerDefaults.AuthenticationScheme))
             {
-                [JwtBearerDefaults.AuthenticationScheme] = new OpenApiSecurityScheme
+                var requirements = new Dictionary<string, OpenApiSecurityScheme>
                 {
-                    Type = SecuritySchemeType.Http,
-                    Scheme = "bearer",
-                    In = ParameterLocation.Header,
-                    BearerFormat = "Json Web Token"
-                }
-            };
-            document.Components ??= new OpenApiComponents();
-            document.Components.SecuritySchemes = requirements;
+                    [JwtBearerDefaults.AuthenticationScheme] = new OpenApiSecurityScheme
+                    {
+                        Type = SecuritySchemeType.Http,
+                        Scheme = "bearer",
+                        In = ParameterLocation.Header,
+                        BearerFormat = "Json Web Token"
+                    }
+                };
+                document.Components ??= new OpenApiComponents();
+                document.Components.SecuritySchemes = requirements;
 
-            foreach (var operation in document.Paths.Values.SelectMany(path => path.Operations))
-            {
-                operation.Value.Security.Add(new OpenApiSecurityRequirement
+                foreach (var operation in document.Paths.Values.SelectMany(path => path.Operations))
                 {
-                    [new OpenApiSecurityScheme { Reference = new OpenApiReference { Id = JwtBearerDefaults.AuthenticationScheme, Type = ReferenceType.SecurityScheme } }] = Array.Empty<string>()
-                });
+                    operation.Value.Security.Add(new OpenApiSecurityRequirement
+                    {
+                        [new OpenApiSecurityScheme { Reference = new OpenApiReference { Id = JwtBearerDefaults.AuthenticationScheme, Type = ReferenceType.SecurityScheme } }] = Array.Empty<string>()
+                    });
+                }
             }
         }
     }
-}
 }

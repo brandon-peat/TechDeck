@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using TechDeck.Core.People;
+﻿using System;
 using System.Linq;
-using System;
+using Microsoft.EntityFrameworkCore;
+using TechDeck.Core.People;
 using TechDeck.Core.People.Messaging;
 using TechDeck.Core.People.ViewModels;
 
