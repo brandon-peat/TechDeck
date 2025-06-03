@@ -37,4 +37,4 @@ Navigate to the `TechDeck.Web` directory for frontend development:
 
 - Run `npm install` to install dependencies.
 - Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
-- Run `ng test` to execute unit tests via [Karma](https://karma-runner.github.io).
+- Run `ng test` to execute unit tests via [Jest](https://jestjs.io/).
