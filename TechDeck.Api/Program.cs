@@ -99,12 +99,9 @@ builder.Services.AddAzureClients(clientBuilder =>
 
 var app = builder.Build();
 
-//if (app.Environment.IsDevelopment())
-//{
 app.MapOpenApi();
 app.MapScalarApiReference(options =>
     options.WithHttpBearerAuthentication(bearer => bearer.Token = "your-bearer-token"));
-//}
 
 app.UseCors(allowAnyOrigin);
 
