@@ -44,3 +44,30 @@ Navigate to the `TechDeck.Web` directory for frontend development:
 - Run `npm install` to install dependencies.
 - Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
 - Run `ng test` to execute unit tests via [Jest](https://jestjs.io/).
+
+## Deployment
+
+### Database
+
+You will need these VS Code extensions:
+
+- SQL Database Projects
+- SQL Server (mssql)
+
+1. In the SQL Server tab, connect to the Azure database. The password for this will be kept secret. Your IP will need to be whitelisted.
+2. CTRL + SHIFT + P: Database projects: Focus on Database Projects View
+3. Right click TechDeck.Database > Publish > Publish to an existing SQL Server > Browse for Profile > TechDeck.Database.publish.xml
+
+### API
+
+In Visual Studio, right click TechDeck.Api > Publish
+
+### Angular
+
+You will need:
+
+- Azure CLI installed
+- Azure static web apps CLI
+
+1. ng build --configuration production
+2. $token = az staticwebapp secrets list --name techdeck-web --resource-group techdeck --query "properties.apiKey" -o tsv; swa deploy ./dist/tech-deck/browser --deployment-token $token --env production
