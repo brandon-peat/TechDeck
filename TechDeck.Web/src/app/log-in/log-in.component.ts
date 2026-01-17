@@ -1,8 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { containsLowerCaseChar } from '../validators/contains-lower-case-char.validator';
-import { containsSpecialChar } from '../validators/contains-special-char.validator';
-import { containsUpperCaseChar } from '../validators/contains-upper-case-char.validator';
 
 import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
@@ -29,7 +26,7 @@ export class LogInComponent implements OnInit {
 
   public form = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required, Validators.minLength(8), containsSpecialChar, containsLowerCaseChar, containsUpperCaseChar]),
+    password: new FormControl('', [Validators.required]),
   })
 
   get email() {

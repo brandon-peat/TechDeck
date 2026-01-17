@@ -55,8 +55,18 @@ export class SignUpComponent implements OnInit {
       else {
         this.accountService.signUp(this.email.value!, this.firstName.value!, this.lastName.value!, this.password.value!)
           .subscribe(() => {
-            this.router.navigateByUrl('/log-in');
-            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Account created successfully!' })
+            this.messageService.add({ severity: 'success', summary: 'Success', detail: 'Account created successfully! Now logging you in . . .' });
+            this.accountService.logIn(this.email.value!, this.password.value!).subscribe({
+              next: result => {
+                if (result.isSuccess) {
+                  this.securityService.userIsLoggedIn(result.value!);
+                  this.router.navigateByUrl('/home');
+                }
+                else {
+                  this.messageService.add({ severity: 'error', summary: 'Failed', detail: result.errorMessage! });
+                }
+              }
+            })
           });
       }
     });
