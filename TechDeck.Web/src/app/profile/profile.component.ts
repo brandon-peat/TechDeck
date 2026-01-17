@@ -2,6 +2,7 @@ import { Component, inject, OnInit, Signal, ViewChild } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { ActivatedRoute, ParamMap } from '@angular/router';
 import { MessageService } from 'primeng/api';
+import { environment } from '../../environments/environment';
 import { SecurityService } from '../security/security.service';
 import { UserAuthBase } from '../security/user-auth-base';
 import { AccountService } from '../services/account.service';
@@ -72,7 +73,7 @@ export class ProfileComponent implements OnInit {
   public bannerInput(event: Event): void {
     const target = event.target as HTMLInputElement;
     this.accountService.uploadBanner(target.files![0]).subscribe(() => {
-      const imageUrl = this.imageLoaderService.getTimestampedUrl(`https://localhost:7101/account/banner/${this.user()!.userId}`);
+      const imageUrl = this.imageLoaderService.getTimestampedUrl(`${environment.apiUrl}/account/banner/${this.user()!.userId}`);
       this.imageLoaderService.loadImageWithFallback(imageUrl, "linear-gradient(to right bottom, #be1ae1, #8a62ff, #4a85ff, #009eff)")
         .then(style => this.bannerStyle = style);
     });
@@ -81,7 +82,7 @@ export class ProfileComponent implements OnInit {
   public profilePictureInput(event: Event): void {
     const target = event.target as HTMLInputElement;
     this.accountService.uploadProfilePicture(target.files![0]).subscribe(() => {
-      const imageUrl = this.imageLoaderService.getTimestampedUrl(`https://localhost:7101/account/profile-picture/${this.user()!.userId}`);
+      const imageUrl = this.imageLoaderService.getTimestampedUrl(`${environment.apiUrl}/account/profile-picture/${this.user()!.userId}`);
       this.imageLoaderService.loadProfilePicture(this.user()!.userId)
         .then(style => this.profilePictureStyle = style);
     });

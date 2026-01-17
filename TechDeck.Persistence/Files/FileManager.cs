@@ -41,7 +41,7 @@ namespace TechDeck.Persistence.Files
 
             await container.CreateIfNotExistsAsync(cancellationToken: cancellationToken);
 
-            var blobClient = container.GetBlobClient(fileName + ".jpeg");
+            var blobClient = container.GetBlobClient(fileName);
 
             await blobClient.UploadAsync(stream, overwrite: true, cancellationToken: cancellationToken);
 
