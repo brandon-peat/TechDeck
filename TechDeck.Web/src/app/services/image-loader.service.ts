@@ -1,9 +1,11 @@
 import { Injectable } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ImageLoaderService {
+  private readonly apiUrl = environment.apiUrl;
 
   constructor() { }
 
@@ -12,7 +14,7 @@ export class ImageLoaderService {
    * Returns fallback if the image cannot be loaded
    */
   public loadProfilePicture(personId: number): Promise<string> {
-    const url = `https://localhost:7101/account/profile-picture/${personId}`;
+    const url = `${this.apiUrl}/account/profile-picture/${personId}`;
     return this.loadImageWithFallback(url, "url(../../assets/profile-picture-placeholder.jpg)");
   }
 
@@ -21,7 +23,7 @@ export class ImageLoaderService {
    * Returns gradient fallback if the image cannot be loaded
    */
   public loadBanner(userId: number): Promise<string> {
-    const url = `https://localhost:7101/account/banner/${userId}`;
+    const url = `${this.apiUrl}/account/banner/${userId}`;
     return this.loadImageWithFallback(url, "linear-gradient(to right bottom, #be1ae1, #8a62ff, #4a85ff, #009eff)");
   }
 

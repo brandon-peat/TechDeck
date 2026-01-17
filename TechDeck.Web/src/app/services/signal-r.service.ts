@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HubConnection, HubConnectionBuilder } from '@microsoft/signalr';
+import { environment } from '../../environments/environment';
 import { SecurityService } from '../security/security.service';
 
 @Injectable({
@@ -10,7 +11,7 @@ export class SignalRService {
 
   constructor(private readonly securityService: SecurityService) {
     this.hubConnection = new HubConnectionBuilder()
-      .withUrl('https://localhost:7101/messaging-hub', {
+      .withUrl(`${environment.apiUrl}/messaging-hub`, {
         accessTokenFactory: () => {
           const user = this.securityService.user();
           return user?.bearerToken || '';
@@ -24,10 +25,10 @@ export class SignalRService {
   }
 
   public async connect(): Promise<void> {
-      await this.hubConnection.start();
+    await this.hubConnection.start();
   }
 
-  public sendMessage(text: string, recipientId: number ): Promise<void> {
+  public sendMessage(text: string, recipientId: number): Promise<void> {
     return this.hubConnection.invoke('SendMessage', text, recipientId);
   }
 }

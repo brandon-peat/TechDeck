@@ -1,10 +1,14 @@
+using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Azure;
 using Microsoft.IdentityModel.Tokens;
 using Scalar.AspNetCore;
-using System.Text;
+using TechDeck.Api.Hubs;
 using TechDeck.Api.Hubs;
 using TechDeck.Api.Transformers;
 using TechDeck.Core;
@@ -27,13 +31,15 @@ builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSignalR();
 builder.Services.AddOpenApi("v1", options => { options.AddDocumentTransformer<BearerSecuritySchemeTransformer>(); });
 
+var allowedOrigins = builder.Configuration.GetSection("AllowedOrigins").Get<string[]>() ?? [];
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy(
         name: allowAnyOrigin,
         policy =>
         {
-            policy.WithOrigins("http://localhost:4200")
+            policy.WithOrigins(allowedOrigins)
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials();
@@ -93,12 +99,9 @@ builder.Services.AddAzureClients(clientBuilder =>
 
 var app = builder.Build();
 
-if (app.Environment.IsDevelopment())
-{
-    app.MapOpenApi();
-    app.MapScalarApiReference(options =>
-        options.WithHttpBearerAuthentication(bearer => bearer.Token = "your-bearer-token"));
-}
+app.MapOpenApi();
+app.MapScalarApiReference(options =>
+    options.WithHttpBearerAuthentication(bearer => bearer.Token = "your-bearer-token"));
 
 app.UseCors(allowAnyOrigin);
 
