@@ -1,5 +1,5 @@
 @for (post of posts; track post.id)
 {
-    <post-card [post]="post" displayType="timeline" />
+    <post-card [post]="post" [displayType]="isProfile ? 'profile' : 'timeline'" />
 }
 <p-button label="Load More" [hidden]="!currentPage.hasNextPage" (onClick)="nextActivityPage()"/>

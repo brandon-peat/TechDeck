@@ -18,6 +18,7 @@ import { PostService } from '../services/post.service';
 export class PostCardComponent {
   @Input({ required: true }) post!: Post;
   @Input({ required: true }) displayType!: string;
+  
   public user: Signal<UserAuthBase | null>;
   public likeUsers: string[] = [];
   public profilePictureStyle: any;
@@ -37,6 +38,9 @@ export class PostCardComponent {
   images: any[] = [];
   fullScreen: boolean = false;
   mainGalleryActiveIndex: number = 0;
+  galleryImageZoomed: boolean = false;
+  zoomOriginX: number = 50;
+  zoomOriginY: number = 50;
 
   public replyForm = new FormGroup({
     text: new FormControl('', [Validators.required, Validators.maxLength(280)]),
@@ -101,6 +105,27 @@ export class PostCardComponent {
     this.showReplyForm = !this.showReplyForm;
     this.replyForm.reset();
   }
+
+  public toggleGalleryImageZoom(event: Event): void {
+    event.stopPropagation();
+    
+    // Only adjust origin point if we're zooming in
+    if (!this.galleryImageZoomed) {
+      const mouseEvent = event as MouseEvent;
+      const element = mouseEvent.currentTarget as HTMLElement;
+      
+      // Work out click position
+      const rect = element.getBoundingClientRect();
+      const x = mouseEvent.clientX - rect.left;
+      const y = mouseEvent.clientY - rect.top;
+      
+      this.zoomOriginX = (x / element.offsetWidth) * 100;
+      this.zoomOriginY = (y / element.offsetHeight) * 100;
+    }
+    
+    this.galleryImageZoomed = !this.galleryImageZoomed;
+  }
+
   public onSubmit(): void {
     this.postService.createReply(this.post.id!, this.replyForm.controls.text.value!).subscribe(() => {
       this.messageService.add({
@@ -121,9 +146,10 @@ export class PostCardComponent {
     });
   }
 
-  public showTimelineFullScreenGallery(event: Event): void {
+  public showTimelineFullScreenGallery(event: Event, index: number): void {
     event.stopPropagation();
     this.fullScreen = !this.fullScreen;
+    this.mainGalleryActiveIndex = index;
   }
 
   ngOnChanges(): void {

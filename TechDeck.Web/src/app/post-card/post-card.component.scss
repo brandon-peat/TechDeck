@@ -51,10 +51,12 @@
 
 .text {
     word-break: break-word;
+    margin-bottom: 0.75rem;
 }
 
 .controls {
     height: 1.5rem;
+    margin-top: 0.75rem;
     align-items: end;
 }
 
@@ -105,7 +107,7 @@
 
 
 
-
+// Reply form
 .reply-form-card {
     margin: 0 2rem 1rem 5rem;
     background-color: #F9FAFB;
@@ -119,12 +121,9 @@
 }
 
 
-
-
-
+// Images
 .container {
-    height: 20vw;
-    margin: 0.5rem 0 0 0;
+    height: 35vh;
 
     .row {
         height: 100%;
@@ -139,8 +138,36 @@
     max-width: 33%;
 }
 
+.profile-mode-image {
+    height: 30vh;
+    max-width: 100%;
+}
+
+.image:hover, .profile-mode-image:hover {
+    box-shadow: 0px 0px 3px 2px #00000078;
+    transform: scale(1.03);
+    transition: 0.2s;
+}
+
+
+// Fullscreen gallery
+.gallery-item-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 85vw;
+    height: 85vh;
+}
+
 .gallery-item {
-    max-height: 50rem;
     width: 100%;
-    display: block;
+    height: 100%;
+    object-fit: contain;
+    cursor: zoom-in;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item.zoomed {
+    transform: scale(2.5);
+    cursor: zoom-out;
 }
