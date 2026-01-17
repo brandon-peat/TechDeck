@@ -27,7 +27,7 @@ namespace TechDeck.Core.People
             foreach (var stream in request.Streams)
             {
                 var fileName = Guid.NewGuid();
-                await fileManager.UploadFile("attachments", fileName + ".jpeg", stream, cancellationToken);
+                await fileManager.UploadFile("attachments", fileName.ToString(), stream, cancellationToken);
                 fileNames.Add(fileName);
             }
 
