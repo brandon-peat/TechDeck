@@ -11,7 +11,7 @@ export class SignalRService {
 
   constructor(private readonly securityService: SecurityService) {
     this.hubConnection = new HubConnectionBuilder()
-      .withUrl($`${environment.apiUrl}/messaging-hub`, {
+      .withUrl(`${environment.apiUrl}/messaging-hub`, {
         accessTokenFactory: () => {
           const user = this.securityService.user();
           return user?.bearerToken || '';

@@ -13,7 +13,7 @@ namespace TechDeck.Persistence.Files
         {
             var container = client.GetBlobContainerClient(containerName);
 
-            var blobClient = container.GetBlobClient(fileName + ".jpeg");
+            var blobClient = container.GetBlobClient(fileName);
 
             return await blobClient.ExistsAsync(cancellationToken: cancellationToken);
         }
@@ -24,7 +24,7 @@ namespace TechDeck.Persistence.Files
         {
             var container = client.GetBlobContainerClient(containerName);
 
-            var blobClient = container.GetBlobClient(fileName + ".jpeg");
+            var blobClient = container.GetBlobClient(fileName);
 
             var file = await blobClient.DownloadStreamingAsync(cancellationToken: cancellationToken);
 
