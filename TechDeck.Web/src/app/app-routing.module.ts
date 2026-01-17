@@ -7,12 +7,12 @@ import { SignUpComponent } from './sign-up/sign-up.component';
 import { ViewPostComponent } from './view-post/view-post.component';
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent, title: "Home - Techdeck" },
-  { path: 'log-in', component: LogInComponent, title: "Log In - Techdeck" },
-  { path: 'sign-up', component: SignUpComponent, title: "Sign Up - Techdeck" },
-  { path: 'view-post/:id', component: ViewPostComponent, title: "Post View - Techdeck"},
-  { path: 'profile/:id', component: ProfileComponent, title: "Profile - Techdeck" },
-  { path: 'my-profile', component: ProfileComponent, title: "My Profile - Techdeck" },
+  { path: 'home', component: HomeComponent, title: "Home - TechDeck" },
+  { path: 'log-in', component: LogInComponent, title: "Log In - TechDeck" },
+  { path: 'sign-up', component: SignUpComponent, title: "Sign Up - TechDeck" },
+  { path: 'view-post/:id', component: ViewPostComponent, title: "Post View - TechDeck"},
+  { path: 'profile/:id', component: ProfileComponent, title: "Profile - TechDeck" },
+  { path: 'my-profile', component: ProfileComponent, title: "My Profile - TechDeck" },
 
   { path: '', redirectTo: '/sign-up', pathMatch: 'full'},
 
