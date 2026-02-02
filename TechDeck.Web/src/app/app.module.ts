@@ -26,10 +26,18 @@ import { MenubarModule } from 'primeng/menubar';
 import { MessagesModule } from 'primeng/messages';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { PasswordModule } from 'primeng/password';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { ToastModule } from 'primeng/toast';
 
 import { MessageService } from 'primeng/api';
+import { ChatComponent } from './chat/chat.component';
+import { ConversationCardComponent } from './conversation-card/conversation-card.component';
+import { ConversationListComponent } from './conversation-list/conversation-list.component';
 import { HomeComponent } from './home/home.component';
+import { MessageBubbleComponent } from './message-bubble/message-bubble.component';
+import { MessagesAreaComponent } from './messages-area/messages-area.component';
+import { PersonSearchBarComponent } from './person-search-bar/person-search-bar.component';
+import { PersonSearchResultCardComponent } from './person-search-result-card/person-search-result-card.component';
 import { PostCardComponent } from './post-card/post-card.component';
 import { ProfileComponent } from './profile/profile.component';
 import { ReplyCardComponent } from './reply-card/reply-card.component';
@@ -37,15 +45,9 @@ import { httpInterceptorProviders } from './security/interceptor-providers';
 import { SecurePipe } from './security/secure-pipe';
 import { FormFieldComponent } from './shared/form-validation/form-field.component';
 import { ShowErrorDirective } from './shared/form-validation/show-error.directive';
+import { LoadingSpinnerOverlayComponent } from './shared/loading-spinner-overlay/loading-spinner-overlay.component';
 import { TimelineComponent } from './timeline/timeline.component';
 import { ViewPostComponent } from './view-post/view-post.component';
-import { PersonSearchResultCardComponent } from './person-search-result-card/person-search-result-card.component';
-import { PersonSearchBarComponent } from './person-search-bar/person-search-bar.component';
-import { MessagesAreaComponent } from './messages-area/messages-area.component';
-import { ConversationCardComponent } from './conversation-card/conversation-card.component';
-import { ChatComponent } from './chat/chat.component';
-import { MessageBubbleComponent } from './message-bubble/message-bubble.component';
-import { ConversationListComponent } from './conversation-list/conversation-list.component';
 
 
 @NgModule({
@@ -55,20 +57,21 @@ import { ConversationListComponent } from './conversation-list/conversation-list
     SignUpComponent,
     HomeComponent,
     TimelineComponent,
-        PostCardComponent,
-        ShowErrorDirective,
-        FormFieldComponent,
-        ViewPostComponent,
-        ReplyCardComponent,
-        SecurePipe,
-        ProfileComponent,
-        PersonSearchResultCardComponent,
-        PersonSearchBarComponent,
-        MessagesAreaComponent,
-        ConversationCardComponent,
-        ChatComponent,
-        MessageBubbleComponent,
-        ConversationListComponent
+    PostCardComponent,
+    ShowErrorDirective,
+    FormFieldComponent,
+    ViewPostComponent,
+    ReplyCardComponent,
+    SecurePipe,
+    ProfileComponent,
+    PersonSearchResultCardComponent,
+    PersonSearchBarComponent,
+    MessagesAreaComponent,
+    ConversationCardComponent,
+    ChatComponent,
+    MessageBubbleComponent,
+    ConversationListComponent,
+    LoadingSpinnerOverlayComponent
   ],
   imports: [
     BrowserModule,
@@ -93,7 +96,8 @@ import { ConversationListComponent } from './conversation-list/conversation-list
     InputTextareaModule,
     FileUploadModule,
     GalleriaModule,
-    FloatLabelModule
+    FloatLabelModule,
+    ProgressSpinnerModule
   ],
   providers: [
     MessageService, 

@@ -8,6 +8,7 @@ import { Router } from '@angular/router';
 import { MessageService } from 'primeng/api';
 import { SecurityService } from '../security/security.service';
 import { AccountService } from '../services/account.service';
+import { LoadingSpinnerService } from '../services/loading-spinner.service';
 
 @Component({
   selector: 'sign-up',
@@ -19,7 +20,9 @@ export class SignUpComponent implements OnInit {
     private readonly accountService: AccountService, 
     private readonly messageService: MessageService,
     private readonly securityService: SecurityService,
-    private readonly router: Router) { }
+    private readonly router: Router,
+    private readonly loadingSpinner: LoadingSpinnerService
+  ) { }
 
   public ngOnInit(): void {
     if (this.securityService.isLoggedIn()) {
@@ -48,6 +51,8 @@ export class SignUpComponent implements OnInit {
   }
 
   onSubmit() {
+    this.loadingSpinner.show();
+  
     this.accountService.checkExistingEmail(this.email.value!).subscribe(isInUse => {
       if(isInUse) { 
         this.messageService.add({ severity: 'error', summary: 'Failed', detail: 'There already exists an account using this email. Did you mean to log in instead?' });
@@ -70,5 +75,7 @@ export class SignUpComponent implements OnInit {
           });
       }
     });
+
+    this.loadingSpinner.hide();
   }
 }
